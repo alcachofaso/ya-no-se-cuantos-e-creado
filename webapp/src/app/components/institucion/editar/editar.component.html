@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-md-12 mx-auto mt-5 text-center">
+      <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mx-auto mt-5">
+                  <div class="card">
+                    <div class="card-body">
+                      <h1 class='text-center'>Actualizar Datos de la Institución</h1>
+                      <form  class='text-center mt-3' (submit)=actualizarDatos()>
+                        <div class="form-group">
+                          <label for="nombre">Nombre</label><br>
+                          <input type="text" name='nombre' [(ngModel)]="nombre" class='form-control' placeholder="Nombre Institución">
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion">Dirección</label><br>
+                            <input type="text" name='direccion' [(ngModel)]="direccion" class='form-control'placeholder="Dirección Institución">
+                          </div>
+                          <div class="form-group">
+                              <label class="control-label">Telefono</label>
+                              <div class="form-group">
+                                <div class="input-group mb-3">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">+56</span>
+                                  </div>
+                                  <input type="text" minlength="9" maxlength="9" [(ngModel)]="telef" name='telef' class='form-control' placeholder="Telefono">
+                                  <div class="input-group-append">
+                                    <input type="button" value="Agregar" (click)='agregarTelefono()'>
+                                    </div>
+                                </div>
+                              </div>
+                              <div>
+                                  <h3 *ngFor='let tel of telefono'>+56 {{tel}} <i class="fas fa-trash-alt" (click)='quitarTelefono(tel)'></i></h3>
+                              </div>
+                            </div>
+                          <input type="submit" class='btn btn-warning btn-block btn-lg' value="Actualizar">
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+      </div>
+    </div>
+</div>

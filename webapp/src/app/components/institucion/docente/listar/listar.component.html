@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-md-12 mx-auto mt-5 text-center">
+    <div class="card">
+      <div class="card-body">
+        <h2>Listado de Docentes</h2>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Type</th>
+              <th scope="col">Column heading</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let docente of listado">
+              <th scope="row">{{docente.nombre}} {{docente.apellido}}</th>   
+                <td>
+                  <div _ngcontent-c2="">
+                    <span _ngcontent-c2="" class="badge badge-primary badge-pill">
+                      <i _ngcontent-c2="" class="fas fa-edit "></i> Editar
+                    </span>
+                    <span _ngcontent-c2="" class="badge badge-danger badge-pill">
+                      <i _ngcontent-c2="" class="far fa-trash-alt"></i> Eliminar
+                    </span>
+                    <span _ngcontent-c2="" class="badge badge-warning badge-pill">
+                      <i _ngcontent-c2="" class="fas fa-sync"></i> Reiniciar Contraseña
+                    </span>
+                  </div>
+                </td>
+            </tr>
+          </tbody>
+        </table> 
+      </div>
+    </div>
+  </div>
+</div>

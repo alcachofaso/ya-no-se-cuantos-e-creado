@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-md-12 mx-auto mt-5 text-center">
+      <div class="card">
+        <div class="card-body">
+            <label for="">Nombre Establecimiento: </label>
+            <h3>{{insti}}</h3>
+            <label for="">Dirección del Establecimiento: </label>
+            <h3>{{dir}}</h3>
+            <label for="">Cantidad de Docentes Registrados: </label>
+            <h3>{{cantD}}</h3>
+            <label for="">Cantidad de Alumnos Registrados: </label>
+            <h3>{{est}}</h3>
+            <label for="">Cantidad de Apoderados utilizando la Aplicación: </label>
+            <h3>{{apo}}</h3>
+            <label for="">Cantidad de Psicologos Registrados: </label>
+            <h3>{{psi}}</h3>
+            <label for="">Cantidad de Psicopedagogos Registrados: </label>
+            <h3>{{psipe}}</h3>
+            <label for="">Telefono: </label>
+            <h3  *ngFor="let telefono of telefonos">+56 {{telefono}}</h3>
+        </div>
+      </div>
+    </div>
+</div>

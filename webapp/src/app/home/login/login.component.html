@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-md-6 mx-auto mt-5">
+    <div class="card">
+      <div class="card-body">
+        <h1 class='text-center'>LOGIN</h1>
+        <form  class='text-center mt-3'>
+          <div class="form-group">
+            <label for="email">Email</label><br>
+            <input type="email" name='email' [(ngModel)]="email" class='form-control'>
+          </div>
+          <div class="form-group">
+              <label for="email">Password</label><br>
+              <input type="password" name='password'  [(ngModel)]="password" class='form-control'>
+            </div>
+            <input type="submit" class='btn btn-warning btn-block btn-lg' value="LogIn" (click)="logIn()">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6 mx-auto mt-2">
+    <div class="card disabledbutton">
+        <h4>Proximamente</h4>
+      <div class="car-body d-flex justify-content-around">
+        <button class="btn btn-lg btn-facebook"> <i class="fab fa-facebook"></i> Facebook</button>
+        <button class="btn btn-lg btn-twitter"> <i class="fab fa-twitter"></i> Twitter</button>
+        <button class="btn btn-lg btn-google"><i class="fab fa-google"></i> Google</button>
+      </div>
+    </div>
+  </div>
+</div>
