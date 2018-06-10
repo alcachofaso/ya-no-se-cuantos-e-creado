@@ -39,7 +39,7 @@ export class CursoListarComponent implements OnInit {
     if(value!=null){
       var ids :string[];
       ids = new Array();
-      this.auth.eliminarEstudiantes(value);
+      this.auth.eliminarEstudiantes(value).subscribe(result=>{});
       this.auth.eliminarCurso(value).subscribe(result=>{
             var m = result.respuesta;
             console.log(m+">>>>>");
@@ -55,11 +55,12 @@ export class CursoListarComponent implements OnInit {
               }
             }
     })
-    
-    
   }
 }
 
+editarCurso(value :string){
+  this.route.navigate(["/Institucion/institucion/Cursos/editar/", value]);
+}
   esconder(){
     this.fResultado = false;
     this.mensage = "";

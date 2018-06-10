@@ -36,6 +36,7 @@ import { DocenteHomeComponent } from './components/docente/docente-home/docente-
 import { DocenteComponent } from './components/docente/docente.component';
 import { AtrasosInasistenciaComponent } from './components/docente/atrasos-inasistencia/atrasos-inasistencia.component';
 import { DocenteInstitucionEditarComponent } from './components/institucion/docente/docente-institucion-editar/docente-institucion-editar.component';
+import { CursoEditarComponent } from './components/institucion/cursos/curso-editar/curso-editar.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { DocenteInstitucionEditarComponent } from './components/institucion/doce
     DocenteComponent,
     AtrasosInasistenciaComponent,
     DocenteInstitucionEditarComponent,
+    CursoEditarComponent,
     
   ],
   imports: [

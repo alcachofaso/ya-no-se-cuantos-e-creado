@@ -12,7 +12,7 @@ export class PsicologoCrearComponent implements OnInit {
   public apellido : string;
   public email : string;
   public pass : string;
-  public contract : Date;
+  public contract : string;
   public flag:boolean;
   public mensaje:string;
   public warning: boolean;

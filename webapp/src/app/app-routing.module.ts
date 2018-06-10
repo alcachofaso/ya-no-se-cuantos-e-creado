@@ -25,7 +25,7 @@ import { ComunicadoEspecificoComponent } from './components/institucion/comunica
 import { PsicologoCrearComponent } from './components/institucion/psicologo/psicologo-crear/psicologo-crear.component';
 import { PsicopedagogoCrearComponent } from './components/institucion/psicopedagogo/psicopedagogo-crear/psicopedagogo-crear.component';
 import { DocenteInstitucionEditarComponent } from './components/institucion/docente/docente-institucion-editar/docente-institucion-editar.component';
-
+import { CursoEditarComponent } from './components/institucion/cursos/curso-editar/curso-editar.component';
 
 //////////////////////////DOCENTE/////////////////////
 import { DocenteHomeComponent } from './components/docente/docente-home/docente-home.component';
@@ -49,6 +49,7 @@ const routes: Routes = [
     {path:'institucion/Docente/Agregar', component: AgregarComponent},
     {path:'institucion/Cursos/Nuevo', component: CursoAgregarComponent},
     {path:'institucion/Cursos/Listado', component: CursoListarComponent},
+    {path:'institucion/Cursos/editar/:curso', component: CursoEditarComponent},
     {path:'institucion/Comunicados', component: ComunicadoHistorialComponent},
     {path:'institucion/Comunicados/comunidad', component: ComunicadoComunidadComponent},
     {path:'institucion/Comunicados/Nivel', component: ComunicadoNivelComponent},
