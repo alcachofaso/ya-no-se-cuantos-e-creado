@@ -5,7 +5,6 @@
         <h2>Agregar Curso</h2>
         <form  class='text-center mt-3' (submit)="agregar()">
           <div class="form-group">
-
             <label for="nivel">Nivel</label>
             <select class="form-control" name="nive" id="nive" [(ngModel)]="curso">
               <option *ngFor="let nivel of cursos" value="{{nivel}}" >{{nivel}}</option>
@@ -29,6 +28,7 @@
                     <div class="input-group mb-3">
                       <input type="text"  name='alumno' [(ngModel)]="alumno" class='form-control' placeholder="Nombre Alumno">
                       <input type="text"  name='apellido' [(ngModel)]="apellido" class='form-control' placeholder="Apellido Alumno">
+                      <input type="text"  name='rut' [(ngModel)]="rut" class='form-control' placeholder="10000000-0">
                       <div class="input-group-append">
                         <input type="button" value="Agregar" (click)='agregarAlumno()'>
                         </div>
@@ -44,16 +44,20 @@
               <thead>
                 <tr>
                   <th scope="col">Nombre Alumno</th>
+                  <th scope="col">Rut</th>
                   <th scope="col">Opciones</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let alumno of alumnos">
-                  <th scope="row">{{alumno.nombre}} {{alumno.apellido}}</th>   
+                  <th scope="row">{{alumno.nombre}} {{alumno.apellido}}</th> 
+                  <td>
+                    {{alumno.rut}}
+                    </td>  
                     <td>
                       <div _ngcontent-c2="">
-                          <i _ngcontent-c2="" class="fas fa-edit " (click)="editarAlumno(alumno.nombre,alumno.apellido)"></i>
-                          <i _ngcontent-c2="" class="far fa-trash-alt" (click)="eliminarAlumno(alumno.nombre,alumno.apellido)"></i>
+                          <i _ngcontent-c2="" class="fas fa-edit " (click)="editarAlumno(alumno.nombre,alumno.apellido,alumno.rut)"></i>
+                          <i _ngcontent-c2="" class="far fa-trash-alt" (click)="eliminarAlumno(alumno.nombre,alumno.apellido,alumno.rut)"></i>
                       </div>
                     </td>
                 </tr>

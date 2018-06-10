@@ -1,0 +1,174 @@
+<div class="row">
+  <div class="col-md-12 mx-auto mt-5 text-center">
+    <div class="card">
+      <div class="card-body">
+          <button class='btn btn-warning btn-block btn-lg' (click)="volver()">Volver</button>
+          <br>
+              <h3>Nombre</h3>
+              <h2>{{Apellido}}, {{nombre}}</h2>
+              <br>
+              <ul class="nav nav-tabs">
+                  <li class="nav-item">
+                    <a class="nav-link active show" data-toggle="tab" href="#info">Informacion Personal</a>
+                  </li>
+                  <li class="nav-item" *ngIf="!frole">
+                    <a class="nav-link" data-toggle="tab" href="#asignaturas">Asignaturas</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#titulos">Títulos Profesionales</a>
+                    </li>
+                  </ul>
+                  
+                  <div id="myTabContent" class="tab-content">
+                      <div class="tab-pane fade active show" id="info">
+                          <h2>Información Básica</h2>
+                          <form  class='text-center mt-3' (submit)="Actualizar()">
+                              <div class="form-group">
+                                <label for="nombre">Nombre</label><br>
+                                <input type="text" name='nombre' [(ngModel)]="_nombre"  class='form-control' placeholder="Nombre">
+                              </div>
+                              <div class="form-group">
+                                  <label for="apellido">Apellidos</label><br> 
+                                  <input type="text" name='apellido' [(ngModel)]="_apellido"  class='form-control' placeholder="Apellido">
+                                </div>
+                              <div class="form-group">
+                                  <label for="Contraseña">Contraseña</label><br>
+                                  <div class="form-group">
+                                      <div class="input-group mb-3">
+                                        <input type="text" minlength="6" maxlength="12" [(ngModel)]="pass" name='pass' class='form-control' placeholder="Actualizar Contraseña">
+                                        <div class="input-group-append">
+                                          <input type="button" value="Aleatorio" (click)='aleatorio()'>
+                                          </div>
+                                      </div>
+                                    </div>
+                              </div>
+                              <div class="form-group">
+                                  <label for="contrato">Fecha de Contratación</label><br>
+                                  <input type="date" name="contrato" [(ngModel)]="contrato" class='form-control'>
+                              </div>
+                                <input type="submit" class='btn btn-warning btn-block btn-lg' value="Actualizar">
+                            </form>
+                      </div>
+                      <div class="tab-pane fade" id="asignaturas" *ngIf="!frole">
+                          <div *ngIf="fcursosDados">
+                              <h2>Asignatura Impartidos</h2>
+                                  <ul class="list-group">
+                                      <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let cursoDado of cursosDados">
+                                          <div>
+                                              <h5>{{cursoDado.ramo}}</h5>
+                                              <h5>{{cursoDado.curso}} {{cursoDado.identificador}}</h5>
+                                          </div>
+                                          <div>
+                                              <h4>
+                                                  <i _ngcontent-c2="" class="far fa-trash-alt" (click)="eliminarAsignatura(cursoDado.gradeId)"></i>
+                                              </h4>
+                                              
+                                          </div>
+                                      </li>
+                                    </ul>
+                              </div>
+                            <div *ngIf="!fcursosDados">
+                                <div class="alert alert-dismissible alert-primary">
+                                    <h2>Este Docente no imparte ninguna Asignatura</h2>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <h2>Agregar Asignatura</h2>
+                            <div class="alert alert-dismissible alert-primary" *ngIf="ferror">
+                                <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
+                                <strong> Ingresa los datos requeridos </strong> 
+                              </div>
+                              <div class="alert alert-dismissible alert-success" *ngIf="fok" (click)="esconder()">
+                                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                  <strong>Asignatura Agregada Correctamente</strong>
+                                </div>
+                            <form  class='text-center mt-3' (submit)="agregar()"> 
+                                <div class="form-group">
+                                  <label for="nivel">Asignatura</label>
+                                  <select class="form-control" name="Asignatura" id="Asignatura" [(ngModel)]="ramo" (change)="eleccion()">
+                                    <option *ngFor="let asig of ramos" value="{{asig}}" >{{asig}}</option>
+                                  </select>
+                                </div>
+                                <div class="form-group" *ngIf=(fidioma)>
+                                  <label for="identificador">Idioma</label>
+                                  <select class="form-control" name="Idioma" id="Idioma" [(ngModel)]="idioma">
+                                    <option *ngFor="let id of idiomas" value="{{id}}">{{id}}</option>
+                                  </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Curso">Curso</label>
+                                    <select class="form-control" name="Curso" id="Curso" [(ngModel)]="curso" (change)="obtenerIdentificador()">
+                                      <option *ngFor="let cur of cursos" value="{{cur}}">{{cur}}</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="Identificador">Identificador</label>
+                                      <select class="form-control" name="Identificador" id="Identificador" [(ngModel)]="identificador">
+                                        <option *ngFor="let ident of identidicadores" value="{{ident}}">{{ident}}</option>
+                                      </select>
+                                    </div>
+                                    <input type="submit" class='btn btn-warning btn-block btn-lg' value="Agregar">
+                                </form>
+                      </div>
+                      <div class="tab-pane fade" id="titulos">
+                          <div *ngIf="!ftitulos">
+                              <div class="alert alert-dismissible alert-warning">
+                                  <h2>{{nombre}} {{Apellido}} no tiene títulos profesionales Registrados </h2>
+                              </div>
+                          </div>
+                          <div *ngIf="ftitulos">
+                              <h3>Títulos de {{nombre}} {{Apellido}}</h3>
+                              <ul class="list-group">
+                                  <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let degree of _titulos">
+                                      <div>
+                                          <h4>{{degree.profession}}</h4>
+                                          <h5>{{degree.institucion}}</h5>
+                                      </div>
+                                      <div>
+                                          <h4>
+                                              <i _ngcontent-c2="" class="far fa-trash-alt" (click)="eliminarTitulo(degree.id)"></i>
+                                          </h4>
+                                          
+                                      </div>
+                                  </li>
+                                </ul>
+                          </div>
+                          <br>
+                          <br>
+                          <h2>Agregar Título Profecional</h2>
+                          <div class="alert alert-dismissible alert-success" *ngIf="ftitulosOk"> 
+                              <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
+                              <h2>Título agregado correctamente</h2>
+                            </div>
+                            <div class="alert alert-dismissible alert-primary" *ngIf="ferror">
+                                <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
+                                <h2>Ingresa el nombre del título y de la institución</h2>
+                              </div>
+
+                          <div class="alert alert-dismissible alert-primary" *ngIf="ferror">
+                              <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
+                              <strong> Ingresa los datos requeridos </strong> 
+                            </div>
+                            <div class="alert alert-dismissible alert-success" *ngIf="fok" (click)="esconder()">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <strong>Título profesional Agregada Correctamente</strong>
+                              </div>
+                            <form  class='text-center mt-3' (submit)="agregarTitulo()"> 
+                              <div class="form-group">
+                                <label for="Titulo">Título profesional</label>
+                                <input type="text" name='Titulo' [(ngModel)]="titulo"  class='form-control' placeholder="Nombre del Titulo">
+                              </div>
+                                <div class="form-group">
+                                    <label for="institucion">Institución</label>
+                                    <input type="text" name='institucion' [(ngModel)]="institucion"  class='form-control' placeholder="Nombre de la Institución">
+                                  </div>
+          
+                                  <input type="submit" class='btn btn-warning btn-block btn-lg' value="Agregar">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

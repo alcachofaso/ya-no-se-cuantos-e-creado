@@ -19,11 +19,13 @@
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle"  href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Cuentas de Docente
+                Cuentas de Trabajadores
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" routerLink="institucion/Docente/Listado">Listado de Docentes</a>
+              <a class="dropdown-item" routerLink="institucion/Docente/Listado">Listado de Trabajadores</a>
               <a class="dropdown-item" [routerLink]="'institucion/Docente/Agregar'">Agregar Docente</a>
+              <a class="dropdown-item" [routerLink]="'institucion/Psicologo/Agregar'">Agregar Psicologo</a>
+              <a class="dropdown-item" [routerLink]="'institucion/Psicopedagogo/Agregar'">Agregar Psicopedagogo</a>
             </div>
         </li>
         <li class="nav-item dropdown">
@@ -40,7 +42,7 @@
                   Enviar Comunicado
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" [routerLink]="['institucion/Comunicados/']">Historial</a>
+                  <a class="dropdown-item" [routerLink]="['institucion/Comunicados']">Historial</a>
                 <a class="dropdown-item" [routerLink]="['institucion/Comunicados/comunidad']">Comunidad</a>
                 <a class="dropdown-item" [routerLink]="['institucion/Comunicados/Nivel']">Nivel Especifico</a>
                 <a class="dropdown-item" [routerLink]="['institucion/Comunicados/Curso']">Curso Especifico</a>

@@ -20,7 +20,15 @@ export class HomeInstitucionComponent implements OnInit {
 
   constructor(public authService: AuthService) {
     this.telefonos = new Array();
-    this.telefonos = this.authService.getTelefono;
+    this.authService.getTelefono().subscribe(result=>{
+      if(result != null)
+      {
+        for(var a of result)
+        {
+          this.telefonos.push(a.phone);
+        }
+      }
+    })
     this.insti = this.authService.getIntitutionName;
     this.dir = this.authService.getIntitutionAddress;
 

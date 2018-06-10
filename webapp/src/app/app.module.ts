@@ -24,7 +24,18 @@ import { EditarComponent } from './components/institucion/editar/editar.componen
 import { ListarComponent } from './components/institucion/docente/listar/listar.component';
 import { AgregarComponent } from './components/institucion/docente/agregar/agregar.component';
 import { CursoAgregarComponent } from "./components/institucion/cursos/curso-agregar/curso-agregar.component"
-import { CursoListarComponent } from "./components/institucion/cursos/curso-listar/curso-listar.component"
+import { CursoListarComponent } from "./components/institucion/cursos/curso-listar/curso-listar.component";
+import { ComunicadoHistorialComponent } from './components/institucion/comunicados/comunicado-historial/comunicado-historial.component';
+import { ComunicadoComunidadComponent } from './components/institucion/comunicados/comunicado-comunidad/comunicado-comunidad.component';
+import { ComunicadoNivelComponent } from './components/institucion/comunicados/comunicado-nivel/comunicado-nivel.component';
+import { ComunicadoCursoComponent } from './components/institucion/comunicados/comunicado-curso/comunicado-curso.component';
+import { ComunicadoEspecificoComponent } from './components/institucion/comunicados/comunicado-especifico/comunicado-especifico.component';
+import { PsicologoCrearComponent } from './components/institucion/psicologo/psicologo-crear/psicologo-crear.component';
+import { PsicopedagogoCrearComponent } from './components/institucion/psicopedagogo/psicopedagogo-crear/psicopedagogo-crear.component';
+import { DocenteHomeComponent } from './components/docente/docente-home/docente-home.component';
+import { DocenteComponent } from './components/docente/docente.component';
+import { AtrasosInasistenciaComponent } from './components/docente/atrasos-inasistencia/atrasos-inasistencia.component';
+import { DocenteInstitucionEditarComponent } from './components/institucion/docente/docente-institucion-editar/docente-institucion-editar.component';
 
 
 @NgModule({
@@ -42,6 +53,17 @@ import { CursoListarComponent } from "./components/institucion/cursos/curso-list
     AgregarComponent,
     CursoAgregarComponent,
     CursoListarComponent,
+    ComunicadoHistorialComponent,
+    ComunicadoComunidadComponent,
+    ComunicadoNivelComponent,
+    ComunicadoCursoComponent,
+    ComunicadoEspecificoComponent,
+    PsicologoCrearComponent,
+    PsicopedagogoCrearComponent,
+    DocenteHomeComponent,
+    DocenteComponent,
+    AtrasosInasistenciaComponent,
+    DocenteInstitucionEditarComponent,
     
   ],
   imports: [

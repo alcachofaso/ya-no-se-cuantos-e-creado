@@ -78,11 +78,11 @@ switch ($operacion) {
         $respuesta = array();
         $e = getSQLResultSet("SELECT user.id AS userId, user.email AS userEmail, user.name AS userName,
          user.lastname AS userLast, user.enabled AS userEnable, role.id AS rolId, role.type AS roleType, 
-         role.enable AS roleEnable, institution.id AS institucionId, institution.name AS intitutionName, 
+         role.enabled AS roleEnable, institution.id AS institucionId, institution.name AS intitutionName, 
          institution.address AS institutionAddress, institution.enabled AS intitutionEnable, 
          DATE(licence.origin) AS inicioLicencia, licence.duration AS duracionLicence 
          FROM `upnoticer`.`user`, `upnoticer`.`role`, `upnoticer`.`institution`, `upnoticer`.`licence` 
-         WHERE user.email = '$email' AND user.password = ' $pass' AND user.id= role.user_id AND 
+         WHERE user.email = '$email' AND user.password = ' $pass' AND user.enabled = '1' AND user.id = role.user_id AND 
          institution.id = role.institution_id AND licence.institution_id = institution.id;");
          while($r = mysqli_fetch_assoc($e)) {
             $respuesta['userId'] = $r['userId'];
@@ -104,17 +104,7 @@ switch ($operacion) {
         $respuesta = null;
         break;
 
-    case "22"://Obtener telefonos
-        $institucion=$_GET['institucion'];
-        $telefonos = array();
-        $e = getSQLResultSet("SELECT `phone` FROM `phone` WHERE `institution_id` = '$institucion';");
-        while($r = mysqli_fetch_assoc($e)) {
-            $telefonos[] = $r;
-        }
-        echo json_encode($telefonos);
-        break;
-
-    case "3":
+    case "3": //Agregar Trabasjadores
         $dEmail = $_GET['dEmail'];
         $e = getSQLResultSet("SELECT COUNT(id) as ID FROM `upnoticer`.`user` WHERE email = '$dEmail';");
         while($er = mysqli_fetch_assoc($e)) {
@@ -123,7 +113,6 @@ switch ($operacion) {
                 $insitution=$_GET['insitution'];
                 $nombre = $_GET['nombre'];
                 $apellido = $_GET['apellido'];
-                
                 $pass = $_GET['pass'];
                 $type = $_GET['type'];
                 $contrato = $_GET['contrato'];
@@ -135,7 +124,7 @@ switch ($operacion) {
                     $iduser = $r['id'];
                 }
                 getSQLResultSet("INSERT INTO `upnoticer`.`role`(`user_id`, `type`, `date_contract`, `institution_id`) 
-                VALUES ($iduser,$type,$contrato,$insitution);");
+                VALUES ($iduser,$type,'$contrato',$insitution);");
                 $resp['respuesta']= "200";
             }else{
                 $resp['respuesta']= "300";
@@ -144,19 +133,4 @@ switch ($operacion) {
         echo json_encode($resp);
           break;
 }
-
-
-
-
-
-
-
-/*
-$e = getSQLResultSet("SELECT * from user;");
-$rows = array();
-while($r = mysqli_fetch_assoc($e)) {
-    $rows[] = $r;
-}
-echo json_encode($rows);
-return json_encode($rows);*/
 ?>

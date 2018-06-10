@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-md-12 mx-auto mt-5 text-center">
+      <div class="card">
+        <div class="card-body">
+            <div class="alert alert-dismissible alert-warning" *ngIf="flag">
+                <button type="button" class="close" data-dismiss="alert" >&times;</button>
+                <h4 class="alert-heading">Usuario Creado Exitosamente</h4>
+                <p class="mb-0"></p>
+              </div>
+              <div class="alert alert-dismissible alert-primary" *ngIf="warning">
+                  <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
+                  <h4 class="alert-heading">{{mensaje}}</h4>
+                  <p class="mb-0"></p>
+                </div>
+          <h2>Agregar Psicologo</h2>
+          <form  class='text-center mt-3' (submit)="agregar()">
+              <div class="form-group">
+                <label for="nombre">Nombre Psicologo</label><br>
+                <input type="text" name='nombre' [(ngModel)]="nombre"  class='form-control' placeholder="Nombre Psicologo">
+              </div>
+              <div class="form-group">
+                  <label for="apellido">Apellidos Psicologo</label><br> 
+                  <input type="text" name='apellido' [(ngModel)]="apellido"  class='form-control' placeholder="Apellido Psicologo">
+                </div>
+              <div class="form-group">
+                  <label for="E-mail">E-mail</label><br>
+                  <input type="email" name='E-mail' [(ngModel)]="email" class='form-control'placeholder="Email Psicologo">
+              </div>
+              <div class="form-group">
+                  <label for="Contraseña">Contraseña</label><br>
+                  <div class="form-group">
+                      <div class="input-group mb-3">
+                        <input type="text" minlength="6" maxlength="12" [(ngModel)]="pass" name='pass' class='form-control' placeholder="Contraseña">
+                        <div class="input-group-append">
+                          <input type="button" value="Aleatorio" (click)='aleatorio()'>
+                          </div>
+                      </div>
+                    </div>
+              </div>
+              <div class="form-group">
+                  <label for="contrato">Fecha de Contratación</label><br>
+                  <input type="date" name="contrato" [(ngModel)]="contract" class='form-control'>
+              </div>
+                <input type="submit" class='btn btn-warning btn-block btn-lg' value="Ingresar">
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>

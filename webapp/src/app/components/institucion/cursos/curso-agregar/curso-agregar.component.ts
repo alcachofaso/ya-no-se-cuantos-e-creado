@@ -22,6 +22,7 @@ export class CursoAgregarComponent implements OnInit {
   public fRestantes : boolean;
   public mensaje : string;
   public apellido : string;
+  public rut : string;
 
   constructor(public auth : AuthService) {
     this.inicio();
@@ -68,9 +69,10 @@ export class CursoAgregarComponent implements OnInit {
       {
         if(this.apellido.trim().length > 1)
         {
-          this.alumnos.push(JSON.parse('{ "nombre":"'+this.alumno+'", "apellido":"'+this.apellido+'"}'));
+          this.alumnos.push(JSON.parse('{ "nombre":"'+this.alumno+'", "apellido":"'+this.apellido+'", "rut":"'+this.rut+'"}'));
           this.alumno= "";
           this.apellido= "";
+          this.rut = "";
           this.restantes--;
         }
         
@@ -86,12 +88,13 @@ export class CursoAgregarComponent implements OnInit {
      this.fRestantes= false;
    }
 
-   editarAlumno(value : string,value2 : string){
+   editarAlumno(value : string,value2 : string, value3 : string){
      this.alumno= value;
      this.apellido= value2;
+     this.rut = value3
     for (var g of this.alumnos)
     {
-      if(g['nombre']!= value && g['apellido']!= value2){
+      if(g['nombre']!= value && g['apellido']!= value2 && g['rut'] != value3){
         this.alumnosA.push(g);
       }
     }
@@ -100,10 +103,10 @@ export class CursoAgregarComponent implements OnInit {
    }
 
 
-   eliminarAlumno(value : string,value2 : string){
+   eliminarAlumno(value : string,value2 : string, value3 : string){
     for (var g of this.alumnos)
     {
-      if(g['nombre']!= value && g['apellido']!= value2){
+      if(g['nombre']!= value && g['apellido']!= value2 && g['rut'] != value3){
         this.alumnosA.push(g);
       }
     }
@@ -124,7 +127,7 @@ export class CursoAgregarComponent implements OnInit {
         }else{
           for (var g of this.alumnos)
           {
-            this.auth.agregarAlumnoCurso(id,g['nombre'],g['apellido']).subscribe(result => {
+            this.auth.agregarAlumnoCurso(id,g['nombre'],g['apellido'],g['rut']).subscribe(result => {
 
             })
           }

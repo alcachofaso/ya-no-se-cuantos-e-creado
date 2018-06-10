@@ -43,18 +43,14 @@ export class LoginComponent implements OnInit {
      },error => {
        console.log(<any>error);
      });
-     this.authService.getTelefonos().subscribe(result => {
-      for(var a of result)
-      {
-        this.authService.setTelefono(a.phone);
-      }
-    },error => {
-     console.log(<any>error);});
-
      switch(this.authService.getRoleType)
      {
-       case '0':
-           this.route.navigate(["/Institucion"]);
+        case '0':
+          this.route.navigate(["/Institucion"]);
+          break;
+        case '1':
+          this.route.navigate(["/docente"]);
+          break;
      }
   }
 

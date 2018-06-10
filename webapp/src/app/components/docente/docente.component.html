@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand">
+        <h5><span class="text-warning">{{nombre}}</span></h5>
+        <h5><span class="text-warning">{{apellido}}</span></h5>
+        <h6>{{institucion}}</h6>
+        </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarColor03">
+      <ul class="navbar-nav mr-auto">    
+        <li class="nav-item active">
+          <a class="nav-link" href="#" routerLink="/docente">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"  href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Notas
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" routerLink="institucion/Docente/Listado">Enviar Notas</a>
+              <a class="dropdown-item" [routerLink]="'institucion/Docente/Agregar'">Modificar Notas</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"  href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Tareas y Trabajos
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" routerLink="institucion/Docente/Listado">Historial</a>
+              <a class="dropdown-item" [routerLink]="'institucion/Docente/Agregar'">Enviar</a>
+            </div>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="#" routerLink="docente/AtrasosInasistencias">Atrasos e Inasistencias <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Enviar Comunicado
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" [routerLink]="['institucion/Comunicados/Curso']">Curso</a>
+                <a class="dropdown-item" [routerLink]="['institucion/Comunicados/apoderado']">Apoderado Especifico</a>
+              </div>
+            </li>
+      </ul>
+      <ul class="navbar-nav mx-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#"  (click)="onClickLogOut()"> Log Out <i class="fas fa-sign-out-alt"></i> </a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+  
+<router-outlet></router-outlet>

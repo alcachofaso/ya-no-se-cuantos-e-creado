@@ -10,12 +10,10 @@ import { AuthService } from "../../service/auth.service";
 export class InstitucionComponent implements OnInit {
 
   constructor(public authService: AuthService, public route:Router) {
+    
      }
 
   ngOnInit() {
-    /*this.authService.getAuth().subscribe(auth =>{ 
-      this.authService.uid = auth.uid;
-    })*/
     if(this.authService.getRoleType != '0'){
       this.route.navigate(["/login"]);
     }

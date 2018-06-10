@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-md-12 mx-auto mt-5 text-center">
+      <div class="card">
+        <div class="card-body">
+            <h2>Historial de Mensajes</h2>
+            <h4>Mensajes a Comunidad completa</h4>
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let mensaje of mensajesComunidad">
+                <div>
+                    <h5>{{mensaje.titulo}}</h5>
+                      <h6>Mensaje : {{mensaje.contenido}}</h6>
+                </div>
+                <div>
+                    <h6>{{mensaje.fecha}}</h6>
+                </div>
+              </li>
+            </ul>
+            <br>
+
+            <h4>Mensajes</h4>
+
+              <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let mensaje of mensajes">
+                    <div>
+                        <h5>{{mensaje.titulo}}</h5>
+                          <h6>Mensaje : {{mensaje.contenido}}</h6>
+                          <div [ngSwitch]="mensaje.destino">
+                          <h6 *ngSwitchCase="'0'">Nivel Especifico</h6>
+                          <h6 *ngSwitchCase="'1'">Curso Especifico</h6>
+                          <h6 *ngSwitchCase="'2'">Grupo de Apoderados</h6>
+                        </div>
+                    </div>
+                    <div>
+                        <h6>{{mensaje.fecha}}</h6>
+                    </div>
+                  </li>
+                </ul>
+        </div>
+      </div>
+    </div>
+</div>
