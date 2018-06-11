@@ -56,7 +56,7 @@ export class ComunicadoEspecificoComponent implements OnInit {
   enviar(){
     if(this.titulo.trim().length > 0 && this.contenido.trim().length > 0 && this.curso != null && this.identificador != null)
     {
-      this.auth.enviarMensajeEspecifico(this.titulo, this.contenido).subscribe(result =>{
+      this.auth.enviarMensajeEspecifico(this.titulo, this.contenido,'2','0').subscribe(result =>{
           for(let n of this.alumn){
             this.auth.enviarMensajeEspecificoAlumnosGetId(n['studentID']).subscribe(result2=>{
 

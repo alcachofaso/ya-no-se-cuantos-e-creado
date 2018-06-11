@@ -3,16 +3,26 @@
     <div class="card">
       <div class="card-body">
         <div *ngIf="fasignado">
-                <h2>Listado de Alumnos de Mi Curso</h2>
+                <h2 id="up">Listado de Alumnos de Mi Curso</h2>
+
+                <div class="alert alert-dismissible alert-success" *ngIf="fok">
+                    <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
+                    <h2>{{mensaje}}</h2>
+                  </div>
+
+                  <div class="alert alert-dismissible alert-primary" *ngIf="ferror">
+                      <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
+                      <h2>{{mensaje}}</h2>
+                    </div>
       
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let alumno of listado">
                       <div>
-                          <h5>{{alumno.studentName}} {{alumno.lastName }}</h5>
+                          <h5>{{alumno.studentName}} {{alumno.studentLast}}</h5>
                       </div>
                       <div >
-                        <button type="button" class="btn btn-warning" (click)="atraso(alumno.studentId)">Notificar Atraso</button>
-                        <button type="button" class="btn btn-danger" (click)="inasistencia(alumno.studentId)">Notificar Inasistencia</button>
+                        <button type="button" class="btn btn-warning" href="#up" (click)="atraso(alumno.studentId,alumno.studentName,alumno.studentLast)">Notificar Atraso</button>
+                        <button type="button" class="btn btn-danger" href="#up" (click)="inasistencia(alumno.studentId,alumno.studentName,alumno.studentLast)">Notificar Inasistencia</button>
                       </div>
                     </li>
                   </ul>

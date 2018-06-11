@@ -77,11 +77,11 @@
                             <h2>Agregar Asignatura</h2>
                             <div class="alert alert-dismissible alert-primary" *ngIf="ferror">
                                 <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
-                                <strong> Ingresa los datos requeridos </strong> 
+                                <h2> {{mensaje}} </h2> 
                               </div>
                               <div class="alert alert-dismissible alert-success" *ngIf="fok" (click)="esconder()">
                                   <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                  <strong>Asignatura Agregada Correctamente</strong>
+                                  <h2>Asignatura Agregada Correctamente</h2>
                                 </div>
                             <form  class='text-center mt-3' (submit)="agregar()"> 
                                 <div class="form-group">
@@ -136,21 +136,12 @@
                           </div>
                           <br>
                           <br>
-                          <h2>Agregar Título Profecional</h2>
-                          <div class="alert alert-dismissible alert-success" *ngIf="ftitulosOk"> 
-                              <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
-                              <h2>Título agregado correctamente</h2>
-                            </div>
-                            <div class="alert alert-dismissible alert-primary" *ngIf="ferror">
-                                <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
-                                <h2>Ingresa el nombre del título y de la institución</h2>
-                              </div>
 
-                          <div class="alert alert-dismissible alert-primary" *ngIf="ferror">
+                          <div class="alert alert-dismissible alert-primary" *ngIf="ftituloError">
                               <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
-                              <strong> Ingresa los datos requeridos </strong> 
+                              <h2>{{mensaje}}</h2>
                             </div>
-                            <div class="alert alert-dismissible alert-success" *ngIf="fok" (click)="esconder()">
+                            <div class="alert alert-dismissible alert-success" *ngIf="ftitulosOk" (click)="esconder()">
                                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                                 <strong>Título profesional Agregada Correctamente</strong>
                               </div>

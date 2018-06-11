@@ -20,6 +20,8 @@ export class CursoAgregarComponent implements OnInit {
   public cantidadALumons: string;
   private restantes: number;
   public fRestantes : boolean;
+  public fok : boolean;
+  public frut : boolean;
   public mensaje : string;
   public apellido : string;
   public rut : string;
@@ -30,6 +32,8 @@ export class CursoAgregarComponent implements OnInit {
 
 
    private inicio(){
+     this.frut = false;
+     this.fok = false;
     this.cursos=new Array();
     this.identificador= new Array();
     this.alumnos = new Array();
@@ -64,16 +68,46 @@ export class CursoAgregarComponent implements OnInit {
    }
 
    agregarAlumno(){
+     this.fRestantes = false;
     if(this.restantes > 0){
       if(this.alumno.trim().length > 1)
       {
         if(this.apellido.trim().length > 1)
         {
-          this.alumnos.push(JSON.parse('{ "nombre":"'+this.alumno+'", "apellido":"'+this.apellido+'", "rut":"'+this.rut+'"}'));
-          this.alumno= "";
-          this.apellido= "";
-          this.rut = "";
-          this.restantes--;
+          if(this.rut.trim().length > 1)
+          {
+            console.log("leng " +this.alumnos.length);
+            if(this.alumnos.length != 0){
+              var ok = true;
+              for (var g of this.alumnos)
+              {
+                if(g['rut'] == this.rut)
+                {
+                  if(ok)
+                  {
+                    ok = false;
+                  }
+                }
+                
+              }
+              if(ok){
+                this.alumnos.push(JSON.parse('{ "nombre":"'+this.alumno+'", "apellido":"'+this.apellido+'", "rut":"'+this.rut+'"}'));
+                this.alumno= "";
+                this.apellido= "";
+                this.rut = "";
+                this.restantes--;
+              }else{
+                this.mensaje = "Ya ingreso a este Alumno";
+                this.fRestantes = true;
+              }
+          }else{
+            this.alumnos.push(JSON.parse('{ "nombre":"'+this.alumno+'", "apellido":"'+this.apellido+'", "rut":"'+this.rut+'"}'));
+                this.alumno= "";
+                this.apellido= "";
+                this.rut = "";
+                this.restantes--;
+          }
+          }
         }
         
       }
@@ -86,6 +120,7 @@ export class CursoAgregarComponent implements OnInit {
 
    esconder(){
      this.fRestantes= false;
+     this.fok = false;
    }
 
    editarAlumno(value : string,value2 : string, value3 : string){
@@ -118,27 +153,41 @@ export class CursoAgregarComponent implements OnInit {
   }
 
   agregar(){
+    this.frut = false;
     if(this.curso != null && this.ident != null && this.idProfe != null && this.alumnos.length > 0){
       this.auth.agregarCurso(this.curso, this.ident,this.idProfe).subscribe(result => {
-        var id = result.id;
-        if(id == "Error 200"){
+        if(result['id'] == "Error 200"){
           this.mensaje = "Este Curso ya Existe";
           this.fRestantes = true;
         }else{
           for (var g of this.alumnos)
           {
-            this.auth.agregarAlumnoCurso(id,g['nombre'],g['apellido'],g['rut']).subscribe(result => {
-
+            this.auth.agregarAlumnoCurso(result['id'] ,g['nombre'],g['apellido'],g['rut']).subscribe(result => {
+              if(result['resultado'] != '0'){
+                if(!this.frut){
+                  this.frut = true;
+                }
+              }
+              
             })
           }
+          if(this.frut){
+            this.mensaje = result['resultado'] + "Alumnos no pudieron ser registrados";
+            this.fRestantes = true;
+          }
+          this.inicio();
+          this.fok = true;
+          this.alumnos= new Array();
         }
-        this.inicio();
-        this.alumnos= new Array();
+        
       },error => {
         console.log(<any>error);
       })
 
-    } 
+    } else{
+      this.mensaje = "Ingrese todos los datos solicitados";
+      this.fRestantes = true;
+    }
   }
 
 

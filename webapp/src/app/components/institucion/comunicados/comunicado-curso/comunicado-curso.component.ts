@@ -43,7 +43,7 @@ export class ComunicadoCursoComponent implements OnInit {
   enviar(){
     if(this.titulo.trim().length > 0 && this.contenido.trim().length > 0 && this.curso != null && this.identificador != null)
     {
-      this.auth.enviarMensajeCurso(this.titulo, this.contenido, this.curso, this.identificador).subscribe(result =>{
+      this.auth.enviarMensajeCurso(this.titulo, this.contenido, this.curso, this.identificador,'1','0').subscribe(result =>{
         this.flag = true;
         this.titulo = "";
         this.contenido = "";

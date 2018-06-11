@@ -35,14 +35,12 @@ export class CursoListarComponent implements OnInit {
   ngOnInit() {
   }
   eliminarCurso(value : string, value2 :string){
-    console.log(value + "id>>>>>cantidad" + value2);
     if(value!=null){
       var ids :string[];
       ids = new Array();
       this.auth.eliminarEstudiantes(value).subscribe(result=>{});
       this.auth.eliminarCurso(value).subscribe(result=>{
             var m = result.respuesta;
-            console.log(m+">>>>>");
             if(m ==100){
               this.mensage="Error al eliminar a los estudiantes, intentelo nuevamente";
               this.fResultado = true;

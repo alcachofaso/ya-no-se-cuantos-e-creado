@@ -31,6 +31,11 @@ import { CursoEditarComponent } from './components/institucion/cursos/curso-edit
 import { DocenteHomeComponent } from './components/docente/docente-home/docente-home.component';
 import { DocenteComponent } from './components/docente/docente.component';
 import { AtrasosInasistenciaComponent } from './components/docente/atrasos-inasistencia/atrasos-inasistencia.component';
+import { DocenteNotasComponent } from './components/docente/docente-notas/docente-notas.component';
+import { DocenteTareaTrabajoComponent } from './components/docente/docente-tarea-trabajo/docente-tarea-trabajo.component';
+import { DocenteListadoTrabajoComponent } from './components/docente/docente-listado-trabajo/docente-listado-trabajo.component';
+import { DocenteMensajeCursoComponent } from './components/docente/docente-mensaje-curso/docente-mensaje-curso.component';
+import { DocenteMensajeDetalleComponent } from './components/docente/docente-mensaje-detalle/docente-mensaje-detalle.component';
 
 
 const routes: Routes = [
@@ -62,6 +67,11 @@ const routes: Routes = [
     children:[
       {path:'', component: DocenteHomeComponent},
       {path:'docente/AtrasosInasistencias', component: AtrasosInasistenciaComponent},
+      {path:'docente/Notas', component: DocenteNotasComponent},
+      {path:'docente/Trabajo-Tarea', component: DocenteTareaTrabajoComponent},
+      {path:'docente/Listado-Trabajo-Tarea', component: DocenteListadoTrabajoComponent},
+      {path:'docente/Mensajes', component: DocenteMensajeCursoComponent},
+      {path:'docente/Mensajes/detalle/:mensaje', component: DocenteMensajeDetalleComponent},
   ]},
   {path:'**', component: NotFoundPageComponent}
 ];

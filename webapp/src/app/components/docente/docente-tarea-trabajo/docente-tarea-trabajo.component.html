@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-md-12 mx-auto mt-5 text-center">
+      <div class="card">
+        <div class="card-body">
+          <div *ngIf="fasignado">
+                  <h2 id="id">Enviar Trabajo o Tarea</h2>
+                    <br>
+                    <div class="alert alert-dismissible alert-success" *ngIf="fok">
+                        <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
+                        <h2>{{mensaje}}</h2>
+                      </div>
+                      <div class="alert alert-dismissible alert-primary" *ngIf="ferror">
+                          <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
+                          <h2>{{mensaje}}</h2>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="identificador">Curso</label>
+                            <select class="form-control" name="identificador" id="Curso" [(ngModel)]="curso" (change)="cambio()">
+                              <option *ngFor="let cur of cursos" value="{{cur.id}}">{{cur.name}} {{cur.identifier}}</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                              <label for="identificador">Asignatura</label>
+                              <select class="form-control" name="identificador" id="Asignatura" [(ngModel)]="asignaturaId">
+                                <option *ngFor="let asig of asignaturas" value="{{asig.id}}">{{asig.name}}</option>
+                              </select>
+                            </div>
+
+
+                    <div class="form-group">
+                        <label for="Nombre">Nombre del Trabajo o Tarea</label><br>
+                        <input type="tel" name='Nombre' [(ngModel)]="titulo" class='form-control'placeholder="Nombre de evaluación">
+                    </div>
+                    <div class="form-group">
+                        <label for="Contenido">Contenido del Trabajo o Tarea</label><br>
+                        <textarea class="form-control" [(ngModel)]="Contenido" id="exampleTextarea" rows="3" maxlength="200"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha">Fecha</label><br>
+                        <input type="date" name='fecha' [(ngModel)]="fecha" class='form-control'>
+                    </div>
+                  
+                      
+                    <input type="button" class='btn btn-warning btn-block btn-lg' value="Publicar Trabajo o Tarea" href="#id" (click)="publicarTarea()">
+
+              </div>
+              <div *ngIf="!fasignado">
+                  <h2>
+                      No Tienes Ningun Curso Asignado
+                  </h2>
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>

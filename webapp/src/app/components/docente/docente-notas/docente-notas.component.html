@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-md-12 mx-auto mt-5 text-center">
+      <div class="card">
+        <div class="card-body">
+          <div *ngIf="fasignado">
+                  <h2 id="id">Enviar Notas</h2>
+                    <br>
+                    <div class="alert alert-dismissible alert-success" *ngIf="fCargado">
+                        <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
+                        <h2>{{mensaje}}</h2>
+                      </div>
+                      <div class="alert alert-dismissible alert-primary" *ngIf="ferror">
+                          <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
+                          <h2>{{mensaje}}</h2>
+                        </div>
+
+
+                    <div class="form-group">
+                        <label for="evaluación">Nombre de Evaluación</label><br>
+                        <input type="tel" name='evaluación' [(ngModel)]="titulo" class='form-control'placeholder="Nombre de evaluación">
+                    </div>
+                    <div class="form-group">
+                        <label for="Descripcion">Contenido de la Evaluación</label><br>
+                        <textarea class="form-control" [(ngModel)]="description" id="exampleTextarea" rows="3"></textarea>
+                    </div>
+                  <div class="form-group">
+                      <label for="identificador">Curso</label>
+                      <select class="form-control" name="identificador" id="Curso" [(ngModel)]="curso" (change)="cambio()">
+                        <option *ngFor="let cur of cursos" value="{{cur.id}}">{{cur.name}} {{cur.identifier}}</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="identificador">Asignatura</label>
+                        <select class="form-control" name="identificador" id="Asignatura" [(ngModel)]="asignaturaId" (change)="cambioIdent()">
+                          <option *ngFor="let asig of asignaturas" value="{{asig.id}}">{{asig.name}}</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                          <label for="Contraseña">Alumno</label><br>
+                          <div class="form-group">
+                              <div class="input-group mb-3">
+                                  <select class="form-control" name="identificador" id="Asignatura" [(ngModel)]="alumno" (change)="cambioIdent()">
+                                      <option *ngFor="let alum of alumnos" value="{{alum.id}}">{{alum.lastName}}, {{alum.name}}</option>
+                                    </select>
+                                    <input type="number" name='nota' [(ngModel)]="nota"  class='form-control' step="0.1" min="2" max="7" placeholder="Nota">
+                              </div>
+                            </div>
+                            <input type="button" class='btn btn-warning btn-block btn-lg' value="Agregar" (click)="agregarNota()">
+                      </div>
+                      <div class="alert alert-dismissible alert-primary" *ngIf="ferror2">
+                          <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
+                          <h2>{{mensaje2}}</h2>
+                        </div>
+
+                      <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">Nombre Alumno</th>
+                              <th scope="col">Nota</th>
+                              <th scope="col">Opciones</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let not of notas">
+                              <th scope="row">{{not.lastName}}, {{not.name}}</th> 
+                              <td>
+                                {{not.nota}}
+                                </td>  
+                                <td>
+                                  <div _ngcontent-c2="">
+                                      <i _ngcontent-c2="" class="far fa-trash-alt" (click)="eliminarAlumno(not.id, not.name, not.lastName)"></i>
+                                  </div>
+                                </td>
+                            </tr>
+                          </tbody>
+                        </table> 
+                    <br>
+                    <input type="button" class='btn btn-warning btn-block btn-lg' value="Publicar Notas" href="#id" (click)="cargarNotas()">
+
+              </div>
+              <div *ngIf="!fasignado">
+                  <h2>
+                      No Tienes Ningun Curso Asignado
+                  </h2>
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>

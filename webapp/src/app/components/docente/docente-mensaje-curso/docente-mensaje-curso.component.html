@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-md-12 mx-auto mt-5 text-center">
+      <div class="card">
+        <div class="card-body">
+          <h2>Mensajes</h2><br>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <a class="nav-link active" data-toggle="tab" href="#historial">Historial</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#curso">Enviar Mensaje a Curso</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#especifico">Enviar Mensaje Especifico</a>
+                  </li>
+              </ul>
+
+
+
+
+
+
+              <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade show active" id="historial">
+
+                  <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let mensaje of mensajes">
+                    <div (click)="detalle(mensaje.id)">
+                    <div>
+                        <h4>{{mensaje.name}}</h4>
+                          <div [ngSwitch]="mensaje.include"  *ngIf="(mensaje.type == '0')">
+                            <h6 *ngSwitchCase="'1'">Cursos</h6>
+                            <h6 *ngSwitchCase="'2'">Grupo de Apoderados</h6>
+                          </div>
+                          <h6  *ngIf="(mensaje.type == '1')">Nivel Especifico</h6>
+                          
+                    </div>
+                    <div>
+                        <h5>{{mensaje.date}}</h5>
+                    </div>
+                  </div>
+                  </li>
+                </ul>
+
+
+
+
+                </div>
+                <div class="tab-pane fade" id="curso">
+
+
+
+
+
+                  <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
+                </div>
+                <div class="tab-pane fade" id="especifico">
+
+
+
+
+
+
+                  <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>
+                </div>
+              </div>
+        </div>
+      </div>
+    </div>
+  </div>

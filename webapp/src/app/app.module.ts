@@ -37,6 +37,11 @@ import { DocenteComponent } from './components/docente/docente.component';
 import { AtrasosInasistenciaComponent } from './components/docente/atrasos-inasistencia/atrasos-inasistencia.component';
 import { DocenteInstitucionEditarComponent } from './components/institucion/docente/docente-institucion-editar/docente-institucion-editar.component';
 import { CursoEditarComponent } from './components/institucion/cursos/curso-editar/curso-editar.component';
+import { DocenteNotasComponent } from './components/docente/docente-notas/docente-notas.component';
+import { DocenteTareaTrabajoComponent } from './components/docente/docente-tarea-trabajo/docente-tarea-trabajo.component';
+import { DocenteListadoTrabajoComponent } from './components/docente/docente-listado-trabajo/docente-listado-trabajo.component';
+import { DocenteMensajeCursoComponent } from './components/docente/docente-mensaje-curso/docente-mensaje-curso.component';
+import { DocenteMensajeDetalleComponent } from './components/docente/docente-mensaje-detalle/docente-mensaje-detalle.component';
 
 
 @NgModule({
@@ -66,6 +71,11 @@ import { CursoEditarComponent } from './components/institucion/cursos/curso-edit
     AtrasosInasistenciaComponent,
     DocenteInstitucionEditarComponent,
     CursoEditarComponent,
+    DocenteNotasComponent,
+    DocenteTareaTrabajoComponent,
+    DocenteListadoTrabajoComponent,
+    DocenteMensajeCursoComponent,
+    DocenteMensajeDetalleComponent,
     
   ],
   imports: [

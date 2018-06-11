@@ -18,7 +18,7 @@
                 Notas
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" routerLink="institucion/Docente/Listado">Enviar Notas</a>
+              <a class="dropdown-item" routerLink="docente/Notas">Enviar Notas</a>
               <a class="dropdown-item" [routerLink]="'institucion/Docente/Agregar'">Modificar Notas</a>
             </div>
         </li>
@@ -27,21 +27,15 @@
                 Tareas y Trabajos
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" routerLink="institucion/Docente/Listado">Historial</a>
-              <a class="dropdown-item" [routerLink]="'institucion/Docente/Agregar'">Enviar</a>
+              <a class="dropdown-item" routerLink="docente/Listado-Trabajo-Tarea">Historial</a>
+              <a class="dropdown-item" [routerLink]="'docente/Trabajo-Tarea'">Enviar</a>
             </div>
         </li>
         <li class="nav-item active">
             <a class="nav-link" href="#" routerLink="docente/AtrasosInasistencias">Atrasos e Inasistencias <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Enviar Comunicado
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" [routerLink]="['institucion/Comunicados/Curso']">Curso</a>
-                <a class="dropdown-item" [routerLink]="['institucion/Comunicados/apoderado']">Apoderado Especifico</a>
-              </div>
+          <li class="nav-item active">
+              <a class="nav-link" href="#" routerLink="docente/Mensajes">Mensajes <span class="sr-only">(current)</span></a>
             </li>
       </ul>
       <ul class="navbar-nav mx-auto">

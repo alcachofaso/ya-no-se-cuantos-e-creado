@@ -65,7 +65,7 @@ export class DocenteInstitucionEditarComponent implements OnInit {
           this.obtenerTitulos();
           this._nombre = this.nombre;
           this._apellido = this.Apellido;
-          if(r['type']!='0')
+          if(r['type']!='1')
           {
             this.frole = true;
           }
@@ -95,7 +95,6 @@ export class DocenteInstitucionEditarComponent implements OnInit {
         this.ftitulos = true;
         this.auth.obtenerTitulos(this.userId).subscribe(r=>{
           for(let c of r){
-            console.log(c);
             this._titulos.push(c);
           }
         })
@@ -173,6 +172,7 @@ export class DocenteInstitucionEditarComponent implements OnInit {
         this._agregar();
       }else
       {
+        this.mensaje = "Ingrese los datos requeridos";
         this.ferror=true;
       }
     }
@@ -180,7 +180,12 @@ export class DocenteInstitucionEditarComponent implements OnInit {
   _agregar()
   {
     this.auth.agregarAsignatura(this.ramo,this.curso,this.identificador,this.id).subscribe(r=>{
-    this.fok = true;
+      if(r['respuesta'] == '300'){
+        this.fok = true;
+      }else{
+        this.mensaje = "Este docente ya imparte esta asignatura";
+        this.ferror= true;
+      }
     this.listadoCursosDados();
     });
   }
@@ -211,13 +216,20 @@ export class DocenteInstitucionEditarComponent implements OnInit {
     this.esconder();
     if(this.titulo != null && this.institucion != null){
       this.auth.agregarTitulo(this.titulo,this.institucion,this.userId).subscribe(r=>{
-        this.ftitulosOk = true;
-        this.obtenerTitulos();
-        this.titulo = "";
-        this.institucion = "";
+        if(r['respuesta'] == '300'){
+          this.ftitulosOk = true;
+          this.obtenerTitulos();
+          this.titulo = "";
+          this.institucion = "";
+        }else{
+          this.mensaje = "Este docente ya tiene registrado este título";
+          this.ftituloError= true;
+        }
+        
       })
     }
     else{
+      this.mensaje = "Ingrese los datos requeridos";
       this.ftituloError= true;
     }
   }
