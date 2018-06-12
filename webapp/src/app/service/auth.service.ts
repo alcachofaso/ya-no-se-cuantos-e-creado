@@ -360,7 +360,7 @@ export class AuthService {
 ////////////////////////////////////////permiso para editar docente////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   permisoEditar(value : string): Observable<any> { 
-    // console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=18&institucion='+this.institucionId+"&curso="+curso);
+    console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=24&institucion='+this.institucionId+"&roleId="+value);
        return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=24&institucion='+this.institucionId+"&roleId="+value);
      }
 
@@ -555,7 +555,7 @@ publicarTrabajo(name : string,description : string,fecha : string,subject_id : s
 ////////////////////////////////////////////Listar Trabajos////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 listarTrabajo(subject_id : string,grade_id : string): Observable<any> { 
-  console.log('http://localhost:80/upnoticer/prueba/docente.php?op=8&subject_id='+subject_id+"&grade_id="+grade_id);
+  //console.log('http://localhost:80/upnoticer/prueba/docente.php?op=8&subject_id='+subject_id+"&grade_id="+grade_id);
      return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=8&subject_id='+subject_id+"&grade_id="+grade_id);
    }
 
@@ -563,7 +563,7 @@ listarTrabajo(subject_id : string,grade_id : string): Observable<any> {
 //////////////////////////////////////////Eliminar Trabajos////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 eliminarTrabajo(trabajoId : string): Observable<any> { 
-  console.log('http://localhost:80/upnoticer/prueba/docente.php?op=9&trabajoId='+trabajoId);
+  //console.log('http://localhost:80/upnoticer/prueba/docente.php?op=9&trabajoId='+trabajoId);
      return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=9&trabajoId='+trabajoId);
    }
 
@@ -571,7 +571,7 @@ eliminarTrabajo(trabajoId : string): Observable<any> {
 ////////////////////////////////////Obtener mensajes curso a cargo/////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 mensajesCursoaCargo(): Observable<any> { 
-  console.log('http://localhost:80/upnoticer/prueba/docente.php?op=10&roleId='+this.rolId);
+  //console.log('http://localhost:80/upnoticer/prueba/docente.php?op=10&roleId='+this.rolId);
      return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=10&roleId='+this.rolId);
    }
 
@@ -579,7 +579,66 @@ mensajesCursoaCargo(): Observable<any> {
 /////////////////////////////////////Datos curso especifico////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 datosCursoaCargo(): Observable<any> { 
-  console.log('http://localhost:80/upnoticer/prueba/docente.php?op=11&roleId='+this.rolId);
+  //console.log('http://localhost:80/upnoticer/prueba/docente.php?op=11&roleId='+this.rolId);
      return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=11&roleId='+this.rolId);
    }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////obtener cantidad de alumnos con apoderado///////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+cantidadAlumnosApoderado(gradeID : string): Observable<any> { 
+  //console.log('http://localhost:80/upnoticer/prueba/docente.php?op=12&gradeID='+gradeID);
+     return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=12&gradeID='+gradeID);
+   }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////obtener listado de alumnos con apoderado///////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+listadoAlumnosApoderado(gradeID : string): Observable<any> { 
+  //console.log('http://localhost:80/upnoticer/prueba/docente.php?op=13&gradeID='+gradeID);
+     return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=13&gradeID='+gradeID);
+   }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////Envir mensajes CURSO////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  enviarMensajeCursoPofeJefe(titulo : string, contenido : string ,include :string, type : string): Observable<any> { 
+    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=19&institucion='+this.institucionId+"&sender="+this.rolId
+    //+"&titulo="+titulo+"&contenido="+contenido+"&curso="+curso);
+      return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=14&institucion='+this.institucionId+"&sender="+this.rolId
+    +"&titulo="+titulo+"&contenido="+contenido+"&curso="+"&include="+include+"&type="+type);
+    }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////Informacion mensaje //////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  inforacionMensajeEspecifico(mensajeId : string): Observable<any> { 
+  //  console.log('http://localhost:80/upnoticer/prueba/docente.php?op=14&mensajeId='+mensajeId);
+      return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=14&mensajeId='+mensajeId);
+    }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////Informacion mensaje //////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+contenidoMensajeEspecifico(mensajeId : string): Observable<any> { 
+  //console.log('http://localhost:80/upnoticer/prueba/docente.php?op=15&mensajeId='+mensajeId);
+    return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=15&mensajeId='+mensajeId);
+  }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////detalle quien envia mensajes especificos Mensajes Especifico////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+detalleMensajeEspecifico(mensajeId : string, roleId : string): Observable<any> { 
+ // console.log('http://localhost:80/upnoticer/prueba/docente.php?op=16&mensajeId='+mensajeId+"&roleId="+roleId);
+    return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=16&mensajeId='+mensajeId+"&roleId="+roleId);
+  }
+
+ 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////Enviar Conenido de mensaje existente///////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+enviarContenidoMensaje(mensajeId : string, roleId : string, contenido : string): Observable<any> { 
+  console.log('http://localhost:80/upnoticer/prueba/docente.php?op=17&mensajeId='+mensajeId+"&roleId="+roleId+"&contenido="+contenido);
+    return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=17&mensajeId='+mensajeId+"&roleId="+roleId+"&contenido="+contenido);
+  }
 }

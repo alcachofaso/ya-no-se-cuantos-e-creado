@@ -23,11 +23,16 @@
               <div id="myTabContent" class="tab-content">
                 <div class="tab-pane fade show active" id="historial">
 
-                  <ul class="list-group">
-                  <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let mensaje of mensajes">
-                    <div (click)="detalle(mensaje.id)">
+                  <div class="alert alert-dismissible alert-warning" *ngIf="fmensajes">
+                  <h3>{{alertMensaje}}</h3>
+                  </div>
+
+                  <ul class="list-group" *ngIf="!fmensajes">
+                  <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let mensaje of mensajes" >
+                   <!--  <div (click)="detalle(mensaje.id)"> -->
                     <div>
-                        <h4>{{mensaje.name}}</h4>
+                    <div>
+                        <h4>{{mensaje.name}}  {{mensaje.id}}</h4>
                           <div [ngSwitch]="mensaje.include"  *ngIf="(mensaje.type == '0')">
                             <h6 *ngSwitchCase="'1'">Cursos</h6>
                             <h6 *ngSwitchCase="'2'">Grupo de Apoderados</h6>
@@ -47,21 +52,109 @@
 
                 </div>
                 <div class="tab-pane fade" id="curso">
+                    <div class="alert alert-dismissible alert-warning" *ngIf="falumnosApoderados">
+                        <h3>{{cantidadAlumnosApoderado}}</h3>
+                        </div>
+                        <div *ngIf="!falumnosApoderados">  
+                            <form  class='text-center mt-3' (submit)="enviarMensajeCurso()" >
+                                <div class="form-group">
+                                  <label for="titulo">Titulo del Mensaje</label><br>
+                                  <input type="text" name='titulo' [(ngModel)]="titulo"  class='form-control' maxlength="40" placeholder="Titulo del Mensaje">
+                                </div>
+                                <div class="form-group">
+                                    <label for="contenido">Contenido del Mensaje</label><br> 
+                                    <input type="text" name='contenido' [(ngModel)]="contenido"  class='form-control' maxlength="150" placeholder="Contenido del Mensaje">
+                                  </div>
+
+                                  <div class="alert alert-dismissible alert-primary" *ngIf="ferror">
+                                      <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
+                                      <h2>Ingrese todos los datos necesarios</h2>
+                                  </div>
+
+                                  <div class="alert alert-dismissible alert-success" *ngIf="fok">
+                                      <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
+                                      <h2>Mensaje Enviado Correctamente</h2>
+                                  </div>
+                               
+                                  <input type="submit" class='btn btn-warning btn-block btn-lg' value="Enviar">
+                              </form>
+                        </div>
+
+                    
 
 
-
-
-
-                  <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
                 </div>
                 <div class="tab-pane fade" id="especifico">
 
+                  
+                    <div class="alert alert-dismissible alert-warning" *ngIf="falumnosApoderados">
+                        <h3>{{cantidadAlumnosApoderado}}</h3>
+                        </div>
 
+                        <div *ngIf="!falumnosApoderados">
+                            <form  class='text-center mt-3' (submit)="enviarMensajeEspecifico()" >
+                                <div class="form-group">
+                                  <label for="titulo">Titulo del Mensaje</label><br>
+                                  <input type="text" name='titulo' [(ngModel)]="titulo2"  class='form-control' placeholder="Titulo del Mensaje" maxlength="40">
+                                </div>
+                                <div class="form-group">
+                                    <label for="contenido">Contenido del Mensaje</label><br> 
+                                    <input type="text" name='contenido' [(ngModel)]="contenido2"  class='form-control' maxlength="150" placeholder="Contenido del Mensaje">
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="contenido">Contenido del Mensaje</label><br> 
+                                      <select class="form-control" name="Identificador" id="Identificador" [(ngModel)]="mensAnota">
+                                          <option value="0" selected >Mensaje</option>
+                                          <option value="1">Anotacion</option>
+                                        </select>
+                                    </div>
 
+                                  <label class="control-label">Alumnos</label>
+                                  <div class="form-group" *ngIf="falumRestantes">
+                                    <div class="input-group mb-3">
 
+                                        <select class="form-control" name="Identificador" id="Identificador" [(ngModel)]="alumnoSelect">
+                                            <option *ngFor="let alu of alumnos" value="{{alu.studentID}}">{{alu.studentName}} {{alu.studentLastname}}</option>
+                                          </select>
 
+                                      <div class="input-group-append">
+                                        <input type="button" value="Agregar" class="list-group-item d-flex justify-content-between align-items-center" (click)='agregarAlumno()'>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div *ngIf="!falumRestantes">
+                                      <div class="alert alert-dismissible alert-warning">
+                                          <h3>Ya seleccionaste a todos los alumnos</h3>
+                                          </div>
+                                  </div>
 
-                  <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>
+                                  <ul class="list-group" *ngIf="falumSelect">
+                                    <h3>Listado de alumnos seleccionados</h3>
+                                      <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let alumn of alumno">
+                                        <div>
+                                            <h4>{{alumn.studentLastname}}, {{alumn.studentName}}</h4>
+                                        </div>
+                                        <div >
+                                            <h2>
+                                                <i _ngcontent-c2="" class="far fa-trash-alt" (click)="eliminarAlumno(alumn.studentID)"></i>
+                                            </h2>
+                                        </div>
+                                      </li>
+                                    </ul>
+
+                                    <div class="alert alert-dismissible alert-primary" *ngIf="ferror2">
+                                        <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
+                                        <h2>Ingrese todos los datos necesarios</h2>
+                                    </div>
+
+                                    <div class="alert alert-dismissible alert-success" *ngIf="fok2">
+                                        <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
+                                        <h2>Mensaje Enviado Correctamente</h2>
+                                    </div>
+                               
+                                  <input type="submit" class='btn btn-warning btn-block btn-lg' value="Enviar">
+                              </form>
+                        </div>
                 </div>
               </div>
         </div>

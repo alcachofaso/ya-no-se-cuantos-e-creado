@@ -159,4 +159,87 @@ switch ($operacion) {
         echo json_encode($respuesta);
         break;
 
+    case 12: //Obtener cantidad de alumnos con apoderado
+        $gradeID=$_GET['gradeID'];
+        $respuesta = array();
+
+            $a = getSQLResultSet("SELECT COUNT(student.id) AS canstidad FROM student, role, 
+           relationship WHERE student.grade_id = $gradeID AND student.id = relationship.student_id 
+           AND relationship.role_id = role.id AND student.enabled = 1 AND role.enabled = 1;");
+            while($x = mysqli_fetch_assoc($a)) {
+           if($x['canstidad'] > 0)
+           {
+            $respuesta['respuesta']= "300";
+           }else{
+                $respuesta['respuesta']= "200";
+           }
+        }
+        echo json_encode($respuesta);
+        break;
+
+    case 13: //Obtener listado de alumnos con apoderado
+        $gradeID=$_GET['gradeID'];
+        $respuesta = array();
+
+        $e = getSQLResultSet("SELECT student.id AS studentID, student.name AS studentName, student.lastName AS studentLastname, 
+        role.id AS roleId FROM student, role, relationship WHERE student.grade_id = $gradeID AND student.id = relationship.student_id 
+        AND relationship.role_id = role.id AND student.enabled= 1; ");
+        while($n = mysqli_fetch_assoc($e)) {
+        $respuesta[] = $n;
+        }
+
+        echo json_encode($respuesta);
+        break;
+
+    case 14: //Obtener informacion mensaje especifico
+        $mensajeId=$_GET['mensajeId'];
+        $respuesta = array();
+
+        $e = getSQLResultSet("SELECT message.name AS titulo, DATE(message.date) AS fecha, message.sender AS envia, 
+        message.type AS tipo, message.include AS incluye, user.name AS nombre, user.lastname AS apellido 
+        from message, role, user WHERE message.enabled = '1' AND message.sender = role.id AND role.user_id = user.id AND message.id = $mensajeId;");
+        while($n = mysqli_fetch_assoc($e)) {
+        $respuesta = $n;
+        }
+
+        echo json_encode($respuesta);
+        break;
+
+    case 15: //Obtener contenidos de mensaje
+        $mensajeId=$_GET['mensajeId'];
+        $respuesta = array();
+
+        $e = getSQLResultSet(" SELECT message_content.content AS contenido, DATE(message_content.date) AS fecha, message_content.sender AS envia, 
+        user.name AS nombre, user.lastname AS apellido FROM message_content, role, user WHERE message_content.sender = role.id 
+        AND role.user_id = user.id AND message_content.message_id = $mensajeId ORDER BY message_content.date DESC;");
+        while($n = mysqli_fetch_assoc($e)) {
+            $respuesta[] = $n;
+        }
+
+        echo json_encode($respuesta);
+        break;
+
+    case 16: //detalle quien envia mensajes especificos Mensajes Especifico
+        $mensajeId=$_GET['mensajeId'];
+        $roleId=$_GET['roleId'];
+        $respuesta = array();
+
+        $e = getSQLResultSet("SELECT user.name AS nombreApoderado, user.lastname AS apellidoApoderado, student.name AS estudianteNombre, 
+        student.lastName AS estudianteApelldio FROM user, role, student, addressee_message 
+        WHERE user.enabled = '1' AND role.enabled = '1' AND student.enabled = '1' AND user.id = role.user_id AND role.id = addressee_message.role_id 
+        AND addressee_message.student_id = student.id AND addressee_message.role_id = $roleId AND addressee_message.message_id = $mensajeId;");
+        while($n = mysqli_fetch_assoc($e)) {
+            $respuesta = $n;
+        }
+
+        echo json_encode($respuesta);
+        break;
+
+    case 17: //enviar contenido de mensaje
+        $mensajeId=$_GET['mensajeId'];
+        $roleId=$_GET['roleId'];
+        $contenido=$_GET['contenido'];
+        $e = getSQLResultSet("INSERT INTO `message_content`(`content`,`message_id`, `sender`) 
+        VALUES ('$contenido',$mensajeId,$roleId);");
+        break;
 }

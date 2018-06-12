@@ -1,3 +1,53 @@
-<p>
-  docente-mensaje-detalle works!
-</p>
+<div class="row">
+    <div class="col-md-12 mx-auto mt-5 text-center">
+      <div class="card">
+        <div class="card-body">
+          <h2>{{titulo}}</h2>
+          <h3>{{fecha}}</h3>
+          <h4> Enviado Por : {{apellido}}, {{nombre}}</h4>
+          <br>
+          <div class="card">
+          <form  class='text-center mt-3' (submit)="enviarMensaje()" >
+              <div class="form-group">
+                <label for="Mensaje">Mensaje</label><br>
+                <input type="Mensaje" name='Mensaje' [(ngModel)]="mensaje"  class='form-control' placeholder="Mensaje" maxlength="150">
+              </div>
+              <div class="alert alert-dismissible alert-primary" *ngIf="ferror">
+                  <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
+                  <h2>Ingresa un mensaje</h2>
+                </div>
+                <input type="submit" class='btn btn-warning btn-block btn-lg' value="Enviar">
+            </form>
+          </div><br>
+            <button (click)="mostrar()"> </button>
+          <div class="card">
+
+
+          <div *ngFor="let mensaje of listadoMensajes">
+            <div *ngIf="mensaje.envia == rolId" align="left">
+                <div class="card border-warning mb-3" style="max-width: 20rem;" >
+                    <div class="card-header">Mensaje</div>
+                    <div class="card-body">
+                      <p class="card-text">{{mensaje.contenido}}</p>
+                      <small class="text-muted">{{mensaje.fecha}}</small>
+                    </div>
+                  </div>
+            </div>
+            <div *ngIf="mensaje.envia != rolId" align="right">
+                <div class="card border-warning mb-3" style="max-width: 20rem;" >
+                    <div class="card-header">
+                      <h5 class="mb-1">{{mensaje.apellido}} {{mensaje.nombre}}</h5>
+                      <h6 class="mb-1">{{mensaje.estudianteApelldio}} {{mensaje.estudianteNombre}}</h6>
+                    </div>
+                    <div class="card-body">
+                      <p class="card-text">{{mensaje.contenido}}</p>
+                      <small class="text-muted">{{mensaje.fecha}}</small>
+                    </div>
+                  </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

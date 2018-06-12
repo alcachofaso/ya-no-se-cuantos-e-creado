@@ -81,8 +81,9 @@ export class DocenteInstitucionEditarComponent implements OnInit {
     });
     this.fidioma = false;
     this.ramos = ['Lenguaje y Comunicación','Lengua Indígena', 'Matemática', 'Ciencias Naturales', 'Historia, Geografía y Ciencias Sociales', 
-    'Artes Visuales', 'Música', 'Educación Física y Salud', 'Idioma Extranjero', 'Tecnología'];
-    this.idiomas = ['Ingles', 'Frances', 'Aleman', 'Chino Mandarín', 'Portugués', 'Italiano', 'Mapudungun', 'Quechua'];
+    'Artes Visuales', 'Música', 'Educación Física y Salud', 'Idioma Extranjero', 'Tecnología', 'Orientación', 'Religión'];
+
+    this.idiomas = ['Inglés', 'Francés', 'Alemán', 'Chino Mandarín', 'Portugués', 'Italiano'];
   }
 
   obtenerTitulos()
