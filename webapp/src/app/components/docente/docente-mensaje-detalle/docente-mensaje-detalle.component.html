@@ -7,10 +7,10 @@
           <h4> Enviado Por : {{apellido}}, {{nombre}}</h4>
           <br>
           <div class="card">
-          <form  class='text-center mt-3' (submit)="enviarMensaje()" >
+          <form  class='text-center mt-3' (submit)="enviarMensaje()" ngNativeValidate>
               <div class="form-group">
                 <label for="Mensaje">Mensaje</label><br>
-                <input type="Mensaje" name='Mensaje' [(ngModel)]="mensaje"  class='form-control' placeholder="Mensaje" maxlength="150">
+                <input type="Mensaje" name='Mensaje' [(ngModel)]="mensaje"  class='form-control' placeholder="Mensaje" maxlength="150" required>
               </div>
               <div class="alert alert-dismissible alert-primary" *ngIf="ferror">
                   <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>

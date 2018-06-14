@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../service/auth.service";
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +16,7 @@ export class RegisterComponent implements OnInit {
   public comunas : string[];
   public name : string;
   public lastname : string;
+  public comuna : string;
 
   public fEmail : boolean; //si el email es valido
   public fEmailExistente : boolean; // si el email ya esta registrado
@@ -39,7 +39,8 @@ export class RegisterComponent implements OnInit {
   public registroCorrecto : boolean;
 
 
-  constructor( public authService: AuthService, public _http : Http) { 
+
+  constructor( private authService: AuthService) { 
   this.mayusculas = "QWERTYUIOPÑLKJHGFDSAZXCVBNM";//
   this.minusculas = "qazxswedcvfrtgbnhyujmkiopñl";// CONJUNTO DE CARACTERES PERMITIDOS
   this.numeros = "9513782640";                    //
@@ -51,12 +52,14 @@ export class RegisterComponent implements OnInit {
   this.passR = "";
   this.institucion = "";
   this.direccion ="";
-  this.comunas = ['Alhué', "Buin", "Calera de Tango", "Cerrillos", "Cerro Navia", "Colina", "Conchalí", "Curacaví",
-  "El Bosque", "El Monte", "Estación Central ", "Huechuraba ", "Independencia", "Isla de Maipo", "La Cistern", "La Florida",
-  "La Granja", "La Pintana", "La Reina", "Lampa", "Las Condes", "Lo Barnechea", "Lo Espejo", "Lo Prado", "Macu", "Maipú",
-  "María Pinto", "Melipilla", "Ñuñoa", "Padre Hurtado", "Paine", "Pedro Aguirre Cerda", "Peñaflor", "Peñalolén",
-  "Pirque", "Providencia", "Pudahuel", "Puente Alto", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "San Bernardo",
-  "San Joaquín", "San José de Maipo", "San Miguel", "San Pedro", "San Ramón", "Santiago", "Talagante", "Til Til", "Vitacura"];
+  this.comunas = new Array();
+  authService.obtenerComunas().subscribe(r=>{
+    for(let t of r){
+      this.comunas.push(t);
+    }
+  })
+
+
   }
   resetFlags(){
     this.fEmail = false;
@@ -181,42 +184,24 @@ export class RegisterComponent implements OnInit {
       !this.fInstitucion && !this.fDireccion && !this.fEmail)
     {
       this.authService.ingresarRegistro(this.name,this.lastname,this.Email,this.institucion, 
-        this.direccion, this.pass).subscribe(result => {
-          if(result.respuesta == "el correo ya existe" )
-        this.fEmailExistente = true;
-      else
-        this.registroCorrecto = true;
+        this.direccion, this.pass, this.comuna).subscribe(result => {
+          if(result.respuesta == "200" )
+            {this.fEmailExistente = true;}
+          else
+            {this.registroCorrecto = true;
+              this.Email = undefined;
+              this.pass = undefined;
+              this.name = undefined;
+              this.lastname = undefined;
+              this.passR = undefined;
+              this.institucion = undefined;
+              this.direccion = undefined;
+            }
+            
       },error => {
         console.log(<any>error);
       })
-      
-      /*  
-      this.authService.registerUser(this.Email, this.pass)
-      .then((res) =>{
-        console.log("Usuario Creado");
-        console.log(res);
-        console.log(this.name);
-        console.log(this.Email);
-        console.log(this.institucion);
-        
-      }).catch((err)=>{
-        if(err.message == "createUserWithEmailAndPassword failed: First argument \"email\" must be a valid string.")
-        {
-          this.fEmail = true;
-        }else{
-          if(err.message == "createUserWithEmailAndPassword failed: Second argument \"password\" must be a valid string.")
-        {
-          this.fPass = true;
-        }else{
-          if(err.message == "The email address is already in use by another account.")
-          {
-            this.fEmailExistente = true;
-          }
-        }
-      }
-        console.log(err.message);
-      });*/
-      //this,this.authService.singOut();
+
     }
   }
 }

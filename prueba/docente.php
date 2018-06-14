@@ -8,7 +8,7 @@ $operacion = $_GET['op'];
 
 switch ($operacion) {
 
-    case 0: //
+    case 0: // listado alumnos curso a cargo
         $docenteId=$_GET['docenteId'];
         $respuesta = array();
         $insti = getSQLResultSet("SELECT student.id AS studentId, student.name AS studentName, student.lastName AS studentLast, 
@@ -64,9 +64,10 @@ switch ($operacion) {
     case 3: //Listar Cursos Dados
         $docenteId=$_GET['docenteId'];
         $respuesta = array();
-        $insti = getSQLResultSet("SELECT grade.id AS id, grade.name AS name, grade.identifier AS identifier FROM `grade`, subject 
-        WHERE  grade.enabled = '1' AND  subject.enabled ='1' AND grade.id = subject.grade_id AND subject.role_id= 8 AND 
+        $insti = getSQLResultSet("SELECT DISTINCT(grade.id) AS id, grade.name AS name, grade.identifier AS identifier FROM `grade`, subject 
+        WHERE  grade.enabled = '1' AND  subject.enabled ='1' AND grade.id = subject.grade_id AND subject.role_id= $docenteId AND 
         (SELECT COUNT(id) from student WHERE student.enabled = '1' AND student.grade_id = grade.id) > 0");
+
         while($r = mysqli_fetch_assoc($insti)) {
             $respuesta[] = $r;
         }
@@ -78,7 +79,8 @@ switch ($operacion) {
         $docenteId=$_GET['docenteId'];
         $cursoId=$_GET['cursoId'];
         $respuesta = array();
-        $insti = getSQLResultSet("SELECT `id`, `name` FROM `subject` WHERE `enabled` = '1' AND `role_id` = $docenteId AND `grade_id` = $cursoId;");
+        $insti = getSQLResultSet("SELECT subject.id AS id, subjectname.nombre AS name FROM `subject`, subjectname 
+        WHERE subject.enabled = '1' AND subject.subjectName=subjectname.id AND `role_id` = $docenteId AND `grade_id` = $cursoId;");
         while($r = mysqli_fetch_assoc($insti)) {
             $respuesta[] = $r;
         }
@@ -112,10 +114,18 @@ switch ($operacion) {
         $name=$_GET['name'];
         $description=$_GET['description'];
         $fecha = $_GET['fecha'];
+        $_fecha = strtotime($fecha);
         $subject_id=$_GET['subject_id'];
         $student_id=$_GET['student_id'];
-        $insti = getSQLResultSet("INSERT INTO `homework`(`name`, `description`, `deadline`,`subject_id`, `grade_id`) 
-        VALUES ('$name','$description',$fecha,$subject_id,$student_id)");
+
+        if($_fecha > strtotime(date('y-m-d'))){
+            $insti = getSQLResultSet("INSERT INTO `homework`(`name`, `description`, `deadline`,`subject_id`, `grade_id`) 
+            VALUES ('$name','$description','$fecha',$subject_id,$student_id)");
+            $resp['r'] = "300";
+        }else{
+            $resp['r'] = "200";
+        }
+        echo json_encode($resp);;
 
         break;
 
@@ -142,8 +152,10 @@ switch ($operacion) {
         $roleId=$_GET['roleId'];
         $respuesta = array();
         $insti = getSQLResultSet("SELECT `id`, `name`, `date`, `include`, type FROM `message` WHERE `enabled`= '1' AND `sender` =  $roleId;");
-        while($r = mysqli_fetch_assoc($insti)) {
-            $respuesta[] = $r;
+        if($insti != null){
+            while($r = mysqli_fetch_assoc($insti)) {
+                $respuesta[] = $r;
+            }
         }
         echo json_encode($respuesta);
 
@@ -242,4 +254,20 @@ switch ($operacion) {
         $e = getSQLResultSet("INSERT INTO `message_content`(`content`,`message_id`, `sender`) 
         VALUES ('$contenido',$mensajeId,$roleId);");
         break;
+
+    case 18: //Obtener informacion de curso a cargo
+        $roleId=$_GET['roleId'];
+        $institutionId=$_GET['institutionId'];
+        $respuesta = array();
+        $e = getSQLResultSet("SELECT `id`, `name`, `identifier` FROM `grade` WHERE `enabled`='1' 
+        AND `institution_id` = $institutionId AND `teacher` = $roleId ;");
+        if($e != null){
+            while($n = mysqli_fetch_assoc($e)) {
+                $respuesta = $n;
+            }
+        }
+        echo json_encode($respuesta);
+        break;
+
+    
 }

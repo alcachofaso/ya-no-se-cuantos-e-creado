@@ -13,24 +13,24 @@
                   <p class="mb-0"></p>
                 </div>
           <h2>Agregar Psicologo</h2>
-          <form  class='text-center mt-3' (submit)="agregar()">
+          <form  class='text-center mt-3' (submit)="agregar()" ngNativeValidate >
               <div class="form-group">
                 <label for="nombre">Nombre Psicologo</label><br>
-                <input type="text" name='nombre' [(ngModel)]="nombre"  class='form-control' placeholder="Nombre Psicologo">
+                <input type="text" name='nombre' [(ngModel)]="nombre"  class='form-control' placeholder="Nombre Psicologo" required maxlength="45">
               </div>
               <div class="form-group">
                   <label for="apellido">Apellidos Psicologo</label><br> 
-                  <input type="text" name='apellido' [(ngModel)]="apellido"  class='form-control' placeholder="Apellido Psicologo">
+                  <input type="text" name='apellido' [(ngModel)]="apellido"  class='form-control' placeholder="Apellido Psicologo" required maxlength="45">
                 </div>
               <div class="form-group">
                   <label for="E-mail">E-mail</label><br>
-                  <input type="email" name='E-mail' [(ngModel)]="email" class='form-control'placeholder="Email Psicologo">
+                  <input type="email" name='E-mail' [(ngModel)]="email" class='form-control'placeholder="Email Psicologo" required maxlength="45">
               </div>
               <div class="form-group">
                   <label for="Contraseña">Contraseña</label><br>
                   <div class="form-group">
                       <div class="input-group mb-3">
-                        <input type="text" minlength="6" maxlength="12" [(ngModel)]="pass" name='pass' class='form-control' placeholder="Contraseña">
+                        <input type="text" minlength="6" maxlength="12" [(ngModel)]="pass" title="Debe ener entre 6 y 12 caracteres" pattern="[A-Za-z0-9]+" name='pass' class='form-control' placeholder="Contraseña" required>
                         <div class="input-group-append">
                           <input type="button" value="Aleatorio" (click)='aleatorio()'>
                           </div>
@@ -39,7 +39,7 @@
               </div>
               <div class="form-group">
                   <label for="contrato">Fecha de Contratación</label><br>
-                  <input type="date" name="contrato" [(ngModel)]="contract" class='form-control'>
+                  <input type="date" name="contrato" [(ngModel)]="contract" class='form-control' title="Para que el apoderado conozca la antigüedad del docente en la institución">
               </div>
                 <input type="submit" class='btn btn-warning btn-block btn-lg' value="Ingresar">
             </form>

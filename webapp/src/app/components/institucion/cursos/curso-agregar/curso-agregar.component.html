@@ -3,22 +3,22 @@
     <div class="card">
       <div class="card-body">
         <h2>Agregar Curso</h2>
-        <form  class='text-center mt-3' (submit)="agregar()">
+        <form  class='text-center mt-3' (submit)="agregar()" ngNativeValidate>
           <div class="form-group">
             <label for="nivel">Nivel</label>
-            <select class="form-control" name="nive" id="nive" [(ngModel)]="curso">
+            <select class="form-control" name="nive" id="nive" [(ngModel)]="curso" required>
               <option *ngFor="let nivel of cursos" value="{{nivel}}" >{{nivel}}</option>
             </select>
           </div>
           <div class="form-group">
             <label for="identificador">Identificador</label>
-            <select class="form-control" name="identificador" id="identificador" [(ngModel)]="ident">
+            <select class="form-control" name="identificador" id="identificador" [(ngModel)]="ident" required>
               <option *ngFor="let id of identificador" value="{{id}}">{{id}}</option>
             </select>
           </div>
           <div class="form-group">
               <label for="profe">Profesor Jefe</label>
-              <select class="form-control" name="profe" id="profe" [(ngModel)]="idProfe">
+              <select class="form-control" name="profe" id="profe" [(ngModel)]="idProfe" required>
                 <option *ngFor="let profe of profeJefe" value="{{profe.userId}}">{{profe.nombre}} {{profe.apellido}}</option>
               </select>
             </div>
@@ -26,9 +26,9 @@
                 <label for="Contraseña">alumno</label><br>
                 <div class="form-group">
                     <div class="input-group mb-3">
-                      <input type="text"  name='alumno' [(ngModel)]="alumno" class='form-control' placeholder="Nombre Alumno">
-                      <input type="text"  name='apellido' [(ngModel)]="apellido" class='form-control' placeholder="Apellido Alumno">
-                      <input type="text"  name='rut' [(ngModel)]="rut" class='form-control' placeholder="10000000-0">
+                      <input type="text"  name='alumno' [(ngModel)]="alumno" class='form-control' placeholder="Nombre Alumno" maxlength="45">
+                      <input type="text"  name='apellido' [(ngModel)]="apellido" class='form-control' placeholder="Apellido Alumno" maxlength="45">
+                      <input type="text"  name='rut' [(ngModel)]="rut" class='form-control' placeholder="10000000-0" pattern="\d{3,8}-[\d|kK]{1}">
                       <div class="input-group-append">
                         <input type="button" value="Agregar" (click)='agregarAlumno()'>
                         </div>

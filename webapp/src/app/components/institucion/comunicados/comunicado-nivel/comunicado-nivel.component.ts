@@ -13,13 +13,19 @@ export class ComunicadoNivelComponent implements OnInit {
   public flagError : boolean;
   public mensaje : string;
   public cursos : string[];
+  public cantidadApederados : string;
+  public cantidad : string;
   public curso : string;
   public flagSinCursos: boolean;
+  public fcantidad : boolean ;
+  public fenable : boolean;
 
-  constructor(public auth : AuthService) { 
+  constructor(private auth : AuthService) { 
     this.flag = false;
     this.flagError = false;
     this.flagSinCursos = false;
+    this.fcantidad = false;
+    this.fenable = true;
     this.cursos = new Array();
     this.auth.listarCursosExistentes().subscribe(result=>{
       for(let m of result){
@@ -47,6 +53,24 @@ export class ComunicadoNivelComponent implements OnInit {
     }
   }
 
+  buscar(){
+    this.auth.cantidadAlumnosCursoIdent(this.curso,'0',this.auth.getInstitutionId).subscribe(r=>{
+      this.cantidad = r['Alumnos'];
+      console.log(r['Alumnos']);
+      this.cantidadApederados = r['AlumnosApoderado'];
+      this.fcantidad = true;
+      if(parseInt(r['AlumnosApoderado']) == 0)
+      {
+        this.fenable = false;
+      }
+      else{
+        if(!this.fenable)
+        {
+          this.fenable = true;
+        }
+      }
+    })
+  }
 
   cerrar()
   {

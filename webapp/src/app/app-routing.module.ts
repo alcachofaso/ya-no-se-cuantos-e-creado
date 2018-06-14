@@ -37,6 +37,13 @@ import { DocenteListadoTrabajoComponent } from './components/docente/docente-lis
 import { DocenteMensajeCursoComponent } from './components/docente/docente-mensaje-curso/docente-mensaje-curso.component';
 import { DocenteMensajeDetalleComponent } from './components/docente/docente-mensaje-detalle/docente-mensaje-detalle.component';
 
+////////////////////////////PSICOS//////////////////////////////////////.
+
+import { PsicosComponent } from './components/psicos/psicos.component';
+import { RecividosComponent } from './components/psicos/recividos/recividos.component';
+import { EnviadosComponent } from './components/psicos/enviados/enviados.component';
+import { PsicoDetalleComponent } from './components/psicos/psico-detalle/psico-detalle.component';
+
 
 const routes: Routes = [
   {path:'', component: HomeComponent,
@@ -72,6 +79,12 @@ const routes: Routes = [
       {path:'docente/Listado-Trabajo-Tarea', component: DocenteListadoTrabajoComponent},
       {path:'docente/Mensajes', component: DocenteMensajeCursoComponent},
       {path:'docente/Mensajes/detalle/:mensaje', component: DocenteMensajeDetalleComponent},
+  ]},
+  {path:'psico', component: PsicosComponent,
+    children:[
+      {path:'', component: RecividosComponent},
+      {path:'mensajes/enviar', component: EnviadosComponent},
+      {path:'mensajes/detalle/:id', component: PsicoDetalleComponent}
   ]},
   {path:'**', component: NotFoundPageComponent}
 ];

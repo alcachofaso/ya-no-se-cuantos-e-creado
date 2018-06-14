@@ -14,24 +14,26 @@
                           <h2>{{mensaje}}</h2>
                         </div>
 
+                <form  class='text-center mt-3' (submit)="cargarNotas()" ngNativeValidate>   
+
 
                     <div class="form-group">
                         <label for="evaluación">Nombre de Evaluación</label><br>
-                        <input type="tel" name='evaluación' [(ngModel)]="titulo" class='form-control'placeholder="Nombre de evaluación">
+                        <input type="tel" name='evaluación' [(ngModel)]="titulo" class='form-control'placeholder="Nombre de evaluación" required maxlength="50">
                     </div>
                     <div class="form-group">
                         <label for="Descripcion">Contenido de la Evaluación</label><br>
-                        <textarea class="form-control" [(ngModel)]="description" id="exampleTextarea" rows="3"></textarea>
+                        <input type="tel" name='Descripcion' [(ngModel)]="description" class='form-control'placeholder="Contenidos de la evaluación" required maxlength="200">
                     </div>
                   <div class="form-group">
                       <label for="identificador">Curso</label>
-                      <select class="form-control" name="identificador" id="Curso" [(ngModel)]="curso" (change)="cambio()">
+                      <select class="form-control" name="identificador" id="Curso" [(ngModel)]="curso" (change)="cambio()" required>
                         <option *ngFor="let cur of cursos" value="{{cur.id}}">{{cur.name}} {{cur.identifier}}</option>
                       </select>
                     </div>
                     <div class="form-group">
                         <label for="identificador">Asignatura</label>
-                        <select class="form-control" name="identificador" id="Asignatura" [(ngModel)]="asignaturaId" (change)="cambioIdent()">
+                        <select class="form-control" name="identificador" id="Asignatura" [(ngModel)]="asignaturaId" (change)="cambioIdent()" required>
                           <option *ngFor="let asig of asignaturas" value="{{asig.id}}">{{asig.name}}</option>
                         </select>
                       </div>
@@ -39,7 +41,7 @@
                           <label for="Contraseña">Alumno</label><br>
                           <div class="form-group">
                               <div class="input-group mb-3">
-                                  <select class="form-control" name="identificador" id="Asignatura" [(ngModel)]="alumno" (change)="cambioIdent()">
+                                  <select class="form-control" name="identificador" id="Asignatura" [(ngModel)]="alumno" (change)="cambioIdent()" >
                                       <option *ngFor="let alum of alumnos" value="{{alum.id}}">{{alum.lastName}}, {{alum.name}}</option>
                                     </select>
                                     <input type="number" name='nota' [(ngModel)]="nota"  class='form-control' step="0.1" min="2" max="7" placeholder="Nota">
@@ -75,8 +77,9 @@
                           </tbody>
                         </table> 
                     <br>
-                    <input type="button" class='btn btn-warning btn-block btn-lg' value="Publicar Notas" href="#id" (click)="cargarNotas()">
+                    <input type="submit" class='btn btn-warning btn-block btn-lg' value="Publicar Notas" href="#id">
 
+                    </form>
               </div>
               <div *ngIf="!fasignado">
                   <h2>

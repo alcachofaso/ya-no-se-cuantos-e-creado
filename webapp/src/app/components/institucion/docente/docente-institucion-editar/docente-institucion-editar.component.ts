@@ -51,6 +51,8 @@ export class DocenteInstitucionEditarComponent implements OnInit {
     this.ftituloError = false;
     this.ftitulosOk = false;
     this.cursos = new Array();
+    this.idiomas = new Array();
+    this.ramos = new Array();
     
     this.auth.permisoEditar(this.id).subscribe(result=>{
       if(result['resultado'] == "200"){ 
@@ -80,21 +82,27 @@ export class DocenteInstitucionEditarComponent implements OnInit {
       }
     });
     this.fidioma = false;
-    this.ramos = ['Lenguaje y Comunicación','Lengua Indígena', 'Matemática', 'Ciencias Naturales', 'Historia, Geografía y Ciencias Sociales', 
-    'Artes Visuales', 'Música', 'Educación Física y Salud', 'Idioma Extranjero', 'Tecnología', 'Orientación', 'Religión'];
-
-    this.idiomas = ['Inglés', 'Francés', 'Alemán', 'Chino Mandarín', 'Portugués', 'Italiano'];
+    auth.obtenerAsignaturas().subscribe(r=>{
+      for(let t of r){
+        let x = parseInt(t['id']);
+        if(x <= 12){
+          this.ramos.push(t);
+        }else{
+          this.idiomas.push(t);
+        }
+      }
+    })
   }
 
   obtenerTitulos()
   {
     this._titulos = new Array();
-    this.auth.obtenerCantidadTitulos(this.userId).subscribe(r=>{
+    this.auth.obtenerCantidadTitulos(this.id).subscribe(r=>{
       if(r['cantidad'] == '0'){
         this.ftitulos = false;
       }else{
         this.ftitulos = true;
-        this.auth.obtenerTitulos(this.userId).subscribe(r=>{
+        this.auth.obtenerTitulos(this.id).subscribe(r=>{
           for(let c of r){
             this._titulos.push(c);
           }
@@ -160,17 +168,17 @@ export class DocenteInstitucionEditarComponent implements OnInit {
 
   agregar(){
     this.esconder();
-    if(this.ramo == "Idioma Extranjero")
+    if(this.ramo == "9")
     {
       if(this.ramo!= null && this.curso!= null && this.identificador!=null && this.idioma != null){
-        this._agregar();
+        this._agregar(this.idioma);
       }else
       {
         this.ferror=true;
       }
     }else{
       if(this.ramo!= null && this.curso!= null && this.identificador!=null){
-        this._agregar();
+        this._agregar(this.ramo);
       }else
       {
         this.mensaje = "Ingrese los datos requeridos";
@@ -178,9 +186,9 @@ export class DocenteInstitucionEditarComponent implements OnInit {
       }
     }
   }
-  _agregar()
+  _agregar(value : string)
   {
-    this.auth.agregarAsignatura(this.ramo,this.curso,this.identificador,this.id).subscribe(r=>{
+    this.auth.agregarAsignatura(value,this.curso,this.identificador,this.id).subscribe(r=>{
       if(r['respuesta'] == '300'){
         this.fok = true;
       }else{
@@ -199,7 +207,7 @@ export class DocenteInstitucionEditarComponent implements OnInit {
   }
 
   eleccion(){
-    if(this.ramo == "Idioma Extranjero"){
+    if(this.ramo == "9"){
       this.fidioma = true;
     }
     else{
@@ -216,7 +224,7 @@ export class DocenteInstitucionEditarComponent implements OnInit {
   agregarTitulo(){
     this.esconder();
     if(this.titulo != null && this.institucion != null){
-      this.auth.agregarTitulo(this.titulo,this.institucion,this.userId).subscribe(r=>{
+      this.auth.agregarTitulo(this.titulo,this.institucion,this.id).subscribe(r=>{
         if(r['respuesta'] == '300'){
           this.ftitulosOk = true;
           this.obtenerTitulos();

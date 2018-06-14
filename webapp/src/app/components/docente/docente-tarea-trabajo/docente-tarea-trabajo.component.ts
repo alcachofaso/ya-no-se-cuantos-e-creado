@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../../service/auth.service";
+import { getLocaleDateFormat } from '@angular/common';
 
 @Component({
   selector: 'app-docente-tarea-trabajo',
@@ -18,17 +19,22 @@ export class DocenteTareaTrabajoComponent implements OnInit {
   public titulo : string;
   public Contenido : string;
   public mensaje : string;
+  public fecha : string;
+
 
   public fasignado : boolean;
   public fok : boolean;
   public ferror : boolean;
-  public fecha : string;
-
+  public fFecha : boolean;
+  
   constructor(private auth : AuthService) {
     this.fasignado = false;
     this.fok = false;
     this.ferror = false;
     this.cursos = new Array();
+    this.fFecha = false;
+
+
     auth.listadoCurdosDadosDocente().subscribe(r=>{
       for(let m of r){
         this.cursos.push(m);
@@ -53,9 +59,14 @@ export class DocenteTareaTrabajoComponent implements OnInit {
   publicarTarea(){
     if(this.titulo != undefined && this.Contenido != undefined && this.curso!= undefined && this.asignaturaId != undefined){
       this.auth.publicarTrabajo(this.titulo,this.Contenido,this.fecha,this.asignaturaId,this.curso).subscribe(r=>{
-        this.titulo = null;
-        this.Contenido = null;
-        this.fecha = null;
+        if(r['r'] != '200'){
+          this.titulo = null;
+          this.Contenido = null;
+          this.fecha = null;
+          this.fFecha = false;;
+          }else{
+            this.fFecha = true;
+          }
       })
     }
   }

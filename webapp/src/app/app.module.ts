@@ -42,6 +42,10 @@ import { DocenteTareaTrabajoComponent } from './components/docente/docente-tarea
 import { DocenteListadoTrabajoComponent } from './components/docente/docente-listado-trabajo/docente-listado-trabajo.component';
 import { DocenteMensajeCursoComponent } from './components/docente/docente-mensaje-curso/docente-mensaje-curso.component';
 import { DocenteMensajeDetalleComponent } from './components/docente/docente-mensaje-detalle/docente-mensaje-detalle.component';
+import { PsicosComponent } from './components/psicos/psicos.component';
+import { RecividosComponent } from './components/psicos/recividos/recividos.component';
+import { EnviadosComponent } from './components/psicos/enviados/enviados.component';
+import { PsicoDetalleComponent } from './components/psicos/psico-detalle/psico-detalle.component';
 
 
 @NgModule({
@@ -76,6 +80,10 @@ import { DocenteMensajeDetalleComponent } from './components/docente/docente-men
     DocenteListadoTrabajoComponent,
     DocenteMensajeCursoComponent,
     DocenteMensajeDetalleComponent,
+    PsicosComponent,
+    RecividosComponent,
+    EnviadosComponent,
+    PsicoDetalleComponent,
     
   ],
   imports: [

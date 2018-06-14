@@ -67,7 +67,6 @@ export class DocenteNotasComponent implements OnInit {
       if(this.nota >= 2 && this.nota <= 7 ){
         this._alumnos = new Array();
         for(let t of this.alumnos){
-
           if(t['id'] == this.alumno){
             this.notas.push(JSON.parse('{ "id":"'+t['id']+'", "name":"'+t['name']+'", "lastName":"'+ t['lastName'] +'", "nota":"'+this.nota +'"}'));
           }else{

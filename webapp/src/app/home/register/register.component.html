@@ -3,21 +3,21 @@
       <div class="card">
         <div class="card-body">
           <h1 class='text-center'>REGISTRO</h1>
-          <h4 class='text-center'>Prueba gratis por 30 dias</h4>
-          <form  class='text-center mt-3' (submit)="onSubmitAddUser()">
+          <h4 class='text-center'>Prueba gratis por 30 dias y hasta 50 alumnos</h4>
+          <form  class='text-center mt-3' (submit)="onSubmitAddUser()"  ngNativeValidate>
               <div class="form-group">
                   <label for="nombre">Nombre</label><br>
-                  <input type="tel" name='nombre'  [(ngModel)]="name" class='form-control' placeholder="Nombre" required>
+                  <input type="tel" name='nombre'  [(ngModel)]="name" class='form-control' placeholder="Nombre" required maxlength="45">
                   <label *ngIf="fname"><span class="badge badge-warning">Ingrese un Nombre</span></label>
                 </div>
                 <div class="form-group">
                     <label for="apellido">Apellido</label><br>
-                    <input type="text" name='apellido'  [(ngModel)]="lastname" class='form-control' placeholder="Apellido" required>
+                    <input type="text" name='apellido'  [(ngModel)]="lastname" class='form-control' placeholder="Apellido" required maxlength="45">
                     <label *ngIf="flastname"><span class="badge badge-warning">Ingrese un Apellido</span></label>
                   </div>
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" name='email' [(ngModel)]="Email" class='form-control' placeholder="E-mail" required>
+              <input type="email" name='_email' [(ngModel)]="Email" class='form-control' placeholder="E-mail" required maxlength="45">
               <label *ngIf="fEmail"><span class="badge badge-warning">Correo no Valido</span></label>
               <label *ngIf="fEmaillength"><span class="badge badge-warning">Ingrese un correo electrionico</span></label>
 
@@ -25,7 +25,7 @@
             </div>
             <div class="form-group">
                 <label for="pass">Password</label>
-                <input type="password" name='password'  [(ngModel)]="pass" class='form-control' placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,12}" title="La contraseña deve poseer al menos un numero, una minuscula y una mayuscula y poseer entre 6 a 12 caracteres" required>
+                <input type="password" name='password'  maxlength="20"  [(ngModel)]="pass" class='form-control' placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,12}" title="La contraseña deve poseer solo numeros y letras, al menos un numero, una minuscula y una mayuscula, poseer entre 6 a 12 caracteres " required>
                 <label *ngIf="fPass"><span class="badge badge-warning">Ingrese una contraseña</span></label>
                 <label *ngIf="fPasslength"><span class="badge badge-warning">La contraseña debe tener minimo 6 caracteres</span></label>
                 <label *ngIf="fPassCaracteres"><span class="badge badge-warning">La contraseña debe teneral menos un numero, una mayuscula y una minuscula</span></label>
@@ -38,22 +38,22 @@
             </div>
             <div class="form-group">
               <label for="institucion">Nombre Institución</label><br>
-              <input type="text" name='Institucion'  [(ngModel)]="institucion" class='form-control' placeholder="Institución" required>
+              <input type="text" name='Institucion'  [(ngModel)]="institucion" class='form-control' placeholder="Institución" required maxlength="50">
               <label *ngIf="fInstitucion"><span class="badge badge-warning">Ingrese el nombre de la Institución</span></label>
 
             </div>
             <div class="form-group">
               <label for="direccion">Dirección</label><br>
-              <input type="text" name='direccion'  [(ngModel)]="direccion" class='form-control' placeholder="Dirección" required>
+              <input type="text" name='direccion'  [(ngModel)]="direccion" class='form-control' placeholder="Dirección" required  maxlength="50">
               <small class="text-muted">Ejemplo "Direccion del establecimiento #000"</small><br>
               <label *ngIf="fDireccion"><span class="badge badge-warning">Ingrese una Dirección</span></label>
             </div>
             <div class="form-group">
-              <label for="exampleSelect1">Comuna</label>
-              <select class="form-control" id="exampleSelect1">
-                <option *ngFor="let a of comunas">{{a}}</option>
-              </select>
-            </div>
+                <label for="Comuna">Comuna</label>
+                <select class="form-control" name="Comuna" id="Comuna" [(ngModel)]="comuna" required>
+                    <option *ngFor="let a of comunas" value="{{a.id}}">{{a.nombre}}</option>
+                </select>
+              </div>
               <input type="submit" class='btn btn-warning btn-block btn-lg' value="Registrar">
           </form>
         </div>
@@ -63,5 +63,4 @@
   <div class="alert alert-dismissible alert-warning" *ngIf="registroCorrecto">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <h4 class="alert-heading">Ususario Creado Exitosamente</h4>
-    <p class="mb-0">Dentro de un momento te llegara un correo a {{Email}} para validar tu cuenta</p>
   </div>

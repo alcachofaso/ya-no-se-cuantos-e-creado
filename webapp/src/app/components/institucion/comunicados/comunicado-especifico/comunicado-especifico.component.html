@@ -14,20 +14,20 @@
                 <p class="mb-0"></p>
               </div>
         <h2>Enviar Mensaje Especifico</h2>
-        <form  class='text-center mt-3' (submit)="enviar()" *ngIf="!flagSinCursos">
+        <form  class='text-center mt-3' (submit)="enviar()" *ngIf="!flagSinCursos" ngNativeValidate>
             <div class="form-group">
               <label for="titulo">Titulo del Mensaje</label><br>
-              <input type="text" name='titulo' [(ngModel)]="titulo"  class='form-control' placeholder="Titulo del Mensaje">
+              <input type="text" name='titulo' [(ngModel)]="titulo"  class='form-control' placeholder="Titulo del Mensaje" required maxlength="45">
             </div>
             <div class="form-group">
                 <label for="nivel">Nivel</label>
-                <select class="form-control" name="nive" id="nive" [(ngModel)]="curso" (change)="identi()">
+                <select class="form-control" name="nive" id="nive" [(ngModel)]="curso" (change)="identi()" required>
                   <option *ngFor="let nivel of cursos" value="{{nivel}}" >{{nivel}}</option>
                 </select>
               </div>
               <div class="form-group" *ngIf="fIdentificador">
                 <label for="Identificador">Identificador</label>
-                <select class="form-control" name="Identificador" id="Identificador" [(ngModel)]="identificador" (change)="alum()">
+                <select class="form-control" name="Identificador" id="Identificador" [(ngModel)]="identificador" (change)="alum()" required>
                   <option *ngFor="let ident of identificadores" value="{{ident}}" >{{ident}}</option>
                 </select>
               </div>
@@ -63,7 +63,7 @@
 
             <div class="form-group">
                 <label for="contenido">Contenido del Mensaje</label><br> 
-                <input type="text" name='contenido' [(ngModel)]="contenido"  class='form-control' placeholder="Contenido del Mensaje">
+                <input type="text" name='contenido' [(ngModel)]="contenido"  class='form-control' placeholder="Contenido del Mensaje" required maxlength="200">
               </div>
            
               <input type="submit" class='btn btn-warning btn-block btn-lg' value="Enviar">

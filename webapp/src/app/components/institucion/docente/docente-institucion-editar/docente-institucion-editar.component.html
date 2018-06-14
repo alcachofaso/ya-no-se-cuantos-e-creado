@@ -22,20 +22,20 @@
                   <div id="myTabContent" class="tab-content">
                       <div class="tab-pane fade active show" id="info">
                           <h2>Información Básica</h2>
-                          <form  class='text-center mt-3' (submit)="Actualizar()">
+                          <form  class='text-center mt-3' (submit)="Actualizar()" ngNativeValidate>
                               <div class="form-group">
                                 <label for="nombre">Nombre</label><br>
-                                <input type="text" name='nombre' [(ngModel)]="_nombre"  class='form-control' placeholder="Nombre">
+                                <input type="text" name='nombre' [(ngModel)]="_nombre"  class='form-control' placeholder="Nombre" required maxlength="45">
                               </div>
                               <div class="form-group">
                                   <label for="apellido">Apellidos</label><br> 
-                                  <input type="text" name='apellido' [(ngModel)]="_apellido"  class='form-control' placeholder="Apellido">
+                                  <input type="text" name='apellido' [(ngModel)]="_apellido"  class='form-control' placeholder="Apellido" required maxlength="45">
                                 </div>
                               <div class="form-group">
                                   <label for="Contraseña">Contraseña</label><br>
                                   <div class="form-group">
                                       <div class="input-group mb-3">
-                                        <input type="text" minlength="6" maxlength="12" [(ngModel)]="pass" name='pass' class='form-control' placeholder="Actualizar Contraseña">
+                                        <input type="text" minlength="6" maxlength="12" [(ngModel)]="pass" pattern="[A-Za-z0-9]+" title="Debe ener entre 6 y 12 caracteres" name='pass' class='form-control' placeholder="Actualizar Contraseña">
                                         <div class="input-group-append">
                                           <input type="button" value="Aleatorio" (click)='aleatorio()'>
                                           </div>
@@ -83,28 +83,28 @@
                                   <button type="button" class="close" data-dismiss="alert">&times;</button>
                                   <h2>Asignatura Agregada Correctamente</h2>
                                 </div>
-                            <form  class='text-center mt-3' (submit)="agregar()"> 
+                            <form  class='text-center mt-3' (submit)="agregar()" ngNativeValidate> 
                                 <div class="form-group">
                                   <label for="nivel">Asignatura</label>
-                                  <select class="form-control" name="Asignatura" id="Asignatura" [(ngModel)]="ramo" (change)="eleccion()">
-                                    <option *ngFor="let asig of ramos" value="{{asig}}" >{{asig}}</option>
+                                  <select class="form-control" name="Asignatura" id="Asignatura" [(ngModel)]="ramo" (change)="eleccion()" required>
+                                    <option *ngFor="let asig of ramos" value="{{asig.id}}" >{{asig.nombre}}</option>
                                   </select>
                                 </div>
                                 <div class="form-group" *ngIf=(fidioma)>
                                   <label for="identificador">Idioma</label>
                                   <select class="form-control" name="Idioma" id="Idioma" [(ngModel)]="idioma">
-                                    <option *ngFor="let id of idiomas" value="{{id}}">{{id}}</option>
+                                    <option *ngFor="let id of idiomas" value="{{id.id}}">{{id.nombre}}</option>
                                   </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="Curso">Curso</label>
-                                    <select class="form-control" name="Curso" id="Curso" [(ngModel)]="curso" (change)="obtenerIdentificador()">
+                                    <select class="form-control" name="Curso" id="Curso" [(ngModel)]="curso" (change)="obtenerIdentificador()" required>
                                       <option *ngFor="let cur of cursos" value="{{cur}}">{{cur}}</option>
                                     </select>
                                   </div>
                                   <div class="form-group">
                                       <label for="Identificador">Identificador</label>
-                                      <select class="form-control" name="Identificador" id="Identificador" [(ngModel)]="identificador">
+                                      <select class="form-control" name="Identificador" id="Identificador" [(ngModel)]="identificador" required>
                                         <option *ngFor="let ident of identidicadores" value="{{ident}}">{{ident}}</option>
                                       </select>
                                     </div>

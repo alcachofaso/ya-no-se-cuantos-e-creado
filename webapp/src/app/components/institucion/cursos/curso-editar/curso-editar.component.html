@@ -65,19 +65,18 @@
                           </div>
 
 
-                      <form  class='text-center mt-3' (submit)="agregarAlumno()">
+                      <form  class='text-center mt-3' (submit)="agregarAlumno()" ngNativeValidate>
                           <div class="form-group">
                             <label for="nombre">Nombre</label><br>
-                            <input type="text" name='nombre' [(ngModel)]="nombreAlumno"  class='form-control' placeholder="Nombre"ng-required="true">
+                            <input type="text" name='nombre' [(ngModel)]="nombreAlumno"  class='form-control' placeholder="Nombre" required="true" required maxlength="45">
                           </div>
                           <div class="form-group">
                               <label for="apellido">Apellidos</label><br> 
-                              <input type="text" name='apellido' [(ngModel)]="apellidoAlumnos"  class='form-control' placeholder="Apellido"ng-required="true">
+                              <input type="text" name='apellido' [(ngModel)]="apellidoAlumnos"  class='form-control' placeholder="Apellido"ng-required="true" required="true" required maxlength="45">
                             </div>
                           <div class="form-group">
                               <label for="Rut">Rut</label><br>
-                              <input type="text" name='Rut' [(ngModel)]="rut" ng-maxlength="8" ng-minlength="8" class='form-control'placeholder="sin puntos ej: 10123456" ng-required="true">
-                              <input type="text" name='verificador' [(ngModel)]="rutVerificador" ng-maxlength="1" ng-minlength="1" class='form-control'placeholder="Codigo Verificador" ng-required="true">
+                              <input type="text" name='Rut' [(ngModel)]="rut" minlength="10" maxlength="10" class='form-control' title="Sin puntos ej: 10123456-7" placeholder="Sin puntos ej: 10123456-7" required="true">
                             </div>
                             <input type="submit" class='btn btn-warning btn-block btn-lg' value="Agregar">
                         </form>

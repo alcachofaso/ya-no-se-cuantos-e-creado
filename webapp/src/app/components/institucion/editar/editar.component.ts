@@ -42,9 +42,9 @@ export class EditarComponent implements OnInit {
   agregarTelefono()
   {
     var f = true;
-    if(this.telef.length==9){
-      if(this.telefono != null){
-        for(var a of this.telefono)
+    if(this.telef!=undefined){
+      if(this.telef.length == 9  && parseInt(this.telef))
+        {for(var a of this.telefono)
         {
           if(a == this.telef)
           {
@@ -52,13 +52,12 @@ export class EditarComponent implements OnInit {
             break;
           }
         }
-      }
       if(f){
         this.auth.agregarTelefonos(this.telef).subscribe(r=>{
           this._getTelefonos();
         });
       this.telef = "";
-      }
+      }}
     }
   }
 

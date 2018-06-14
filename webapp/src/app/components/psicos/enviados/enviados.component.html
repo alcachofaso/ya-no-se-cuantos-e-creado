@@ -1,0 +1,81 @@
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#historial">Historial</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#nuevo">Enviar Nuevo</a>
+    </li>
+  </ul>
+
+  <div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade show active" id="historial">
+        <div *ngIf="frecibido">
+            <h2 id="up">Listado de Mensajes Recibidos</h2>
+            <br>
+
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let mensaje of mensajes">
+              <!--    <div (click)="contenido(mensaje.id)">   -->
+                      <div>
+                          <h3></h3>
+                          <h6>{{mensaje.contenido}}</h6>
+                          <h6>Apoderado : {{mensaje.nombre}} {{mensaje.apellido}}</h6>
+                      </div>
+                      <div >
+                          <h5>
+                              Enviado el : {{mensaje.fecha}}
+                          </h5>
+                      </div>
+              <!--    </div>   -->
+                </li>
+              </ul>
+        </div>
+        <div class="alert alert-dismissible alert-warning" *ngIf="!frecibido">
+            <h2>
+                No haz enviado ningun mensaje
+            </h2>
+          </div>
+    </div>
+    <div class="tab-pane fade" id="nuevo">
+
+      <div *ngIf="falumnos">
+          <h2>Enviar mensaje</h2>
+          <form  class='text-center mt-3' (submit)="agregar()" ngNativeValidate>
+            <div class="form-group">
+              <label for="nivel">Curso</label>
+              <select class="form-control" name="nive" id="nive" [(ngModel)]="curso" required>
+                <option *ngFor="let nivel of cursos" value="{{nivel.id}}" >{{nivel.curso}} {{nivel.identificador}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+                <label for="Alumno">Alumno</label>
+                <select class="form-control" name="Alumno" id="profe" [(ngModel)]="alumno" required>
+                  <option *ngFor="let alumno of alumnos" value="{{alumno.id}}">{{alumno.name}} {{alumno.lastName}}</option>
+                </select>
+              </div>
+  
+              <div class="form-group">
+                  <label for="Titulo">Título Mensaje</label>
+                  <input type="text"  name='Titulo' [(ngModel)]="alumno" class='form-control' placeholder="Título del mensaje" required maxlength="40">
+                </div>
+                <div class="form-group">
+                    <label for="Contenido">Contenido Mensaje</label>
+                    <input type="text"  name='Contenido' [(ngModel)]="alumno" class='form-control' placeholder="Contenido del mensaje" required maxlength="150">
+                  </div>
+  
+              <div class="alert alert-dismissible alert-success" *ngIf="fok">
+                <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
+                <h2>Mensaje Enviado Correctamente</h2>
+              </div>
+  
+                <input type="submit" class='btn btn-warning btn-block btn-lg' value="Agregar">
+                
+            </form>
+      </div>
+
+      <div class="alert alert-dismissible alert-warning" *ngIf="!falumnos">
+          <h2>No hay ningún apoderado que utilice la aplicación aún</h2>
+        </div>
+    
+    </div>
+  </div>

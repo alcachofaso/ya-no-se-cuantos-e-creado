@@ -9,6 +9,11 @@ import { AuthService } from "../../../service/auth.service";
 export class DocenteHomeComponent implements OnInit {
 
   public listado : string[];
+
+  public idCurso : string;
+  public nombreCurso : string;
+  public identCurso : string;
+
   public fasignado : boolean;
 
   constructor(private auth : AuthService) {
@@ -22,7 +27,14 @@ export class DocenteHomeComponent implements OnInit {
 
         this.listado.push(m);
       }
+    });
+    if(!this.fasignado){
+    this.auth.infoCursdoaCargo().subscribe(r=>{
+        this.idCurso = r['id'];
+        this.nombreCurso = r['name'];
+        this.identCurso = r['identifier'];
     })
+    }
    }
 
   ngOnInit() {

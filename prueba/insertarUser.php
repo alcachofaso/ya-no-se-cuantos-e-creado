@@ -12,6 +12,7 @@ switch ($operacion) {
         $direccion=$_GET['direccion'];
         $name=$_GET['name'];
         $lastname=$_GET['lastname'];
+        $comuna=$_GET['comuna'];
 
         $e = getSQLResultSet("SELECT COUNT(id) as ID FROM `upnoticer`.`user` WHERE email = '$email';");
         while($er = mysqli_fetch_assoc($e)) {
@@ -26,8 +27,8 @@ switch ($operacion) {
                         $iduser = $r['id'];
                     }
                     
-                    $e = getSQLResultSet("INSERT INTO `upnoticer`.`institution` (`name`, `address`) 
-                    VALUES ('$institucion', '$direccion');");
+                    $e = getSQLResultSet("INSERT INTO `upnoticer`.`institution` (`name`, `address`, `comuna`) 
+                    VALUES ('$institucion', '$direccion', $comuna);");
                     
                     $e = getSQLResultSet("SELECT MAX(id) as id from `upnoticer`.`institution` ");
                     $rows = array();
@@ -39,12 +40,24 @@ switch ($operacion) {
                     VALUES ($iduser,'0',$idInstitucion);");
                     
                     getSQLResultSet("INSERT INTO `upnoticer`.`licence` (`duration`, `institution_id`) VALUES ('1', '$idInstitucion');");
+
+                    $resp['respuesta']="300";
                 }
                 else{
-                    $resp['respuesta']="el correo ya existe";
-                    echo json_encode($resp);
+                    $resp['respuesta']="200";
                 }
             }
+            echo json_encode($resp);
+        break;
+
+    case "99": // Listar Comunas
+            $insti = getSQLResultSet("SELECT `id`, `nombre` FROM `comuna`");
+            $respuesta = array();
+            while($r = mysqli_fetch_assoc($insti)) {
+                $respuesta[] = $r;
+            }
+        echo json_encode($respuesta);
+
         break;
 
 

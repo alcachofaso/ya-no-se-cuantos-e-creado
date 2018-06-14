@@ -73,6 +73,7 @@ export class DocenteMensajeCursoComponent implements OnInit {
       for(let t of r){
         this.mensajes.push(t);
       };
+      console.log("Cantidad de mensajes " + this.mensajes.length);
       if(this.mensajes.length == 0){
         this.alertMensaje = "Me tienes mensajes enviados";
         this.fmensajes = true;

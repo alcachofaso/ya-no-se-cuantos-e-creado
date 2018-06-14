@@ -12,7 +12,7 @@ export class DocenteComponent implements OnInit {
   public apellido : string;
   public institucion : string;
 
-  constructor(public authService: AuthService, public route:Router) { }
+  constructor(private authService: AuthService, private route:Router) { }
 
   ngOnInit() {
     if(this.authService.getRoleType != '1'){

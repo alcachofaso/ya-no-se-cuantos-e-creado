@@ -14,15 +14,18 @@
                           <h2>{{mensaje}}</h2>
                         </div>
 
+
+                        <form  class='text-center mt-3' (submit)="publicarTarea()" ngNativeValidate>
+
                         <div class="form-group">
                             <label for="identificador">Curso</label>
-                            <select class="form-control" name="identificador" id="Curso" [(ngModel)]="curso" (change)="cambio()">
+                            <select class="form-control" name="identificador" id="Curso" [(ngModel)]="curso" (change)="cambio()" required> 
                               <option *ngFor="let cur of cursos" value="{{cur.id}}">{{cur.name}} {{cur.identifier}}</option>
                             </select>
                           </div>
                           <div class="form-group">
                               <label for="identificador">Asignatura</label>
-                              <select class="form-control" name="identificador" id="Asignatura" [(ngModel)]="asignaturaId">
+                              <select class="form-control" name="identificador" id="Asignatura" [(ngModel)]="asignaturaId" required>
                                 <option *ngFor="let asig of asignaturas" value="{{asig.id}}">{{asig.name}}</option>
                               </select>
                             </div>
@@ -30,19 +33,22 @@
 
                     <div class="form-group">
                         <label for="Nombre">Nombre del Trabajo o Tarea</label><br>
-                        <input type="tel" name='Nombre' [(ngModel)]="titulo" class='form-control'placeholder="Nombre de evaluación">
+                        <input type="text" name='Nombre' [(ngModel)]="titulo" class='form-control'placeholder="Nombre de evaluación" required maxlength="50">
                     </div>
                     <div class="form-group">
                         <label for="Contenido">Contenido del Trabajo o Tarea</label><br>
-                        <textarea class="form-control" [(ngModel)]="Contenido" id="Contenido" rows="3" maxlength="200"></textarea>
+                        <input type="text" name='Contenido' [(ngModel)]="Contenido" class='form-control'placeholder="Nombre de evaluación" required maxlength="200">
                     </div>
                     <div class="form-group">
                         <label for="fecha">Fecha</label><br>
-                        <input type="date" name='fecha' [(ngModel)]="fecha" class='form-control'>
+                        <input type="date" name='fecha' [(ngModel)]="fecha" class='form-control' required>
                     </div>
-                  
+                    <div class="alert alert-dismissible alert-warning" *ngIf="fFecha">
+                      <h3>La fecha no puede la de hoy ni menor</h3>
+                    </div>
                       
-                    <input type="button" class='btn btn-warning btn-block btn-lg' value="Publicar Trabajo o Tarea" href="#id" (click)="publicarTarea()">
+                    <input type="submit" class='btn btn-warning btn-block btn-lg' value="Publicar Trabajo o Tarea" href="#id">
+                    </form>
 
               </div>
               <div *ngIf="!fasignado">

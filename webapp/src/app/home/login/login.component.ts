@@ -51,6 +51,12 @@ export class LoginComponent implements OnInit {
         case '1':
           this.route.navigate(["/docente"]);
           break;
+        case '2':
+          this.route.navigate(["/psico"]);
+          break;
+        case '3':
+          this.route.navigate(["/psico"]);
+          break;
      }
   }
 

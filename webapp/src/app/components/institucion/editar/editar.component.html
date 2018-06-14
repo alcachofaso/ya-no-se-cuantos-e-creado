@@ -7,15 +7,16 @@
                   <div class="card">
                     <div class="card-body">
                       <h1 class='text-center'>Actualizar Datos de la Institución</h1>
-                      <form  class='text-center mt-3' (submit)=actualizarDatos()>
+                      <form  class='text-center mt-3' (submit)=actualizarDatos() ngNativeValidate>
                         <div class="form-group">
                           <label for="nombre">Nombre</label><br>
-                          <input type="text" name='nombre' [(ngModel)]="nombre" class='form-control' placeholder="Nombre Institución">
+                          <input type="text" name='nombre' [(ngModel)]="nombre" class='form-control' placeholder="Nombre Institución" required maxlength="50">
                         </div>
                         <div class="form-group">
                             <label for="direccion">Dirección</label><br>
-                            <input type="text" name='direccion' [(ngModel)]="direccion" class='form-control'placeholder="Dirección Institución">
+                            <input type="text" name='direccion' [(ngModel)]="direccion" class='form-control'placeholder="Dirección Institución" required maxlength="50">
                           </div>
+                          <form ngNativeValidate>
                           <div class="form-group">
                               <label class="control-label">Telefono</label>
                               <div class="form-group">
@@ -23,7 +24,8 @@
                                   <div class="input-group-prepend">
                                     <span class="input-group-text">+56</span>
                                   </div>
-                                  <input type="text" minlength="9" maxlength="9" [(ngModel)]="telef" name='telef' class='form-control' placeholder="Telefono">
+                                  
+                                  <input type="text" [(ngModel)]="telef" name='telef' class='form-control' placeholder="Telefono">
                                   <div class="input-group-append">
                                     <input type="button" value="Agregar" (click)='agregarTelefono()'>
                                     </div>
@@ -33,6 +35,7 @@
                                   <h3 *ngFor='let tel of telefono'>+56 {{tel}} <i class="fas fa-trash-alt" (click)='quitarTelefono(tel)'></i></h3>
                               </div>
                             </div>
+                          </form>
                           <input type="submit" class='btn btn-warning btn-block btn-lg' value="Actualizar">
                       </form>
                     </div>
