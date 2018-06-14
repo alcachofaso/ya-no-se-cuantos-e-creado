@@ -43,7 +43,7 @@
           <form  class='text-center mt-3' (submit)="agregar()" ngNativeValidate>
             <div class="form-group">
               <label for="nivel">Curso</label>
-              <select class="form-control" name="nive" id="nive" [(ngModel)]="curso" required>
+              <select class="form-control" name="nive" id="nive" [(ngModel)]="curso" required (change)="obtenerAlumnos()">
                 <option *ngFor="let nivel of cursos" value="{{nivel.id}}" >{{nivel.curso}} {{nivel.identificador}}</option>
               </select>
             </div>
@@ -56,11 +56,11 @@
   
               <div class="form-group">
                   <label for="Titulo">Título Mensaje</label>
-                  <input type="text"  name='Titulo' [(ngModel)]="alumno" class='form-control' placeholder="Título del mensaje" required maxlength="40">
+                  <input type="text"  name='Titulo' [(ngModel)]="titulo" class='form-control' placeholder="Título del mensaje" required maxlength="40">
                 </div>
                 <div class="form-group">
                     <label for="Contenido">Contenido Mensaje</label>
-                    <input type="text"  name='Contenido' [(ngModel)]="alumno" class='form-control' placeholder="Contenido del mensaje" required maxlength="150">
+                    <input type="text"  name='Contenido' [(ngModel)]="contenido" class='form-control' placeholder="Contenido del mensaje" required maxlength="150">
                   </div>
   
               <div class="alert alert-dismissible alert-success" *ngIf="fok">

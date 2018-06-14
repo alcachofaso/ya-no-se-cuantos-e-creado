@@ -113,8 +113,8 @@ export class DocenteMensajeCursoComponent implements OnInit {
 
   enviarMensajeEspecifico(){
     this.esconder();
-    if(this.titulo != undefined && this.contenido != undefined && this.alumno.length > 0 && this.mensAnota != undefined){
-      this.auth.enviarMensajeEspecifico(this.titulo,this.contenido,'2',this.mensAnota ).subscribe(r => {
+    if(this.titulo2 != undefined && this.contenido2 != undefined && this.alumno.length > 0 && this.mensAnota != undefined){
+      this.auth.enviarMensajeEspecifico(this.titulo2,this.contenido2,'2',this.mensAnota ).subscribe(r => {
         for(let n of this.alumno){
           this.auth.enviarMensajeEspecificoAlumnosGetId(n['studentID']).subscribe(result2=>{
           this.auth.enviarMensajeEspecificoAlumnos(n['studentID'],r['mensajeID'], result2['roleId']).subscribe(result3 => {
@@ -125,6 +125,7 @@ export class DocenteMensajeCursoComponent implements OnInit {
         }
         this.alumno = new Array();
       });
+
       this.titulo2 = "";
       this.contenido2 = "";
       this.obtenerALumnos();

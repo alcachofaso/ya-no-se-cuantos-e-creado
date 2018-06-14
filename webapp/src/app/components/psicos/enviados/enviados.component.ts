@@ -28,7 +28,7 @@ export class EnviadosComponent implements OnInit {
     this.fcursos = false;
     this.falumnos = false;
     this.fok = false;
-
+    this.obtenerCursos();
 
     auth.ObtenerMensajesEnviados().subscribe(r=>{
       for(let m of r){
@@ -41,6 +41,7 @@ export class EnviadosComponent implements OnInit {
   }
 
   obtenerCursos(){
+    this.cursos = new Array();
     this.auth.obtenerCursosConApoderados().subscribe(r=>{
       for(let m of r){
         this.cursos.push(m);
@@ -51,7 +52,12 @@ export class EnviadosComponent implements OnInit {
     })
   }
 
+  buscarAlumnos(){
+    this.obtenerAlumnos();
+  }
+
   obtenerAlumnos(){
+    this.alumnos = new Array();
     this.auth.listarEstudiantes(this.curso).subscribe(r=>{
       for(let m of r){
         this.alumnos.push(m);
@@ -65,7 +71,7 @@ export class EnviadosComponent implements OnInit {
   agregar(){
     this.fok = false;
     if(this.titulo != undefined && this.contenido != undefined && this.curso != undefined && this.alumno != undefined){
-      this.auth.enviarMensajeEspecifico(this.titulo,this.contenido,'2','0').subscribe(r=>{
+      this.auth.enviarMensajeEspecifico(this.titulo,this.contenido,'2',this.auth.getRoleType).subscribe(r=>{
         this.auth.enviarMensajeEspecificoAlumnosGetId(this.alumno).subscribe(c=>{
           this.auth.enviarMensajeEspecificoAlumnos(this.alumno,r['mensajeID'],c['roleId']).subscribe(r=>{
             this.fok = true;

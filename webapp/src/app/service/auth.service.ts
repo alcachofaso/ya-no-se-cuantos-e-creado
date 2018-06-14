@@ -229,7 +229,7 @@ export class AuthService {
 ////////////////////////////Listado Todos Los alumnos de un Curso//////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   listarEstudiantes(value : string): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=10&institucion='+value);
+    console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=10&curso='+value);
       return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=10&curso='+value);
     }
 
@@ -326,7 +326,7 @@ export class AuthService {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   enviarMensajeEspecifico(titulo : string, contenido : string, include :string, type : string): Observable<any> { 
     //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=21&institucion='+this.institucionId+"&sender="+this.rolId
-    //+"&titulo="+titulo+"&contenido="+contenido);
+    //+"&titulo="+titulo+"&contenido="+contenido+"&include="+include+"&type="+type);
       return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=21&institucion='+this.institucionId+"&sender="+this.rolId
     +"&titulo="+titulo+"&contenido="+contenido+"&include="+include+"&type="+type);
     }
@@ -680,7 +680,7 @@ export class AuthService {
 //////////////////////////////////////////Obtener mensajes recividos///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ObtenerMensajesRecividos(): Observable<any> { 
-    console.log('http://localhost:80/upnoticer/prueba/psico.php?op=0&roleId='+this.rolId);
+    //console.log('http://localhost:80/upnoticer/prueba/psico.php?op=0&roleId='+this.rolId);
       return this._http.get('http://localhost:80/upnoticer/prueba/psico.php?op=0&roleId='+this.rolId);
     }
 
@@ -688,7 +688,7 @@ export class AuthService {
 //////////////////////////////////////////Obtener mensajes recividos///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ObtenerMensajesEnviados(): Observable<any> { 
-  console.log('http://localhost:80/upnoticer/prueba/psico.php?op=1&roleId='+this.rolId);
+  //console.log('http://localhost:80/upnoticer/prueba/psico.php?op=1&roleId='+this.rolId);
     return this._http.get('http://localhost:80/upnoticer/prueba/psico.php?op=1&roleId='+this.rolId);
   }
 
@@ -696,7 +696,7 @@ export class AuthService {
 //////////////////////////////////////////Obtener mensajes recividos///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 obtenerCursosConApoderados(): Observable<any> { 
-  console.log('http://localhost:80/upnoticer/prueba/psico.php?op=2&roleId='+this.institucionId);
-    return this._http.get('http://localhost:80/upnoticer/prueba/psico.php?op=2&roleId='+this.institucionId);
+  console.log('http://localhost:80/upnoticer/prueba/psico.php?op=2&institutionId='+this.institucionId);
+    return this._http.get('http://localhost:80/upnoticer/prueba/psico.php?op=2&institutionId='+this.institucionId);
   }
 }

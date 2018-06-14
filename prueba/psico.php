@@ -44,7 +44,7 @@ case 1: // listado mensajes enviados
 case 2: // Listado de cursos con alumnos asignados
     $institutionId=$_GET['institutionId'];
     $respuesta = array();
-    $insti = getSQLResultSet("SELECT grade.name AS curso, grade.identifier AS identificador FROM grade WHERE 
+    $insti = getSQLResultSet("SELECT grade.name AS curso, grade.id AS id, grade.identifier AS identificador FROM grade WHERE 
     (SELECT COUNT(student.id) FROM student, relationship, role WHERE student.id = relationship.student_id AND relationship.role_id = role.id) > 0 
     AND grade.enabled= '1' AND grade.institution_id = $institutionId;");
      if($insti != null){
