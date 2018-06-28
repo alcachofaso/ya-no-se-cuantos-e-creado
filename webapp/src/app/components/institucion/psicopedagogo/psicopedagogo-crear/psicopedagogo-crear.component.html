@@ -30,7 +30,7 @@
                   <label for="Contraseña">Contraseña</label><br>
                   <div class="form-group">
                       <div class="input-group mb-3">
-                        <input type="text" minlength="6" maxlength="12" [(ngModel)]="pass" pattern="[A-Za-z0-9]+" title="Debe ener entre 6 y 12 caracteres" name='pass' class='form-control' placeholder="Contraseña" required maxlength="20">
+                        <input type="password" minlength="6" maxlength="12" [(ngModel)]="pass" pattern="[A-Za-z0-9]+" title="Debe ener entre 6 y 12 caracteres" name='pass' class='form-control' placeholder="Contraseña" required maxlength="20">
                         <div class="input-group-append">
                           <input type="button" value="Aleatorio" (click)='aleatorio()'>
                           </div>

@@ -32,8 +32,6 @@ export class ComunicadoCursoComponent implements OnInit {
         this.cursos.push(m.name);
       }
     });
-    console.log(this.cursos.length);
-    console.log(this.cursos);
     if(this.cursos.length < 0)
     {
       this.flagSinCursos = true;

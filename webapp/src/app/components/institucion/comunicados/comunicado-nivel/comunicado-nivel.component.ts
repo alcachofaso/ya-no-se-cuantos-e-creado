@@ -56,7 +56,6 @@ export class ComunicadoNivelComponent implements OnInit {
   buscar(){
     this.auth.cantidadAlumnosCursoIdent(this.curso,'0',this.auth.getInstitutionId).subscribe(r=>{
       this.cantidad = r['Alumnos'];
-      console.log(r['Alumnos']);
       this.cantidadApederados = r['AlumnosApoderado'];
       this.fcantidad = true;
       if(parseInt(r['AlumnosApoderado']) == 0)

@@ -4,7 +4,7 @@
         <div class="card-body">
             <h2>Historial de Mensajes</h2>
             <h4>Mensajes a Comunidad completa</h4>
-            <ul class="list-group">
+            <ul class="list-group" *ngIf="fmensajesComunidad">
               <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let mensaje of mensajesComunidad">
                 <div>
                     <h5>{{mensaje.titulo}}</h5>
@@ -15,11 +15,16 @@
                 </div>
               </li>
             </ul>
+            <div class="alert alert-dismissible alert-warning" *ngIf="!fmensajesComunidad">
+              <button type="button" class="close" data-dismiss="alert" (click)="cerrar()">&times;</button>
+              <h4 class="alert-heading">No se han enviado mensajes a la comunidad escolar</h4>
+              <p class="mb-0"></p>
+            </div>
             <br>
 
             <h4>Mensajes</h4>
 
-              <ul class="list-group">
+              <ul class="list-group" *ngIf="fmensajes">
                   <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let mensaje of mensajes">
                     <div>
                         <h5>{{mensaje.titulo}}</h5>
@@ -35,6 +40,12 @@
                     </div>
                   </li>
                 </ul>
+
+                <div class="alert alert-dismissible alert-warning" *ngIf="!fmensajes">
+                  <button type="button" class="close" data-dismiss="alert" (click)="cerrar()">&times;</button>
+                  <h4 class="alert-heading">No se han enviado mensajes</h4>
+                  <p class="mb-0"></p>
+                </div>
         </div>
       </div>
     </div>

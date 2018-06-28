@@ -68,52 +68,84 @@ export class CursoAgregarComponent implements OnInit {
    }
 
    agregarAlumno(){
-     this.fRestantes = false;
-    if(this.restantes > 0){
-      if(this.alumno.trim().length > 1)
-      {
-        if(this.apellido.trim().length > 1)
+     this.esconder();
+    if(this.alumno != undefined && this.apellido != undefined && this.rut != undefined){
+      this.fRestantes = false;
+      if(this.restantes > 0){
+        if(this.alumno.trim().length > 1)
         {
-          if(this.rut.trim().length > 1)
+          if(this.apellido.trim().length > 1)
           {
-            console.log("leng " +this.alumnos.length);
-            if(this.alumnos.length != 0){
-              var ok = true;
-              for (var g of this.alumnos)
-              {
-                if(g['rut'] == this.rut)
-                {
-                  if(ok)
-                  {
-                    ok = false;
+            if(this.rut.trim().length == 10)
+            {
+              if(this.rut[8] == "-"){
+                var m = this.rut[0]+this.rut[1]+this.rut[2]+this.rut[3]+this.rut[4]+this.rut[5]+this.rut[6]+this.rut[7];
+                var cuerpo;
+                if(cuerpo = parseInt(m)){
+                  if(this.rut[9] == '0' || this.rut[9] == '1' || this.rut[9] == '2' || this.rut[9] == '3' || this.rut[9] == '4' || 
+                  this.rut[9] == '5' || this.rut[9] == '6' || this.rut[9] == '7' || this.rut[9] == '8' || this.rut[9] == '9' || 
+                  this.rut[9] == 'k'){
+
+
+                    if(this.alumnos.length != 0){
+                      var ok = true;
+                      for (var g of this.alumnos)
+                      {
+                        if(g['rut'] == this.rut)
+                        {
+                          if(ok)
+                          {
+                            ok = false;
+                          }
+                        }
+                        
+                      }
+                      if(ok){
+                        this.alumnos.push(JSON.parse('{ "nombre":"'+this.alumno+'", "apellido":"'+this.apellido+'", "rut":"'+this.rut+'"}'));
+                        this.alumno= "";
+                        this.apellido= "";
+                        this.rut = "";
+                        this.restantes--;
+                      }else{
+                        this.mensaje = "Ya ingreso a este Alumno";
+                        this.fRestantes = true;
+                      }
+                    }else{
+                      this.alumnos.push(JSON.parse('{ "nombre":"'+this.alumno+'", "apellido":"'+this.apellido+'", "rut":"'+this.rut+'"}'));
+                      this.alumno= "";
+                      this.apellido= "";
+                      this.rut = "";
+                      this.restantes--;
+                    }
+                    
+
+
+                  }else{
+                    this.mensaje = "Rut Invalido";
+                    this.fRestantes = true;
                   }
+                }else{
+                  this.mensaje = "El cuerpo del rut solo puede contener numeros";
+                  this.fRestantes = true;
                 }
-                
-              }
-              if(ok){
-                this.alumnos.push(JSON.parse('{ "nombre":"'+this.alumno+'", "apellido":"'+this.apellido+'", "rut":"'+this.rut+'"}'));
-                this.alumno= "";
-                this.apellido= "";
-                this.rut = "";
-                this.restantes--;
               }else{
-                this.mensaje = "Ya ingreso a este Alumno";
+                this.mensaje = "El rut tiene que tener un formato valido ej 12345678-9";
                 this.fRestantes = true;
               }
-          }else{
-            this.alumnos.push(JSON.parse('{ "nombre":"'+this.alumno+'", "apellido":"'+this.apellido+'", "rut":"'+this.rut+'"}'));
-                this.alumno= "";
-                this.apellido= "";
-                this.rut = "";
-                this.restantes--;
+            }else{
+              this.mensaje = "El rut tiene que tener un formato valido ej 12345678-9";
+              this.fRestantes = true;
+            }
           }
-          }
+          
         }
-        
+      }else{
+        this.mensaje = "Con la cuenta de prueba solo puedes agregar un maximo de 50 alumnos"
+        this.fRestantes = true;
       }
     }else{
-      this.mensaje = "Con la cuenta de prueba solo puedes agregar un maximo de 50 alumnos"
-      this.fRestantes = true;
+      this.mensaje = "Ingrese los datos del alumno";
+        this.fRestantes = true;
     }
    }
 
@@ -162,13 +194,13 @@ export class CursoAgregarComponent implements OnInit {
         }else{
           for (var g of this.alumnos)
           {
-            this.auth.agregarAlumnoCurso(result['id'] ,g['nombre'],g['apellido'],g['rut']).subscribe(result => {
+            var r = g['rut'][0]+g['rut'][1]+g['rut'][2]+g['rut'][3]+g['rut'][4]+g['rut'][5]+g['rut'][6]+g['rut'][7];
+            this.auth.agregarAlumnoCurso(result['id'] ,g['nombre'],g['apellido'],r).subscribe(result => {
               if(result['resultado'] != '0'){
                 if(!this.frut){
                   this.frut = true;
                 }
               }
-              
             })
           }
           if(this.frut){

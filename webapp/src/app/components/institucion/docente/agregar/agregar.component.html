@@ -4,7 +4,7 @@
         <div class="card-body">
             <div class="alert alert-dismissible alert-warning" *ngIf="flag">
                 <button type="button" class="close" data-dismiss="alert" >&times;</button>
-                <h4 class="alert-heading">Usuario Creado Exitosamente</h4>
+                <h4 class="alert-heading">{{mensaje}}</h4>
                 <p class="mb-0"></p>
               </div>
               <div class="alert alert-dismissible alert-primary" *ngIf="warning">
@@ -30,7 +30,7 @@
                   <label for="Contraseña">Contraseña</label><br>
                   <div class="form-group">
                       <div class="input-group mb-3">
-                        <input type="text" minlength="6" maxlength="12" [(ngModel)]="pass" title="Debe ener entre 6 y 12 caracteres" pattern="[A-Za-z0-9]+" name='pass' class='form-control' placeholder="Contraseña" required>
+                        <input type="password" minlength="6" maxlength="12" [(ngModel)]="pass" title="Debe ener entre 6 y 12 caracteres" pattern="[A-Za-z0-9]+" name='pass' class='form-control' placeholder="Contraseña" required>
                         <div class="input-group-append">
                           <input type="button" value="Aleatorio" (click)='aleatorio()'>
                           </div>

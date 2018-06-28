@@ -17,6 +17,7 @@
                       <div>
                           <h5>{{docente.nombre}} {{docente.apellido}}</h5>
                           <h6>Asignaturas Impartidas :  {{docente.asignaturas}}</h6>
+                          <h6>{{docente.email}}</h6>
                       </div>
                       <div>
                           <h2>
@@ -49,6 +50,7 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let psicologo of listadoPsico">
                         <div>
                             <h5>{{psicologo.nombre}} {{psicologo.apellido}}</h5>
+                            <h6>{{psicologo.email}}</h6>
                         </div>
                         <div>
                             <h2>
@@ -78,6 +80,7 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let psicopedagogo of listaPsicopeda">
                         <div>
                             <h5>{{psicopedagogo.nombre}} {{psicopedagogo.apellido}}</h5>
+                            <h6>{{psicopedagogo.email}}</h6>
                         </div>
                         <div>
                             <h2>

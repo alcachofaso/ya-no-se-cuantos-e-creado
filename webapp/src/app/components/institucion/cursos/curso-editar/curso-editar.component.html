@@ -76,7 +76,7 @@
                             </div>
                           <div class="form-group">
                               <label for="Rut">Rut</label><br>
-                              <input type="text" name='Rut' [(ngModel)]="rut" minlength="10" maxlength="10" class='form-control' title="Sin puntos ej: 10123456-7" placeholder="Sin puntos ej: 10123456-7" required="true">
+                              <input type="text" name='Rut' [(ngModel)]="rut" minlength="10" maxlength="10" class='form-control'  pattern="\d{3,8}-[\d|kK]{1}" title="Sin puntos ej: 10123456-7" placeholder="Sin puntos ej: 10123456-7" required="true">
                             </div>
                             <input type="submit" class='btn btn-warning btn-block btn-lg' value="Agregar">
                         </form>

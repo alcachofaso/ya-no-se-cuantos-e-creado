@@ -14,32 +14,32 @@ switch ($operacion) {
         $lastname=$_GET['lastname'];
         $comuna=$_GET['comuna'];
 
-        $e = getSQLResultSet("SELECT COUNT(id) as ID FROM `upnoticer`.`user` WHERE email = '$email';");
+        $e = getSQLResultSet("SELECT COUNT(id) as ID FROM `upnotice_upnoticer`.`user` WHERE email = '$email';");
         while($er = mysqli_fetch_assoc($e)) {
                 if($er['ID'] == 0)
                 {
-                    $e = getSQLResultSet("INSERT INTO `upnoticer`.`user` (`email`, `password`, `name`, `lastname`) 
-                    VALUES ('$email',' $pass', '$name', '$lastname');");
+                    $e = getSQLResultSet("INSERT INTO `upnotice_upnoticer`.`user` (`email`, `password`, `name`, `lastname`) 
+                    VALUES ('$email','$pass', '$name', '$lastname');");
                     
-                    $e = getSQLResultSet("SELECT MAX(id) as id from `upnoticer`.`user` ");
+                    $e = getSQLResultSet("SELECT MAX(id) as id from `upnotice_upnoticer`.`user` ");
                     $rows = array();
                     while($r = mysqli_fetch_assoc($e)) {
                         $iduser = $r['id'];
                     }
                     
-                    $e = getSQLResultSet("INSERT INTO `upnoticer`.`institution` (`name`, `address`, `comuna`) 
+                    $e = getSQLResultSet("INSERT INTO `upnotice_upnoticer`.`institution` (`name`, `address`, `comuna`) 
                     VALUES ('$institucion', '$direccion', $comuna);");
                     
-                    $e = getSQLResultSet("SELECT MAX(id) as id from `upnoticer`.`institution` ");
+                    $e = getSQLResultSet("SELECT MAX(id) as id from `upnotice_upnoticer`.`institution` ");
                     $rows = array();
                     while($r = mysqli_fetch_assoc($e)) {
                         $idInstitucion = $r['id'];
                     }
                     
-                    getSQLResultSet("INSERT INTO `upnoticer`.`role`(`user_id`, `type`, `institution_id`) 
+                    getSQLResultSet("INSERT INTO `upnotice_upnoticer`.`role`(`user_id`, `type`, `institution_id`) 
                     VALUES ($iduser,'0',$idInstitucion);");
                     
-                    getSQLResultSet("INSERT INTO `upnoticer`.`licence` (`duration`, `institution_id`) VALUES ('1', '$idInstitucion');");
+                    getSQLResultSet("INSERT INTO `upnotice_upnoticer`.`licence` (`duration`, `institution_id`) VALUES ('1', '$idInstitucion');");
 
                     $resp['respuesta']="300";
                 }
@@ -68,9 +68,9 @@ switch ($operacion) {
         $dEmail = $_GET['dEmail'];
         $pass = $_GET['pass'];
         $contrato = $_GET['contrato'];
-        $e = getSQLResultSet("INSERT INTO `upnoticer`.`user` (`email`, `name`, `lastname`) 
+        $e = getSQLResultSet("INSERT INTO `upnotice_upnoticer`.`user` (`email`, `name`, `lastname`) 
         VALUES ('$dEmail', '$name', '$lastname');");
-        $e = getSQLResultSet("SELECT MAX(id) as id from `upnoticer`.`user` ");
+        $e = getSQLResultSet("SELECT MAX(id) as id from `upnotice_upnoticer`.`user` ");
         $rows = array();
         while($r = mysqli_fetch_assoc($e)) {
             $iduser = $r['id'];
@@ -80,38 +80,49 @@ switch ($operacion) {
         while($r = mysqli_fetch_assoc($e)) {
             $InId = $r['instId'];
         }
-        getSQLResultSet("INSERT INTO `upnoticer`.`role`(`user_id`, `type`, `date_contract`, `institution_id`) 
+        getSQLResultSet("INSERT INTO `upnotice_upnoticer`.`role`(`user_id`, `type`, `date_contract`, `institution_id`) 
         VALUES ($iduser,'1',$contrato,$idInstitucion);");
 
 
           break;
-    case "2": //login
+    case "2": //login informacion usuario
         $email=$_GET['email'];
         $pass = $_GET['pass'];
         $respuesta = array();
-        $e = getSQLResultSet("SELECT user.id AS userId, user.email AS userEmail, user.name AS userName,
-         user.lastname AS userLast, user.enabled AS userEnable, role.id AS rolId, role.type AS roleType, 
-         role.enabled AS roleEnable, institution.id AS institucionId, institution.name AS intitutionName, 
-         institution.address AS institutionAddress, institution.enabled AS intitutionEnable, 
-         DATE(licence.origin) AS inicioLicencia, licence.duration AS duracionLicence 
-         FROM `upnoticer`.`user`, `upnoticer`.`role`, `upnoticer`.`institution`, `upnoticer`.`licence` 
-         WHERE user.email = '$email' AND user.password = ' $pass' AND user.enabled = '1' AND user.id = role.user_id AND 
-         institution.id = role.institution_id AND licence.institution_id = institution.id;");
+        $e = getSQLResultSet("SELECT user.id AS userId, user.email AS userEmail, user.name AS userName, user.lastname AS userLast, 
+        user.enabled AS userEnable FROM user WHERE user.email = '$email' AND user.password = '$pass' AND user.enabled = '1';");
          while($r = mysqli_fetch_assoc($e)) {
             $respuesta['userId'] = $r['userId'];
             $respuesta['userEmail'] = $r['userEmail'];
             $respuesta['userName'] = $r['userName'];
             $respuesta['userLast'] = $r['userLast'];
             $respuesta['userEnable'] = $r['userEnable'];
-            $respuesta['rolId'] = $r['rolId'];
-            $respuesta['roleType'] = $r['roleType'];
-            $respuesta['roleEnable'] = $r['roleEnable'];
-            $respuesta['institucionId'] = $r['institucionId'];
-            $respuesta['intitutionName'] = $r['intitutionName'];
-            $respuesta['institutionAddress'] = $r['institutionAddress'];
-            $respuesta['intitutionEnable'] = $r['intitutionEnable'];
-            $respuesta['inicioLicencia'] = $r['inicioLicencia'];
-            $respuesta['duracionLicence'] = $r['duracionLicence'];
+        }
+        echo json_encode($respuesta);
+        $respuesta = null;
+        break;
+
+    case "22": //login informacion institucion
+        $userId=$_GET['id'];
+        $respuesta = array();
+        $e = getSQLResultSet("SELECT DISTINCT(institution.id) AS id, institution.name AS name, institution.address AS address 
+        FROM institution, role, licence WHERE institution.enabled = '1' AND institution.id = licence.institution_id AND 
+        institution.id = role.institution_id AND role.user_id = $userId;");
+         while($r = mysqli_fetch_assoc($e)) {
+             $respuesta[] = $r;
+        }
+        echo json_encode($respuesta);
+        $respuesta = null;
+        break;
+
+    case "222": //login informacion institucion
+        $userId=$_GET['userId'];
+        $instiId=$_GET['instiId'];
+        $respuesta = array();
+        $e = getSQLResultSet("SELECT role.id AS id, role.type AS type FROM role WHERE role.enabled = '1' AND 
+        role.user_id = $userId AND role.institution_id = $instiId;");
+         while($r = mysqli_fetch_assoc($e)) {
+             $respuesta[] = $r;
         }
         echo json_encode($respuesta);
         $respuesta = null;
@@ -119,28 +130,40 @@ switch ($operacion) {
 
     case "3": //Agregar Trabasjadores
         $dEmail = $_GET['dEmail'];
-        $e = getSQLResultSet("SELECT COUNT(id) as ID FROM `upnoticer`.`user` WHERE email = '$dEmail';");
+        $insitution=$_GET['insitution'];
+        $nombre = $_GET['nombre'];
+        $apellido = $_GET['apellido'];
+        $pass = $_GET['pass'];
+        $type = $_GET['type'];
+        $contrato = $_GET['contrato'];
+
+        $e = getSQLResultSet("SELECT id FROM `upnotice_upnoticer`.`user` WHERE email = '$dEmail';");
         while($er = mysqli_fetch_assoc($e)) {
-            if($er['ID'] == 0)
+            if($er['id'] == null)
             {
-                $insitution=$_GET['insitution'];
-                $nombre = $_GET['nombre'];
-                $apellido = $_GET['apellido'];
-                $pass = $_GET['pass'];
-                $type = $_GET['type'];
-                $contrato = $_GET['contrato'];
-                $e = getSQLResultSet("INSERT INTO `upnoticer`.`user` (`email`, `password`, `name`, `lastname`) 
+                $e = getSQLResultSet("INSERT INTO `upnotice_upnoticer`.`user` (`email`, `password`, `name`, `lastname`) 
                 VALUES ('$dEmail',' $pass', '$nombre', '$apellido');");
-                $e = getSQLResultSet("SELECT MAX(id) as id from `upnoticer`.`user` ");
+                $e = getSQLResultSet("SELECT MAX(id) as id from `upnotice_upnoticer`.`user` ");
                 $rows = array();
                 while($r = mysqli_fetch_assoc($e)) {
                     $iduser = $r['id'];
                 }
-                getSQLResultSet("INSERT INTO `upnoticer`.`role`(`user_id`, `type`, `date_contract`, `institution_id`) 
+                getSQLResultSet("INSERT INTO `upnotice_upnoticer`.`role`(`user_id`, `type`, `date_contract`, `institution_id`) 
                 VALUES ($iduser,$type,'$contrato',$insitution);");
                 $resp['respuesta']= "200";
             }else{
-                $resp['respuesta']= "300";
+                $i = $er['id'];
+                $r = getSQLResultSet("SELECT COUNT(id) AS ID FROM role WHERE role.user_id = $i AND role.type = $type AND role.enabled = '1';");
+                while($re = mysqli_fetch_assoc($r)) {
+                    if($re['ID'] == 0)
+                    {
+                        getSQLResultSet("INSERT INTO `upnotice_upnoticer`.`role`(`user_id`, `type`, `date_contract`, `institution_id`) 
+                        VALUES ($i,$type,'$contrato',$insitution);");
+                        $resp['respuesta']= "3";
+                    }else{
+                        $resp['respuesta']= "400";
+                    }
+                }
             }
         }
         echo json_encode($resp);

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../../../service/auth.service";
+import { SendEmailService } from "../../../../service/send-email.service";
 
 @Component({
   selector: 'app-psicologo-crear',
@@ -17,7 +18,7 @@ export class PsicologoCrearComponent implements OnInit {
   public mensaje:string;
   public warning: boolean;
 
-  constructor(private auth :AuthService) {
+  constructor(private auth :AuthService, private _email : SendEmailService) {
     this.flag= false;
     this.warning = false;
    }
@@ -30,26 +31,39 @@ export class PsicologoCrearComponent implements OnInit {
     if(this.nombre!= null && this.apellido!= null, this.email!= null && this.pass!=null){
       this.auth.agregarDocente(this.nombre,this.apellido,this.email,this.pass,this.contract,'2').subscribe(result =>{
         if(result.respuesta == "200"){
+          this._email.createAccount(this.email,this.pass,'2','0', null).subscribe(r=>r);
           this.flag = true;
-          this.nombre = "";
-          this.apellido = "";
-          this.email = "";
-          this.pass = "";
-          this.contract = null;
+          this.mensaje = "Cuenta creada exitosamente";
+          this.limpiarCampos();
         }
         else{
           if(result.respuesta == "300"){
-          this.mensaje = "El Correo "+this.email+" ya esta en uso";
-          this.warning = true;
-          this.pass = "";
+            this._email.createAccount(this.email,this.pass,'2','2', null).subscribe(r=>r);
+            this.mensaje = "Cuenta creada exitosamente";
+            this.warning = true;
+            this.pass = "";
+            this.limpiarCampos();
+          }else{
+            if(result.respuesta == "400"){
+              this.mensaje = "El Correo "+this.email+" ya tiene asociada una cuenta del tipo Psicólogo";
+              this.warning = true;
+              this.pass = "";
           }
         }
-          
+      }   
       })
     }else{
       this.mensaje = "Ingrese Los Datos Requeridos";
       this.warning = true;
     }
+  }
+
+  limpiarCampos(){
+    this.nombre = "";
+    this.apellido = "";
+    this.email = "";
+    this.pass = "";
+    this.contract = null;
   }
 
   esconder(){

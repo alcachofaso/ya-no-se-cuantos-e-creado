@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../service/auth.service";
+import { SendEmailService } from "../../service/send-email.service";
 
 @Component({
   selector: 'app-register',
@@ -40,7 +41,7 @@ export class RegisterComponent implements OnInit {
 
 
 
-  constructor( private authService: AuthService) { 
+  constructor( private authService: AuthService, private email : SendEmailService) { 
   this.mayusculas = "QWERTYUIOPÑLKJHGFDSAZXCVBNM";//
   this.minusculas = "qazxswedcvfrtgbnhyujmkiopñl";// CONJUNTO DE CARACTERES PERMITIDOS
   this.numeros = "9513782640";                    //
@@ -189,6 +190,7 @@ export class RegisterComponent implements OnInit {
             {this.fEmailExistente = true;}
           else
             {this.registroCorrecto = true;
+              this.email.createAccount(this.Email,this.pass,'0','0',this.institucion).subscribe(r=>r);
               this.Email = undefined;
               this.pass = undefined;
               this.name = undefined;

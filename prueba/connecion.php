@@ -4,7 +4,7 @@ header ('Content-type: text/html; charset=utf-8');
 
 function ejecutarSQLCommand($commando){
  
-  $mysqli = new mysqli("localhost", "root", "", "upnoticer");
+  $mysqli = new mysqli("localhost:3306", "upnotice", "S845EGp5)*Kcex", "upnotice_upnoticer");
   
 $mysqli->query("SET NAMES 'utf8'"); 
 $mysqli->query("SET CHARACTER SET utf8");  
@@ -33,7 +33,7 @@ $mysqli->close();
 function getSQLResultSet($commando){
  
  
-  $mysqli = new mysqli("localhost", "root", "", "upnoticer");
+  $mysqli = new mysqli("localhost:3306", "upnotice", "S845EGp5)*Kcex", "upnotice_upnoticer");
   
   $mysqli->query("SET NAMES 'utf8'"); 
 $mysqli->query("SET CHARACTER SET utf8");  

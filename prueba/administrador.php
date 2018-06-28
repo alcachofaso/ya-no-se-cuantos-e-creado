@@ -68,7 +68,7 @@ switch ($operacion) {
         break;
 
     case 99: // Listar Asignaturas
-            $insti = getSQLResultSet("SELECT `id`, `nombre` FROM `subjectname`");
+            $insti = getSQLResultSet("SELECT `id`, `nombre` FROM `subjectName`");
             $respuesta = array();
             while($r = mysqli_fetch_assoc($insti)) {
                 $respuesta[] = $r;
@@ -101,14 +101,14 @@ switch ($operacion) {
         $instiID=$_GET['institution'];
         $nombre = $_GET['nombre'];
         $direccion = $_GET['direccion'];
-            $ex = getSQLResultSet("UPDATE `upnoticer`.`institution` SET name='$nombre',address='$direccion' WHERE `id` = $instiID;");
+            $ex = getSQLResultSet("UPDATE `upnotice_upnoticer`.`institution` SET name='$nombre',address='$direccion' WHERE `id` = $instiID;");
         break;
         
         
     case 4://insertar telefonos
         $institucion=$_GET['institucion'];
         $telefono=$_GET['telefono'];
-        $e = getSQLResultSet("INSERT INTO `upnoticer`.`phone`(`institution_id`, `phone`) VALUES ($institucion, '$telefono');");
+        $e = getSQLResultSet("INSERT INTO `upnotice_upnoticer`.`phone`(`institution_id`, `phone`) VALUES ($institucion, '$telefono');");
         break;
 
     case 44://listar telefonos
@@ -143,7 +143,7 @@ switch ($operacion) {
         $institucion=$_GET['institucion'];
         $telefono=$_GET['telefono'];
         $telefonos = array();
-        $e = getSQLResultSet("DELETE FROM `upnoticer`.`phone` WHERE `institution_id`= '$institucion' AND `phone` ='$telefono';");
+        $e = getSQLResultSet("DELETE FROM `upnotice_upnoticer`.`phone` WHERE `institution_id`= '$institucion' AND `phone` ='$telefono';");
         echo json_encode("Eliminado $telefono");
         break;
 
@@ -174,7 +174,7 @@ switch ($operacion) {
         while($m = mysqli_fetch_assoc($e)) {
             if($m['ID'] == 0)
             {
-                $e = getSQLResultSet("INSERT INTO `upnoticer`.`grade` (`name`, `identifier`, `institution_id`, `teacher`) 
+                $e = getSQLResultSet("INSERT INTO `upnotice_upnoticer`.`grade` (`name`, `identifier`, `institution_id`, `teacher`) 
                 VALUES ('$nivel','$identificador',$insitucion,$profesor);");
                 $e = getSQLResultSet("SELECT MAX(id) AS id FROM grade WHERE grade.institution_id = $insitucion;");
                 while($m = mysqli_fetch_assoc($e)) {
@@ -198,8 +198,7 @@ switch ($operacion) {
         while($m = mysqli_fetch_assoc($ex)) {
             if($m['cantidad'] == '0')
             {
-                $e = getSQLResultSet("INSERT INTO `student`(`rut`, `name`, `lastName`, `grade_id`) 
-                VALUES ('$rut','$nombre','$apellido',$curso);");
+                $e = getSQLResultSet("INSERT INTO `student`(`rut`, `name`, `lastName`, `grade_id`) VALUES ('$rut','$nombre','$apellido',$curso);");
             }else{
                 $c=$c+1;
             }
@@ -501,7 +500,23 @@ switch ($operacion) {
         break;
 
 
-    case 24://si puede editar a un docente 
+    case 24://si puede editar a un Curso
+        $institucion = $_GET['institucion'];
+        $roleId = $_GET['roleId'];
+        $gradeId = $_GET['gradeId'];
+        $ex = getSQLResultSet("SELECT COUNT(role.id) AS id FROM role,grade  WHERE role.institution_id = $institucion AND role.id = $roleId AND grade.id= $gradeId AND grade.institution_id = $institucion;");
+        while($m = mysqli_fetch_assoc($ex)) {
+            if($m['id'] == '1'){
+                $respuesta['resultado']="300";
+            }
+            else{
+                $respuesta['resultado']="200";
+            }
+        }
+        echo json_encode($respuesta);
+        break;
+        
+    case 241://si puede editar a un docente 
         $institucion = $_GET['institucion'];
         $roleId = $_GET['roleId'];
         $ex = getSQLResultSet("SELECT COUNT(role.id) AS id FROM role WHERE role.institution_id = $institucion AND role.id = $roleId;");
@@ -526,8 +541,8 @@ switch ($operacion) {
         while($m = mysqli_fetch_assoc($ex)) {
             if($m['cantidad'] != '0'){
                 $e = getSQLResultSet("SELECT grade.name AS curso, grade.identifier AS identificador, 
-                subjectname.nombre AS ramo, subject.id AS gradeId FROM grade, subject, subjectname WHERE subject.role_id = $roleId 
-                AND grade.institution_id = $institucion AND grade.id = subject.grade_id AND grade.enabled = '1' AND subject.enabled = '1' AND subject.subjectName = subjectname.id
+                subjectName.nombre AS ramo, subject.id AS gradeId FROM grade, subject, subjectName WHERE subject.role_id = $roleId 
+                AND grade.institution_id = $institucion AND grade.id = subject.grade_id AND grade.enabled = '1' AND subject.enabled = '1' AND subject.subjectName = subjectName.id
                  ORDER BY grade.name, grade.identifier");
                 while($x = mysqli_fetch_assoc($e)) {
                     $respuesta[]=$x;
@@ -596,8 +611,19 @@ switch ($operacion) {
     case 299://Actualizar pass
         $userId = $_GET['userId'];
         $pass = $_GET['pass'];
-        $ex = getSQLResultSet("UPDATE `user` SET `password`= '$pass' WHERE `id` = $userId;");
-        echo json_encode($ex);
+        $respuesta = array();
+        $ex = getSQLResultSet("SELECT password, email FROM user WHERE id = $userId;");
+        while($m = mysqli_fetch_assoc($ex)) {
+            if($m['password'] != $pass){
+                $mm = getSQLResultSet("UPDATE `user` SET `password`= '$pass' WHERE `id` = $userId;");
+                $respuesta['respuesta'] = "200";
+                $respuesta['email'] = $m['email'];
+            }else{
+                $respuesta['respuesta'] = "300";
+            }
+         }
+        
+        echo json_encode($respuesta);
         break;
 
     case 30://obtener cantidad de titulos
@@ -655,7 +681,7 @@ switch ($operacion) {
         $institucion = $_GET['institucion'];
         $ex = getSQLResultSet("SELECT grade.name AS cursoNombre, grade.identifier AS cursoIdent,user.name AS profeNombre, user.lastname 
         AS profeApellido, (SELECT COUNT(id) FROM subject WHERE subject.grade_id = grade.id AND subject.enabled = '1') AS cantidadAsig,
-         (SELECT COUNT(id) FROM student WHERE student.grade_id = grade.id) AS cantidad FROM grade, role, user WHERE grade.enabled = '1' 
+         (SELECT COUNT(id) FROM student WHERE student.grade_id = grade.id AND student.enabled = '1') AS cantidad FROM grade, role, user WHERE grade.enabled = '1' 
          AND grade.teacher = role.id AND role.user_id = user.id AND grade.id = $cursoId AND grade.institution_id = $institucion;");
         while($m = mysqli_fetch_assoc($ex)) {
             $respuesta = $m;
@@ -676,9 +702,9 @@ switch ($operacion) {
     case 35://obtener Listado asignaturas curso
         $cursoId = $_GET['cursoId'];
         $result = array();
-        $ex = getSQLResultSet("SELECT subjectname.nombre AS asignatura, user.name AS profeNombre, user.lastname AS profeApellido 
-        FROM subject, role, user , subjectname WHERE user.id = role.user_id AND role.id = subject.role_id AND subject.grade_id = $cursoId 
-        AND subject.enabled = '1' AND role.enabled = '1' AND subject.subjectName = subjectname.id ORDER BY subjectname.nombre;");
+        $ex = getSQLResultSet("SELECT subjectName.nombre AS asignatura, user.name AS profeNombre, user.lastname AS profeApellido 
+        FROM subject, role, user , subjectName WHERE user.id = role.user_id AND role.id = subject.role_id AND subject.grade_id = $cursoId 
+        AND subject.enabled = '1' AND role.enabled = '1' AND subject.subjectName = subjectName.id ORDER BY subjectName.nombre;");
         if( $ex != null){
         while($m = mysqli_fetch_assoc($ex)) {
             

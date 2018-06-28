@@ -116,30 +116,35 @@ export class AuthService {
 
 
   getTelefono(): Observable<any>{
-    return this._http.get('http://localhost/upnoticer/prueba/administrador.php?op=44&institucion='+this.institucionId);
+    return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=44&institucion='+this.institucionId);
   }
   
   obtenerComunas(): Observable<any>{
-    return this._http.get('http://localhost/upnoticer/prueba/insertarUser.php?op=99');
+    return this._http.get('http://www.upnoticer.com/prueba/insertarUser.php?op=99');
   }
 
   obtenerAsignaturas(): Observable<any>{
-    return this._http.get('http://localhost/upnoticer/prueba/administrador.php?op=99&institucion='+this.institucionId);
+    return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=99');
   }
 
   signInEmail(email: string, password:string): Observable<any>{
-    return this._http.get('http://localhost/upnoticer/prueba/insertarUser.php?op=2&email='+
-    email+"&pass="+password);
+    return this._http.get('http://www.upnoticer.com/prueba/insertarUser.php?op=2&email='+email+"&pass="+password);
+  }
+  signInEmailInstitucion(): Observable<any>{
+    return this._http.get('http://www.upnoticer.com/prueba/insertarUser.php?op=22&id='+this.userId);
+  }
+  signInEmailRole(): Observable<any>{
+    return this._http.get('http://www.upnoticer.com/prueba/insertarUser.php?op=222&userId='+this.userId+"&instiId="+this.institucionId);
   }
 
   agregarTelefonos(telefono:string): Observable<any>{
-   //console.log('http://localhost/upnoticer/prueba/administrador.php?op=4&institucion='+this.institucionId+"&telefono="+telefono);
-    return this._http.get('http://localhost/upnoticer/prueba/administrador.php?op=4&institucion='+this.institucionId+"&telefono="+telefono);
+   //console.log('http://www.upnoticer.com/prueba/administrador.php?op=4&institucion='+this.institucionId+"&telefono="+telefono);
+    return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=4&institucion='+this.institucionId+"&telefono="+telefono);
   }
 
   quitarTelefonos(telefono:string): Observable<any>{
-   //console.log('http://localhost/upnoticer/prueba/administrador.php?op=6&institucion='+this.institucionId+"&telefono="+telefono);
-    return this._http.get('http://localhost/upnoticer/prueba/administrador.php?op=6&institucion='+this.institucionId+"&telefono="+telefono);
+   //console.log('http://www.upnoticer.com/prueba/administrador.php?op=6&institucion='+this.institucionId+"&telefono="+telefono);
+    return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=6&institucion='+this.institucionId+"&telefono="+telefono);
   }
 
   singOut(){
@@ -149,17 +154,17 @@ export class AuthService {
 
   ingresarRegistro(name: string, lastname: string, email : string, institucion : string, direccion : string, pass : string, comuna : string): Observable<any>{
      
-    return this._http.get("http://localhost:80/upnoticer/prueba/insertarUser.php?op=0&name="+name+
+    return this._http.get("http://www.upnoticer.com/prueba/insertarUser.php?op=0&name="+name+
     "&lastname="+lastname+"&email="+email+"&pass="+pass+"&comuna="+comuna+"&institucion="+institucion+"&direccion="+direccion);
         
   }
 
   homeAdministrador(): Observable<any> {
-    return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=0&institution='+this.institucionId);
+    return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=0&institution='+this.institucionId);
   }
 
   editarAdministrador(): Observable<any> {
-    return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=1&institution='+this.institucionId);
+    return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=1&institution='+this.institucionId);
   }
 
 
@@ -169,109 +174,109 @@ export class AuthService {
     {
       this.setInstitutionName(nombre);
       this.setIntitutionAddress(direccion);
-      //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=3&institution='+this.institucionId+"&nombre="+nombre+"&direccion="+direccion);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=3&institution='+this.institucionId+"&nombre="+nombre+"&direccion="+direccion);
+      //console.log('http://www.upnoticer.com/prueba/administrador.php?op=3&institution='+this.institucionId+"&nombre="+nombre+"&direccion="+direccion);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=3&institution='+this.institucionId+"&nombre="+nombre+"&direccion="+direccion);
     
     }
   }
 
   updateAdministradortelefono(telefono : string): Observable<any> {
-    return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=4&institution='+this.institucionId+"&telefono="+telefono);
+    return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=4&institution='+this.institucionId+"&telefono="+telefono);
   }
 
   listarDocentes(type : string): Observable<any> {
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=5&institucion='+this.institucionId+"&type="+type);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=5&institucion='+this.institucionId+"&type="+type);
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=5&institucion='+this.institucionId+"&type="+type);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=5&institucion='+this.institucionId+"&type="+type);
     }
   listarDocentesSinCursosAsignados(): Observable<any> { //Que no esta asignado a ningun curso
-      //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=7&institucion='+this.institucionId);
-        return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=7&institucion='+this.institucionId);
+      //console.log('http://www.upnoticer.com/prueba/administrador.php?op=7&institucion='+this.institucionId);
+        return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=7&institucion='+this.institucionId);
       }
 
   agregarDocente(nombre : string, apellido : string, email : string, pass : string, contrato: string, type : string): Observable<any> {
-    return this._http.get('http://localhost:80/upnoticer/prueba/insertarUser.php?op=3&insitution='+this.institucionId+
+    return this._http.get('http://www.upnoticer.com/prueba/insertarUser.php?op=3&insitution='+this.institucionId+
       "&nombre="+nombre+"&apellido="+apellido+"&dEmail="+email+"&pass="+pass+"&contrato="+contrato+"&type="+type);
     
   }
 
   agregarCurso(nivel : string, identificador : string, profesor : string): Observable<any> {
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=8&insitution='+this.institucionId+
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=8&insitution='+this.institucionId+
     //"&nivel="+nivel+"&identificador="+identificador+"&profesor="+profesor);
-  return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=8&insitution='+this.institucionId+
+  return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=8&insitution='+this.institucionId+
     "&nivel="+nivel+"&identificador="+identificador+"&profesor="+profesor);
   }
   agregarAlumnoCurso(curso : string, nombre : string, apelido : string, rut : string): Observable<any> {
-  //  console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=88&curso='+curso+
-  //  "&nombre="+nombre+"&apellido="+apelido);
-    return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=88&curso='+curso+
+   // console.log('http://www.upnoticer.com/prueba/administrador.php?op=88&curso='+curso+
+    //  "&nombre="+nombre+"&apellido="+apelido+"&rut="+rut);
+    return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=88&curso='+curso+
       "&nombre="+nombre+"&apellido="+apelido+"&rut="+rut);
   }
 
   actualizarDatosAlumno(nombre : string, apelido : string, alumnoId : string): Observable<any> {
-   // console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=888&nombre='+nombre+'&apellido='+apelido+'&alumnoId='+alumnoId);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=888&nombre='+nombre+'&apellido='+apelido+'&alumnoId='+alumnoId);
+   // console.log('http://www.upnoticer.com/prueba/administrador.php?op=888&nombre='+nombre+'&apellido='+apelido+'&alumnoId='+alumnoId);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=888&nombre='+nombre+'&apellido='+apelido+'&alumnoId='+alumnoId);
     }
 
   EliminarALumnoCurso(alumnoId : string): Observable<any> {
-    //  console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=8888&alumnoId='+alumnoId);
-        return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=8888&alumnoId='+alumnoId);
+    //  console.log('http://www.upnoticer.com/prueba/administrador.php?op=8888&alumnoId='+alumnoId);
+        return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=8888&alumnoId='+alumnoId);
       }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////Listar Todos Los Cursos////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   listarCursos(): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=9&institucion='+this.institucionId);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=9&institucion='+this.institucionId);
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=9&institucion='+this.institucionId);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=9&institucion='+this.institucionId);
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////Listado Todos Los alumnos de un Curso//////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   listarEstudiantes(value : string): Observable<any> { 
-    console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=10&curso='+value);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=10&curso='+value);
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=10&curso='+value);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=10&curso='+value);
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////Eliminar Todos Los alumnos de un Curso/////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   eliminarEstudiantes(value : string): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=11&id='+value);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=11&id='+value);
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=11&id='+value);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=11&id='+value);
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////Eliminar  un Curso//////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   eliminarCurso(value : string): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=12&id='+value);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=12&id='+value);
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=12&id='+value);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=12&id='+value);
     }
     
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////Listar Mensajes//////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   listarMensajes(): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=13&id='+this.rolId);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=13&id='+this.rolId);
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=13&id='+this.rolId);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=13&id='+this.rolId);
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////Listar Mensajes Comunidad/////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   listarMensajesComunidad(): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=14&id='+this.rolId+"&institucion="+this.institucionId);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=14&id='+this.rolId+"&institucion="+this.institucionId);
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=14&id='+this.rolId+"&institucion="+this.institucionId);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=14&id='+this.rolId+"&institucion="+this.institucionId);
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////Envir mensajes comunidad////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   enviarMensajeComunidad(titulo : string, contenido : string): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=15&institucion='+this.institucionId+"&sender="+this.rolId
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=15&institucion='+this.institucionId+"&sender="+this.rolId
    // +"&titulo="+titulo+"&contenido="+contenido);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=15&institucion='+this.institucionId+"&sender="+this.rolId
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=15&institucion='+this.institucionId+"&sender="+this.rolId
     +"&titulo="+titulo+"&contenido="+contenido);
     }
 
@@ -279,17 +284,17 @@ export class AuthService {
 ////////////////////////////////////Listar c ursos existentes//////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   listarCursosExistentes(): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=16&institucion='+this.institucionId);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=16&institucion='+this.institucionId);
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=16&institucion='+this.institucionId);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=16&institucion='+this.institucionId);
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////Envir mensajes NIVEL////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   enviarMensajeNivel(titulo : string, contenido : string, curso : string): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=17&institucion='+this.institucionId+"&sender="+this.rolId
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=17&institucion='+this.institucionId+"&sender="+this.rolId
     //+"&titulo="+titulo+"&contenido="+contenido+"&curso="+curso);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=17&institucion='+this.institucionId+"&sender="+this.rolId
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=17&institucion='+this.institucionId+"&sender="+this.rolId
     +"&titulo="+titulo+"&contenido="+contenido+"&curso="+curso);
     }
 
@@ -297,17 +302,17 @@ export class AuthService {
 /////////////////////////////////////////Obtener Identificadores///////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   obtenerIdentificadores(curso : string): Observable<any> { 
-   // console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=18&institucion='+this.institucionId+"&curso="+curso);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=18&institucion='+this.institucionId+"&curso="+curso);
+   // console.log('http://www.upnoticer.com/prueba/administrador.php?op=18&institucion='+this.institucionId+"&curso="+curso);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=18&institucion='+this.institucionId+"&curso="+curso);
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////Envir mensajes CURSO////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   enviarMensajeCurso(titulo : string, contenido : string, curso : string, identidicador : string,include :string, type : string): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=19&institucion='+this.institucionId+"&sender="+this.rolId
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=19&institucion='+this.institucionId+"&sender="+this.rolId
     //+"&titulo="+titulo+"&contenido="+contenido+"&curso="+curso);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=19&institucion='+this.institucionId+"&sender="+this.rolId
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=19&institucion='+this.institucionId+"&sender="+this.rolId
     +"&titulo="+titulo+"&contenido="+contenido+"&curso="+curso+"&identificador="+ identidicador+"&include="+include+"&type="+type);
     }
 
@@ -315,9 +320,9 @@ export class AuthService {
 /////////////////////////////////////////Obtener Identificadores///////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   obtenerAlumnos(curso : string, identificador : string): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=20&institucion='+this.institucionId+"&curso="+curso
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=20&institucion='+this.institucionId+"&curso="+curso
     //+"&identificador="+identificador);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=20&institucion='+this.institucionId+"&curso="
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=20&institucion='+this.institucionId+"&curso="
       +curso+"&identificador="+identificador);
     }
 
@@ -325,9 +330,9 @@ export class AuthService {
 ////////////////////////////////////////Envir mensajes ESPECIFICO//////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   enviarMensajeEspecifico(titulo : string, contenido : string, include :string, type : string): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=21&institucion='+this.institucionId+"&sender="+this.rolId
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=21&institucion='+this.institucionId+"&sender="+this.rolId
     //+"&titulo="+titulo+"&contenido="+contenido+"&include="+include+"&type="+type);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=21&institucion='+this.institucionId+"&sender="+this.rolId
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=21&institucion='+this.institucionId+"&sender="+this.rolId
     +"&titulo="+titulo+"&contenido="+contenido+"&include="+include+"&type="+type);
     }
 
@@ -335,58 +340,66 @@ export class AuthService {
 //////////////////////////////////////Envir mensajes destinatario Alumnos//////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   enviarMensajeEspecificoAlumnos(studentID : string, mensajeID : string, roleId : string): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=22&studentID='+studentID+"&mensajeID="+mensajeID);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=22&studentID='+studentID+"&mensajeID="
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=22&studentID='+studentID+"&mensajeID="+mensajeID);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=22&studentID='+studentID+"&mensajeID="
       +mensajeID+"&roleId="+roleId);
     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////Envir mensajes ESPECIFICO Alumnos id///////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   enviarMensajeEspecificoAlumnosGetId(studentID : string): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=22&studentID='+studentID);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=222&studentID='+studentID);
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=22&studentID='+studentID);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=222&studentID='+studentID);
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////Eliminar psico o psicopega///////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   eliminarDocente(docenteId : string): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=233&institucion='+this.institucionId+"&docenteId="+docenteId);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=233&institucion='+this.institucionId+"&docenteId="+docenteId);
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=233&institucion='+this.institucionId+"&docenteId="+docenteId);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=233&institucion='+this.institucionId+"&docenteId="+docenteId);
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////Eliminar psico o psicopega///////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   eliminarPsicos(psicosId : string): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=23&psicosId='+psicosId);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=23&psicosId='+psicosId);
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=23&psicosId='+psicosId);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=23&psicosId='+psicosId);
     }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////permiso para editar docente////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  permisoEditarDocente(value : string): Observable<any> { 
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=241&institucion='+this.institucionId+"&roleId="+value);
+       return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=241&institucion='+this.institucionId+"&roleId="+value);
+     }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////permiso para editar Curso////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   permisoEditar(value : string): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=24&institucion='+this.institucionId+"&roleId="+value);
-       return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=24&institucion='+this.institucionId+"&roleId="+value);
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=24&institucion='+this.institucionId+"&roleId="+this.rolId+"&gradeId="+value);
+       return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=24&institucion='+this.institucionId+"&roleId="+this.rolId+"&gradeId="+value);
      }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////OBTENER CURSOS DADOS////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   cursosDados(value : string): Observable<any> { 
-     //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=25&institucion='+this.institucionId+"&roleId="+value);
-       return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=25&institucion='+this.institucionId+"&roleId="+value);
+     //console.log('http://www.upnoticer.com/prueba/administrador.php?op=25&institucion='+this.institucionId+"&roleId="+value);
+       return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=25&institucion='+this.institucionId+"&roleId="+value);
      }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////Agregar Asignatura//////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   agregarAsignatura(nombre : string, curso : string, ident : string, roleId : string): Observable<any> { 
-     //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=26&institucion='+this.institucionId+"&roleId="+roleId
+     //console.log('http://www.upnoticer.com/prueba/administrador.php?op=26&institucion='+this.institucionId+"&roleId="+roleId
      //+"&identifier="+ident+"&curso="+curso+"&name="+nombre);
-       return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=26&institucion='+this.institucionId+"&roleId="+roleId
+       return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=26&institucion='+this.institucionId+"&roleId="+roleId
       +"&identifier="+ident+"&curso="+curso+"&name="+nombre);
      }
 
@@ -394,25 +407,25 @@ export class AuthService {
 ////////////////////////////////////////////Elimina asignatura/////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   eliminarAsignatura(value : string): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=27&asignatura='+value);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=27&asignatura='+value);
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=27&asignatura='+value);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=27&asignatura='+value);
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////Elimina asignatura/////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ObtenerNombreyApellido(value : string): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=28&roleId='+value);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=28&roleId='+value);
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=28&roleId='+value);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=28&roleId='+value);
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////Actualizar Datos Trabajador//////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   actualizarDatosTrabajador(id : string, userId : string, nombre : string, apellido : string, contrato : string): Observable<any> { 
-   // console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=29&roleId='+id+"&nombre="+nombre
+   // console.log('http://www.upnoticer.com/prueba/administrador.php?op=29&roleId='+id+"&nombre="+nombre
     //+"&apellido="+apellido+"&contrato="+contrato+"&userId="+userId);
-    return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=29&roleId='+id+"&nombre="+nombre
+    return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=29&roleId='+id+"&nombre="+nombre
     +"&apellido="+apellido+"&contrato="+contrato+"&userId="+userId);
     }
 
@@ -420,41 +433,41 @@ export class AuthService {
 /////////////////////////////Actualizar Datos Trabajador con pass//////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   actualizarDatosTrabajadorPass(userId : string, pass : string): Observable<any> { 
-  //  console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=299&userId='+userId+"&pass="+pass);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=299&userId='+userId+"&pass="+pass);
+  //  console.log('http://www.upnoticer.com/prueba/administrador.php?op=299&userId='+userId+"&pass="+pass);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=299&userId='+userId+"&pass="+pass);
     }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////Obtener titulos profecional////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   obtenerCantidadTitulos(userId : string): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=30&userId='+userId);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=30&userId='+userId);
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=30&userId='+userId);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=30&userId='+userId);
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////Obtener titulos profecional////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   obtenerTitulos(userId : string): Observable<any> { 
-   // console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=300&userId='+userId);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=300&userId='+userId);
+   // console.log('http://www.upnoticer.com/prueba/administrador.php?op=300&userId='+userId);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=300&userId='+userId);
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////Eliminar titulos profecional///////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   eliminarTitulos(tituloId : string): Observable<any> { 
-   // console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=31&tituloId='+tituloId);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=31&tituloId='+tituloId);
+   // console.log('http://www.upnoticer.com/prueba/administrador.php?op=31&tituloId='+tituloId);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=31&tituloId='+tituloId);
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////Agregar Nuevo Titulo////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   agregarTitulo(titulo : string, institucion : string, userId : string): Observable<any> { 
-    console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=32&userId='+userId+"&titulo="+titulo
-    +"&institucion="+institucion);
-      return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=32&userId='+userId+"&titulo="+titulo
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=32&userId='+userId+"&titulo="+titulo
+    //+"&institucion="+institucion);
+      return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=32&userId='+userId+"&titulo="+titulo
     +"&institucion="+institucion);
     }
   
@@ -462,32 +475,32 @@ export class AuthService {
 ///////////////////////////////////////obtener datos curso////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   obtenerInformacionCurso(cursoId : string): Observable<any> { 
- // console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=33&cursoId='+cursoId+"&institucion="+this.institucionId);
-    return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=33&cursoId='+cursoId+"&institucion="+this.institucionId);
+ // console.log('http://www.upnoticer.com/prueba/administrador.php?op=33&cursoId='+cursoId+"&institucion="+this.institucionId);
+    return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=33&cursoId='+cursoId+"&institucion="+this.institucionId);
   }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////obtener datos curso////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   obtenerListadoAlumnosCurso(cursoId : string): Observable<any> { 
-  //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=34&cursoId='+cursoId);
-    return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=34&cursoId='+cursoId);
+  //console.log('http://www.upnoticer.com/prueba/administrador.php?op=34&cursoId='+cursoId);
+    return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=34&cursoId='+cursoId);
   }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////Eliminar ALumno//////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   eliminarAlumno(cursoId : string): Observable<any> { 
-  //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=34&cursoId='+cursoId);
-    return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=8888&alumnoId='+cursoId);
+  //console.log('http://www.upnoticer.com/prueba/administrador.php?op=34&cursoId='+cursoId);
+    return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=8888&alumnoId='+cursoId);
   }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////Eliminar ALumno//////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   obtenerAsignaturasCurso(cursoId : string): Observable<any> { 
-  //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=34&cursoId='+cursoId);
-    return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=35&cursoId='+cursoId);
+  //console.log('http://www.upnoticer.com/prueba/administrador.php?op=34&cursoId='+cursoId);
+    return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=35&cursoId='+cursoId);
   }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -503,49 +516,49 @@ export class AuthService {
 /////////////////////////////////////////Obtener Identificadores///////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ObtenerAlumnosCursoACargo(): Observable<any> { 
- // console.log('http://localhost:80/upnoticer/prueba/docente.php?op=0&docenteId='+this.rolId);
-     return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=0&docenteId='+this.rolId);
+ // console.log('http://www.upnoticer.com/prueba/docente.php?op=0&docenteId='+this.rolId);
+     return this._http.get('http://www.upnoticer.com/prueba/docente.php?op=0&docenteId='+this.rolId);
    }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////Registrar Atraso///////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   registrarAtraso(studentId : string): Observable<any> { 
-    // console.log('http://localhost:80/upnoticer/prueba/docente.php?op=1&studentId='+studentId);
-       return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=1&studentId='+studentId);
+    // console.log('http://www.upnoticer.com/prueba/docente.php?op=1&studentId='+studentId);
+       return this._http.get('http://www.upnoticer.com/prueba/docente.php?op=1&studentId='+studentId);
      }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////Registrar Inasistencia///////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   registrarInasistencia(studentId : string): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/docente.php?op=2&studentId='+studentId);
-       return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=2&studentId='+studentId);
+    //console.log('http://www.upnoticer.com/prueba/docente.php?op=2&studentId='+studentId);
+       return this._http.get('http://www.upnoticer.com/prueba/docente.php?op=2&studentId='+studentId);
      }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////Listar Cursos dados por docente/////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   listadoCurdosDadosDocente(): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/docente.php?op=3&docenteId='+this.rolId);
-       return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=3&docenteId='+this.rolId);
+    //console.log('http://www.upnoticer.com/prueba/docente.php?op=3&docenteId='+this.rolId);
+       return this._http.get('http://www.upnoticer.com/prueba/docente.php?op=3&docenteId='+this.rolId);
      }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////Listar asignaturas dados por docente/////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   listadoAsignaturasDadasDocente(cursoId : string): Observable<any> { 
-    console.log('http://localhost:80/upnoticer/prueba/docente.php?op=4&docenteId='+this.rolId+"&cursoId="+cursoId);
-       return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=4&docenteId='+this.rolId+"&cursoId="+cursoId);
+    //console.log('http://www.upnoticer.com/prueba/docente.php?op=4&docenteId='+this.rolId+"&cursoId="+cursoId);
+       return this._http.get('http://www.upnoticer.com/prueba/docente.php?op=4&docenteId='+this.rolId+"&cursoId="+cursoId);
      }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////PUBLICAR NOTAS////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   publicarNotas(name : string,description : string,value : string,subject_id : string,student_id : string): Observable<any> { 
-  //console.log('http://localhost:80/upnoticer/prueba/docente.php?op=6&subject_id='+subject_id+"&student_id="+student_id+"&value="+value+
+  //console.log('http://www.upnoticer.com/prueba/docente.php?op=6&subject_id='+subject_id+"&student_id="+student_id+"&value="+value+
   //"&description="+description+"&name="+name);
-     return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=6&subject_id='+subject_id+"&student_id="+student_id+"&value="+value+
+     return this._http.get('http://www.upnoticer.com/prueba/docente.php?op=6&subject_id='+subject_id+"&student_id="+student_id+"&value="+value+
     "&description="+description+"&name="+name);
    }
 
@@ -553,9 +566,9 @@ export class AuthService {
 ///////////////////////////////////////////PUBLICAR Trabajo////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   publicarTrabajo(name : string,description : string,fecha : string,subject_id : string,student_id : string): Observable<any> { 
-  //console.log('http://localhost:80/upnoticer/prueba/docente.php?op=7&subject_id='+subject_id+"&student_id="+student_id+"&fecha="+fecha+
+  //console.log('http://www.upnoticer.com/prueba/docente.php?op=7&subject_id='+subject_id+"&student_id="+student_id+"&fecha="+fecha+
   //  "&description="+description+"&name="+name);
-     return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=7&subject_id='+subject_id+"&student_id="+student_id+"&fecha="+fecha+
+     return this._http.get('http://www.upnoticer.com/prueba/docente.php?op=7&subject_id='+subject_id+"&student_id="+student_id+"&fecha="+fecha+
     "&description="+description+"&name="+name);
    }
 
@@ -563,57 +576,57 @@ export class AuthService {
 ////////////////////////////////////////////Listar Trabajos////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   listarTrabajo(subject_id : string,grade_id : string): Observable<any> { 
-  //console.log('http://localhost:80/upnoticer/prueba/docente.php?op=8&subject_id='+subject_id+"&grade_id="+grade_id);
-     return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=8&subject_id='+subject_id+"&grade_id="+grade_id);
+  //console.log('http://www.upnoticer.com/prueba/docente.php?op=8&subject_id='+subject_id+"&grade_id="+grade_id);
+     return this._http.get('http://www.upnoticer.com/prueba/docente.php?op=8&subject_id='+subject_id+"&grade_id="+grade_id);
    }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////Eliminar Trabajos////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   eliminarTrabajo(trabajoId : string): Observable<any> { 
-  //console.log('http://localhost:80/upnoticer/prueba/docente.php?op=9&trabajoId='+trabajoId);
-     return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=9&trabajoId='+trabajoId);
+  //console.log('http://www.upnoticer.com/prueba/docente.php?op=9&trabajoId='+trabajoId);
+     return this._http.get('http://www.upnoticer.com/prueba/docente.php?op=9&trabajoId='+trabajoId);
    }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////Obtener mensajes curso a cargo/////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   mensajesCursoaCargo(): Observable<any> { 
-  //console.log('http://localhost:80/upnoticer/prueba/docente.php?op=10&roleId='+this.rolId);
-     return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=10&roleId='+this.rolId);
+  //console.log('http://www.upnoticer.com/prueba/docente.php?op=10&roleId='+this.rolId);
+     return this._http.get('http://www.upnoticer.com/prueba/docente.php?op=10&roleId='+this.rolId);
    }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////Datos curso especifico////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   datosCursoaCargo(): Observable<any> { 
-  //console.log('http://localhost:80/upnoticer/prueba/docente.php?op=11&roleId='+this.rolId);
-     return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=11&roleId='+this.rolId);
+  //console.log('http://www.upnoticer.com/prueba/docente.php?op=11&roleId='+this.rolId);
+     return this._http.get('http://www.upnoticer.com/prueba/docente.php?op=11&roleId='+this.rolId);
    }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////obtener cantidad de alumnos con apoderado///////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   cantidadAlumnosApoderado(gradeID : string): Observable<any> { 
-  //console.log('http://localhost:80/upnoticer/prueba/docente.php?op=12&gradeID='+gradeID);
-     return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=12&gradeID='+gradeID);
+  //console.log('http://www.upnoticer.com/prueba/docente.php?op=12&gradeID='+gradeID);
+     return this._http.get('http://www.upnoticer.com/prueba/docente.php?op=12&gradeID='+gradeID);
    }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////obtener listado de alumnos con apoderado curso/////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   listadoAlumnosApoderado(gradeID : string): Observable<any> { 
-  //console.log('http://localhost:80/upnoticer/prueba/docente.php?op=13&gradeID='+gradeID);
-     return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=13&gradeID='+gradeID);
+  //console.log('http://www.upnoticer.com/prueba/docente.php?op=13&gradeID='+gradeID);
+     return this._http.get('http://www.upnoticer.com/prueba/docente.php?op=13&gradeID='+gradeID);
    }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////Envir mensajes CURSO////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   enviarMensajeCursoPofeJefe(titulo : string, contenido : string ,include :string, type : string): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=19&institucion='+this.institucionId+"&sender="+this.rolId
+    //console.log('http://www.upnoticer.com/prueba/administrador.php?op=19&institucion='+this.institucionId+"&sender="+this.rolId
     //+"&titulo="+titulo+"&contenido="+contenido+"&curso="+curso);
-      return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=14&institucion='+this.institucionId+"&sender="+this.rolId
+      return this._http.get('http://www.upnoticer.com/prueba/docente.php?op=14&institucion='+this.institucionId+"&sender="+this.rolId
     +"&titulo="+titulo+"&contenido="+contenido+"&curso="+"&include="+include+"&type="+type);
     }
 
@@ -621,24 +634,24 @@ export class AuthService {
 //////////////////////////////////////Informacion mensaje //////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   inforacionMensajeEspecifico(mensajeId : string): Observable<any> { 
-  //  console.log('http://localhost:80/upnoticer/prueba/docente.php?op=14&mensajeId='+mensajeId);
-      return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=14&mensajeId='+mensajeId);
+  //  console.log('http://www.upnoticer.com/prueba/docente.php?op=14&mensajeId='+mensajeId);
+      return this._http.get('http://www.upnoticer.com/prueba/docente.php?op=14&mensajeId='+mensajeId);
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////Informacion mensaje////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   contenidoMensajeEspecifico(mensajeId : string): Observable<any> { 
-  //console.log('http://localhost:80/upnoticer/prueba/docente.php?op=15&mensajeId='+mensajeId);
-    return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=15&mensajeId='+mensajeId);
+  //console.log('http://www.upnoticer.com/prueba/docente.php?op=15&mensajeId='+mensajeId);
+    return this._http.get('http://www.upnoticer.com/prueba/docente.php?op=15&mensajeId='+mensajeId);
   }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////detalle quien envia mensajes especificos Mensajes Especifico////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   detalleMensajeEspecifico(mensajeId : string, roleId : string): Observable<any> { 
- // console.log('http://localhost:80/upnoticer/prueba/docente.php?op=16&mensajeId='+mensajeId+"&roleId="+roleId);
-    return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=16&mensajeId='+mensajeId+"&roleId="+roleId);
+ // console.log('http://www.upnoticer.com/prueba/docente.php?op=16&mensajeId='+mensajeId+"&roleId="+roleId);
+    return this._http.get('http://www.upnoticer.com/prueba/docente.php?op=16&mensajeId='+mensajeId+"&roleId="+roleId);
   }
 
  
@@ -646,24 +659,24 @@ export class AuthService {
 ////////////////////////////////////Enviar Conenido de mensaje existente///////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   enviarContenidoMensaje(mensajeId : string, roleId : string, contenido : string): Observable<any> { 
- // console.log('http://localhost:80/upnoticer/prueba/docente.php?op=17&mensajeId='+mensajeId+"&roleId="+roleId+"&contenido="+contenido);
-    return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=17&mensajeId='+mensajeId+"&roleId="+roleId+"&contenido="+contenido);
+ // console.log('http://www.upnoticer.com/prueba/docente.php?op=17&mensajeId='+mensajeId+"&roleId="+roleId+"&contenido="+contenido);
+    return this._http.get('http://www.upnoticer.com/prueba/docente.php?op=17&mensajeId='+mensajeId+"&roleId="+roleId+"&contenido="+contenido);
   }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////CANTIDAD DE ALUMNOS POR CURSO O ID////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   cantidadAlumnosCursoIdent(cursoName : string, cursoIdent : string, instiId : string): Observable<any> { 
-  //console.log('http://localhost:80/upnoticer/prueba/administrador.php?op=36&cursoName='+cursoName+"&cursoIdent="+cursoIdent+"&instiId="+instiId);
-     return this._http.get('http://localhost:80/upnoticer/prueba/administrador.php?op=36&cursoName='+cursoName+"&cursoIdent="+cursoIdent+"&instiId="+instiId);
+  //console.log('http://www.upnoticer.com/prueba/administrador.php?op=36&cursoName='+cursoName+"&cursoIdent="+cursoIdent+"&instiId="+instiId);
+     return this._http.get('http://www.upnoticer.com/prueba/administrador.php?op=36&cursoName='+cursoName+"&cursoIdent="+cursoIdent+"&instiId="+instiId);
    }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////INFORMACION DE CURSO A CARGO////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   infoCursdoaCargo(): Observable<any> { 
-  //console.log('http://localhost:80/upnoticer/prueba/docente.php?op=18&roleId='+this.rolId+"&institutionId="+this.institucionId);
-     return this._http.get('http://localhost:80/upnoticer/prueba/docente.php?op=18&roleId='+this.rolId+"&institutionId="+this.institucionId);
+  //console.log('http://www.upnoticer.com/prueba/docente.php?op=18&roleId='+this.rolId+"&institutionId="+this.institucionId);
+     return this._http.get('http://www.upnoticer.com/prueba/docente.php?op=18&roleId='+this.rolId+"&institutionId="+this.institucionId);
    }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -680,23 +693,23 @@ export class AuthService {
 //////////////////////////////////////////Obtener mensajes recividos///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ObtenerMensajesRecividos(): Observable<any> { 
-    //console.log('http://localhost:80/upnoticer/prueba/psico.php?op=0&roleId='+this.rolId);
-      return this._http.get('http://localhost:80/upnoticer/prueba/psico.php?op=0&roleId='+this.rolId);
+    //console.log('http://www.upnoticer.com/prueba/psico.php?op=0&roleId='+this.rolId);
+      return this._http.get('http://www.upnoticer.com/prueba/psico.php?op=0&roleId='+this.rolId);
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////Obtener mensajes recividos///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ObtenerMensajesEnviados(): Observable<any> { 
-  //console.log('http://localhost:80/upnoticer/prueba/psico.php?op=1&roleId='+this.rolId);
-    return this._http.get('http://localhost:80/upnoticer/prueba/psico.php?op=1&roleId='+this.rolId);
+  //console.log('http://www.upnoticer.com/prueba/psico.php?op=1&roleId='+this.rolId);
+    return this._http.get('http://www.upnoticer.com/prueba/psico.php?op=1&roleId='+this.rolId);
   }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////Obtener mensajes recividos///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 obtenerCursosConApoderados(): Observable<any> { 
-  console.log('http://localhost:80/upnoticer/prueba/psico.php?op=2&institutionId='+this.institucionId);
-    return this._http.get('http://localhost:80/upnoticer/prueba/psico.php?op=2&institutionId='+this.institucionId);
+  //console.log('http://www.upnoticer.com/prueba/psico.php?op=2&institutionId='+this.institucionId);
+    return this._http.get('http://www.upnoticer.com/prueba/psico.php?op=2&institutionId='+this.institucionId);
   }
 }

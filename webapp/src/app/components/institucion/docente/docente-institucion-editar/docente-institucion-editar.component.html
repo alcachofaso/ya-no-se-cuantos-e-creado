@@ -22,6 +22,20 @@
                   <div id="myTabContent" class="tab-content">
                       <div class="tab-pane fade active show" id="info">
                           <h2>Información Básica</h2>
+
+                          <div class="alert alert-dismissible alert-success" *ngIf="factualizados">
+                            <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
+                            <h2>Datos actualizados correctamente </h2> 
+                          </div>
+                          <div class="alert alert-dismissible alert-success" *ngIf="factualizarContrasena">
+                            <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
+                            <h2> Contraseña actualizada correctamente </h2> 
+                          </div>
+                          <div class="alert alert-dismissible alert-primary" *ngIf="fpassIgual">
+                            <button type="button" class="close" data-dismiss="alert" (click)="esconder()">&times;</button>
+                            <h2>La contraseña no puede ser igual a la anterior</h2> 
+                          </div>
+
                           <form  class='text-center mt-3' (submit)="Actualizar()" ngNativeValidate>
                               <div class="form-group">
                                 <label for="nombre">Nombre</label><br>
@@ -35,7 +49,7 @@
                                   <label for="Contraseña">Contraseña</label><br>
                                   <div class="form-group">
                                       <div class="input-group mb-3">
-                                        <input type="text" minlength="6" maxlength="12" [(ngModel)]="pass" pattern="[A-Za-z0-9]+" title="Debe ener entre 6 y 12 caracteres" name='pass' class='form-control' placeholder="Actualizar Contraseña">
+                                        <input type="password" minlength="6" maxlength="12" [(ngModel)]="pass" pattern="[A-Za-z0-9]+" title="Debe ener entre 6 y 12 caracteres" name='pass' class='form-control' placeholder="Actualizar Contraseña">
                                         <div class="input-group-append">
                                           <input type="button" value="Aleatorio" (click)='aleatorio()'>
                                           </div>

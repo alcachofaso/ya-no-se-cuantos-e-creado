@@ -20,6 +20,10 @@ import { HomeHomeComponent } from './home/home-home/home-home.component';
 import { HomeComponent } from "./home/home.component";
 
 import { AuthService } from "./service/auth.service";
+import { SendEmailService } from "./service/send-email.service";
+
+
+
 import { EditarComponent } from './components/institucion/editar/editar.component';
 import { ListarComponent } from './components/institucion/docente/listar/listar.component';
 import { AgregarComponent } from './components/institucion/docente/agregar/agregar.component';
@@ -91,9 +95,9 @@ import { PsicoDetalleComponent } from './components/psicos/psico-detalle/psico-d
     AppRoutingModule,
     FormsModule,
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService,SendEmailService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

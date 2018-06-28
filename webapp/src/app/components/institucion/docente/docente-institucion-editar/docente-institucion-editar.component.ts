@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../../../service/auth.service";
+import { SendEmailService } from "../../../../service/send-email.service";
 import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
@@ -40,47 +41,55 @@ export class DocenteInstitucionEditarComponent implements OnInit {
   public ftituloError : boolean;
   public ftitulosOk : boolean;
   public frole : boolean;
+  public factualizados : boolean;
+  public factualizarContrasena : boolean;
+  public fpassIgual : boolean;
 
-  constructor( private _router : ActivatedRoute, private router : Router, private auth : AuthService) { 
+  constructor( private _router : ActivatedRoute, private router : Router, private auth : AuthService, private _mail : SendEmailService) { 
     this.pass = "";
     this.id = _router.snapshot.paramMap.get('docente');
     this.frole = false;
     this.ferror = false;
     this.ftitulos = false;
+    this.factualizados = false;
+    this.factualizarContrasena = false;
+    this.fpassIgual = false;
     this.fok = false;
     this.ftituloError = false;
     this.ftitulosOk = false;
     this.cursos = new Array();
     this.idiomas = new Array();
     this.ramos = new Array();
-    
-    this.auth.permisoEditar(this.id).subscribe(result=>{
-      if(result['resultado'] == "200"){ 
-        this.router.navigate(["/Institucion/institucion/Docente/Listado"]);
-      }else{
-        this.auth.ObtenerNombreyApellido(this.id).subscribe(r=>{
-          this.nombre= r['nombre'];
-          this.Apellido= r['apellido'];
-          this.cant = Number(r['asignaturas']);
-          this.contrato = r['contrato'];
-          this.userId = r['userID'];
-          this.obtenerTitulos();
-          this._nombre = this.nombre;
-          this._apellido = this.Apellido;
-          if(r['type']!='1')
-          {
-            this.frole = true;
-          }
-        });
-        this.auth.listarCursosExistentes().subscribe(r =>{
-          for(let m of r)
-          {
-            this.cursos.push(m['name']);
-          }
-        })
-        this.listadoCursosDados();
-      }
-    });
+    if(auth.getRolId != undefined)
+    {
+      this.auth.permisoEditarDocente(this.id).subscribe(result=>{
+        if(result['resultado'] == "200"){ 
+          this.router.navigate(["/Institucion/institucion/Docente/Listado"]);
+        }else{
+          this.auth.ObtenerNombreyApellido(this.id).subscribe(r=>{
+            this.nombre= r['nombre'];
+            this.Apellido= r['apellido'];
+            this.cant = Number(r['asignaturas']);
+            this.contrato = r['contrato'];
+            this.userId = r['userID'];
+            this.obtenerTitulos();
+            this._nombre = this.nombre;
+            this._apellido = this.Apellido;
+            if(r['type']!='1')
+            {
+              this.frole = true;
+            }
+          });
+          this.auth.listarCursosExistentes().subscribe(r =>{
+            for(let m of r)
+            {
+              this.cursos.push(m['name']);
+            }
+          })
+          this.listadoCursosDados();
+        }
+      });
+    }
     this.fidioma = false;
     auth.obtenerAsignaturas().subscribe(r=>{
       for(let t of r){
@@ -117,15 +126,37 @@ export class DocenteInstitucionEditarComponent implements OnInit {
     });
   }
 
+  aleatorio(){
+    var a = "qwertyuioplkjhgfdsazxcvbnm1234567890";
+    this.pass="";
+    for(var m = 1; m <=8 ; m++)
+    {
+      this.pass= this.pass+ a[Math.floor((Math.random() * 35) + 1)];
+    }
+  }
+
 
   Actualizar(){
+    this.factualizados = false;
     if(this._nombre.length > 0, this._apellido.length > 0 )
     {
       this.auth.actualizarDatosTrabajador(this.id,this.userId,this._nombre,this._apellido,this.contrato).subscribe(r=>r)
+      this.auth.ObtenerNombreyApellido(this.id).subscribe(r=>{
+      this.nombre= r['nombre'];
+      this.Apellido= r['apellido'];
+      this.factualizados = true;
+      });
     }
     if(this.pass.length > 5 && this.pass.length <= 12)
     {
-      this.auth.actualizarDatosTrabajadorPass(this.userId,this.pass).subscribe(r=>r);
+      this.auth.actualizarDatosTrabajadorPass(this.userId,this.pass).subscribe(r=>{
+        if(r['respuesta']=="200"){
+          this._mail.createAccount(r['email'],this.pass,'1','1',null).subscribe();
+          this.factualizarContrasena = true;
+        }else{
+          this.fpassIgual = true;
+        }
+      });
     }
   }
 
@@ -200,10 +231,13 @@ export class DocenteInstitucionEditarComponent implements OnInit {
   }
 
   esconder(){
+    this.factualizarContrasena = false;
+    this.factualizados = false;
     this.ferror = false;
     this.fok = false;
     this.ftituloError = false;
-    this.ftitulosOk = false;
+    this.ftitulosOk = false
+    this.fpassIgual = false;
   }
 
   eleccion(){

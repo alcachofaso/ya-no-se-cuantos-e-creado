@@ -62,7 +62,7 @@ export class ComunicadoEspecificoComponent implements OnInit {
 
               this.auth.enviarMensajeEspecificoAlumnos(n['studentID'],result['mensajeID'], result2['roleId']).subscribe(result3 =>{
                 for(let k of result3){
-                  console.log(k);
+                //  console.log(k);
                 }
               })
             })
